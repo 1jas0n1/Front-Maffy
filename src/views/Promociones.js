@@ -54,7 +54,7 @@ const PromocionesView = () => {
   };
   const handleShow = () => setShowCreateModal(true);
 
-  const url = 'http://localhost:4000/api/promociones';
+  const url = 'https://api-mafy-store.onrender.com/api/promociones';
 
   const showData = async () => {
     try {

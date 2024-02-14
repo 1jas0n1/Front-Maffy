@@ -28,7 +28,7 @@ const LoginView = () => {
     }
   
     try {
-      const response = await fetch('http://localhost:4000/api/auth/signin', {
+      const response = await fetch('https://api-mafy-store.onrender.com/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

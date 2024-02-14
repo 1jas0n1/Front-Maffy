@@ -18,7 +18,7 @@ const UserInfo = () => {
     const token = Cookies.get('token');
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/user/info', {
+        const response = await fetch('https://api-mafy-store.onrender.com/api/user/info', {
           headers: {
             'Content-Type': 'application/json',
             'x-access-token': token,
@@ -80,7 +80,7 @@ const UserInfo = () => {
   const handleSaveChanges = async () => {
     try {
       const token = Cookies.get('token');
-      const url = `http://localhost:4000/api/user/${editUser._id}`;
+      const url = `https://api-mafy-store.onrender.com/api/user/${editUser._id}`;
   
       const userRoles = editUser.roles || [];
       const roleMappings = {

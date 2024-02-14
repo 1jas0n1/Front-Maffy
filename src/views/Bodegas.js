@@ -36,7 +36,7 @@ const BodegasView = () => {
     setUpdatingBodega(null);
   };
 
-  const url = "http://localhost:4000/api/bodegas";
+  const url = "https://api-mafy-store.onrender.com/api/bodegas";
 
   const showData = async () => {
     try {
@@ -62,7 +62,7 @@ const BodegasView = () => {
     if (deletingBodegaId) {
       try {
         const token = Cookies.get('token');
-        const response = await fetch(`http://localhost:4000/api/bodegas/${deletingBodegaId}`, {
+        const response = await fetch(`https://api-mafy-store.onrender.com/api/bodegas/${deletingBodegaId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -177,7 +177,7 @@ const BodegasView = () => {
   
     try {
       const token = Cookies.get('token');
-      const response = await fetch(`http://localhost:4000/api/bodegas/${updatingBodega._id}`, {
+      const response = await fetch(`https://api-mafy-store.onrender.com/api/bodegas/${updatingBodega._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

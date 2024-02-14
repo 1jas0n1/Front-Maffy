@@ -27,7 +27,7 @@ const HistorialIngresosView = () => {
   const updateFechaIngresoField = async (id_ingreso) => {
     try {
       // Fetch the data for the specified id_ingreso from the ingresos endpoint
-      const response = await axios.get(`http://localhost:4000/api/ingresos/${id_ingreso}`);
+      const response = await axios.get(`https://api-mafy-store.onrender.com/api/ingresos/${id_ingreso}`);
   
       // Convert the fecha field to a JavaScript Date object
       const fechaDate = new Date(response.data.fecha);
@@ -53,7 +53,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchMarcas = async () => {
-        const response = await axios.get('http://localhost:4000/api/marcas');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/marcas');
         setMarcas(response.data);
     };
     fetchMarcas();
@@ -62,7 +62,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchMateriales = async () => {
-        const response = await axios.get('http://localhost:4000/api/materiales');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/materiales');
         setMateriales(response.data);
     };
     fetchMateriales();
@@ -70,7 +70,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchEstilos = async () => {
-        const response = await axios.get('http://localhost:4000/api/estilos');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/estilos');
         setEst(response.data);
     };
     fetchEstilos();
@@ -78,7 +78,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchDisenos = async () => {
-        const response = await axios.get('http://localhost:4000/api/disenos');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/disenos');
         setDisenos(response.data);
     };
     fetchDisenos();
@@ -87,7 +87,7 @@ const HistorialIngresosView = () => {
   useEffect(() => {
     const fetchArticulos = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/articulos');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/articulos');
         setArticulos(response.data);
       } catch (error) {
         console.error('Error fetching articles:', error);
@@ -98,7 +98,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchCategorias = async () => {
-        const response = await axios.get('http://localhost:4000/api/categorias');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/categorias');
         setCategorias(response.data);
     };
     fetchCategorias();
@@ -108,7 +108,7 @@ const HistorialIngresosView = () => {
 
     const fetchProveedores = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/proveedores');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/proveedores');
         setProveedores(response.data);
       } catch (error) {
         console.error('Error fetching suppliers:', error);
@@ -120,7 +120,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchColores = async () => {
-        const response = await axios.get('http://localhost:4000/api/colores');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/colores');
         setColores(response.data);
     };
     fetchColores();
@@ -128,7 +128,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchTallas = async () => {
-        const response = await axios.get('http://localhost:4000/api/tallas');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/tallas');
         setTallas(response.data);
     };
     fetchTallas();
@@ -136,11 +136,11 @@ const HistorialIngresosView = () => {
 
   // Inside the existing useEffect for fetching data
 useEffect(() => {
-  fetch('http://localhost:4000/api/detalleingreso')
+  fetch('https://api-mafy-store.onrender.com/api/detalleingreso')
     .then(response => response.json())
     .then(async data => {
       const formattedData = await Promise.all(data.map(async item => {
-        const incomeResponse = await axios.get(`http://localhost:4000/api/ingresos/${item.id_ingreso}`);
+        const incomeResponse = await axios.get(`https://api-mafy-store.onrender.com/api/ingresos/${item.id_ingreso}`);
         const incomeData = incomeResponse.data;
 
         // Call the updateFechaIngresoField function with the id_ingreso
@@ -168,7 +168,7 @@ useEffect(() => {
     const id = row._id;
   
     // Open a new tab with the printing URL
-    const printUrl = `http://localhost:4000/api/detalleingreso/${id}/print`;
+    const printUrl = `https://api-mafy-store.onrender.com/api/detalleingreso/${id}/print`;
     const newTab = window.open(printUrl, '_blank');
   
     // Handle cases where opening the new tab fails
@@ -252,7 +252,7 @@ const handleFilterChange = (e) => {
 useEffect(() => {
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/user/all');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/user/all');
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching user data:', error);

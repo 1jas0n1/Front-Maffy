@@ -46,7 +46,7 @@ const TallasView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'http://localhost:4000/api/tallas';
+  const url = 'https://api-mafy-store.onrender.com/api/tallas';
 
   const showData = async () => {
     try {

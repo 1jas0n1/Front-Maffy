@@ -25,7 +25,7 @@ const MercanciaDañada = () => {
 
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/mercancia/')
+    axios.get('https://api-mafy-store.onrender.com/api/mercancia/')
       .then(response => {
         setData(response.data);
       })
@@ -34,14 +34,14 @@ const MercanciaDañada = () => {
 
   useEffect(() => {
     const fetchTallas = async () => {
-      const response = await axios.get('http://localhost:4000/api/tallas');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/tallas');
       setTallas(response.data);
     };
     fetchTallas();
   }, []);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/api/user/all')
+    axios.get('https://api-mafy-store.onrender.com/api/user/all')
       .then(response => {
         setUserData(response.data);
       })
@@ -57,7 +57,7 @@ const MercanciaDañada = () => {
 
   useEffect(() => {
     const fetchColores = async () => {
-      const response = await axios.get('http://localhost:4000/api/colores');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/colores');
       setColores(response.data);
     };
     fetchColores();
@@ -65,7 +65,7 @@ const MercanciaDañada = () => {
 
   useEffect(() => {
     const fetchArticulos = async () => {
-      const response = await axios.get('http://localhost:4000/api/articulos');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/articulos');
       setArticulos(response.data);
     };
     fetchArticulos();
@@ -73,7 +73,7 @@ const MercanciaDañada = () => {
 
   useEffect(() => {
     const fetchCategorias = async () => {
-      const response = await axios.get('http://localhost:4000/api/categorias');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/categorias');
       setCategorias(response.data);
     };
     fetchCategorias();
@@ -82,7 +82,7 @@ const MercanciaDañada = () => {
   
   useEffect(() => {
     const fetchMarcas = async () => {
-      const response = await axios.get('http://localhost:4000/api/marcas');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/marcas');
       setMarcas(response.data);
     };
     fetchMarcas();
@@ -90,7 +90,7 @@ const MercanciaDañada = () => {
 
   useEffect(() => {
     const fetchCategorias = async () => {
-      const response = await axios.get('http://localhost:4000/api/categorias');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/categorias');
       setCategorias(response.data);
     };
     fetchCategorias();

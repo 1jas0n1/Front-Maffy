@@ -54,7 +54,7 @@ const ArticulosView = () => {
 
   const showArticulos = async () => {
     try {
-      const articulosResponse = await fetch('http://localhost:4000/api/articulos');
+      const articulosResponse = await fetch('https://api-mafy-store.onrender.com/api/articulos');
       const articulosData = await articulosResponse.json();
       const articulosWithCategoria = articulosData.map((articulo) => ({
         ...articulo,
@@ -73,7 +73,7 @@ const ArticulosView = () => {
 
 const handleDeleteConfirmed = async () => {
   try {
-    const deleteUrl = `http://localhost:4000/api/articulos/${deleteItemId}`;
+    const deleteUrl = `https://api-mafy-store.onrender.com/api/articulos/${deleteItemId}`;
     const token = Cookies.get('token'); // Get the token from cookies
 
     const response = await fetch(deleteUrl, {
@@ -184,7 +184,7 @@ const handleDeleteConfirmed = async () => {
 
 const handleUpdateSubmit = async () => {
   try {
-    const updateUrl = `http://localhost:4000/api/articulos/${selectedArticulo._id}`;
+    const updateUrl = `https://api-mafy-store.onrender.com/api/articulos/${selectedArticulo._id}`;
     const token = Cookies.get('token'); // Get the token from cookies
 
     const response = await fetch(updateUrl, {

@@ -49,7 +49,7 @@ const DisenosView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'http://localhost:4000/api/disenos';
+  const url = 'https://api-mafy-store.onrender.com/api/disenos';
 
   const showData = async () => {
     try {
@@ -145,7 +145,7 @@ const DisenosView = () => {
   
   const handleCreate = async () => {
     try {
-      const createUrl = 'http://localhost:4000/api/disenos';
+      const createUrl = 'https://api-mafy-store.onrender.com/api/disenos';
       const token = Cookies.get('token');
       console.log('JSON que se envía al crear:', JSON.stringify(newDiseno));
   
@@ -176,7 +176,7 @@ const DisenosView = () => {
   
   const handleUpdateSubmit = async () => {
     try {
-      const updateUrl = `http://localhost:4000/api/disenos/${selectedDiseno._id}`;
+      const updateUrl = `https://api-mafy-store.onrender.com/api/disenos/${selectedDiseno._id}`;
       const token = Cookies.get('token');
       console.log('JSON que se envía al actualizar:', JSON.stringify(selectedDiseno));
   

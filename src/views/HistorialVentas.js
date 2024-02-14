@@ -32,7 +32,7 @@ const DataTableComponent = () => {
 const updateFechaField = async (id_ventas) => {
   try {
     // Fetch the data for the specified id_ventas from the ventas endpoint
-    const response = await axios.get(`http://localhost:4000/api/ventas/${id_ventas}`);
+    const response = await axios.get(`https://api-mafy-store.onrender.com/api/ventas/${id_ventas}`);
 
     // Convert the fecha field to a JavaScript Date object
     const fechaDate = new Date(response.data.fecha);
@@ -57,12 +57,12 @@ const updateFechaField = async (id_ventas) => {
 
 // Inside the first useEffect
 useEffect(() => {
-  axios.get('http://localhost:4000/api/detalleventa')
+  axios.get('https://api-mafy-store.onrender.com/api/detalleventa')
     .then(response => {
       setData(response.data);
 
       response.data.forEach(row => {
-        axios.get(`http://localhost:4000/api/ventas/${row.id_ventas}`)
+        axios.get(`https://api-mafy-store.onrender.com/api/ventas/${row.id_ventas}`)
           .then(clientResponse => {
             setClientNames(prevNames => ({
               ...prevNames,
@@ -85,7 +85,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchTallas = async () => {
-        const response = await axios.get('http://localhost:4000/api/tallas');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/tallas');
         setTallas(response.data);
     };
     fetchTallas();
@@ -93,7 +93,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchColores = async () => {
-        const response = await axios.get('http://localhost:4000/api/colores');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/colores');
         setColores(response.data);
     };
     fetchColores();
@@ -101,7 +101,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchArticulos = async () => {
-        const response = await axios.get('http://localhost:4000/api/articulos');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/articulos');
         setArticulos(response.data);
     };
     fetchArticulos();
@@ -109,7 +109,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchCategorias = async () => {
-        const response = await axios.get('http://localhost:4000/api/categorias');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/categorias');
         setCategorias(response.data);
     };
     fetchCategorias();
@@ -117,7 +117,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchEstilos = async () => {
-        const response = await axios.get('http://localhost:4000/api/estilos');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/estilos');
         setEst(response.data);
     };
     fetchEstilos();
@@ -125,7 +125,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchMarcas = async () => {
-        const response = await axios.get('http://localhost:4000/api/marcas');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/marcas');
         setMarcas(response.data);
     };
     fetchMarcas();
@@ -133,7 +133,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchDisenos = async () => {
-        const response = await axios.get('http://localhost:4000/api/disenos');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/disenos');
         setDisenos(response.data);
     };
     fetchDisenos();
@@ -141,7 +141,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchMateriales = async () => {
-        const response = await axios.get('http://localhost:4000/api/materiales');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/materiales');
         setMateriales(response.data);
     };
     fetchMateriales();
@@ -150,7 +150,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchPromotions = async () => {
-        const response = await axios.get('http://localhost:4000/api/promociones');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/promociones');
         setPromotions(response.data);
     };
 
@@ -160,7 +160,7 @@ useEffect(() => {
 
   const handlePrintButtonClick = (id) => {
     // Construct the print URL with the 'id' parameter
-    const printUrl = `http://localhost:4000/api/detalleventa/${id}/print`;
+    const printUrl = `https://api-mafy-store.onrender.com/api/detalleventa/${id}/print`;
 
 
     window.open(printUrl, '_blank');

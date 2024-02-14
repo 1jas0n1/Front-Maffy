@@ -49,7 +49,7 @@ import Cookies from 'js-cookie';
     // Fetch the list of articles when the component mounts
     const fetchArticulos = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/articulos');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/articulos');
         setArticulos(response.data);
       } catch (error) {
         console.error('Error fetching articles:', error);
@@ -61,7 +61,7 @@ import Cookies from 'js-cookie';
 
   useEffect(() => {
     const fetchCategorias = async () => {
-        const response = await axios.get('http://localhost:4000/api/categorias');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/categorias');
         setCategorias(response.data);
     };
     fetchCategorias();
@@ -71,7 +71,7 @@ import Cookies from 'js-cookie';
     // Fetch the list of suppliers when the component mounts
     const fetchProveedores = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/proveedores');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/proveedores');
         setProveedores(response.data);
       } catch (error) {
         console.error('Error fetching suppliers:', error);
@@ -83,7 +83,7 @@ import Cookies from 'js-cookie';
 
   useEffect(() => {
     const fetchColores = async () => {
-        const response = await axios.get('http://localhost:4000/api/colores');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/colores');
         setColores(response.data);
     };
     fetchColores();
@@ -113,7 +113,7 @@ import Cookies from 'js-cookie';
    
     const fetchTallas = async () => {
      
-        const response = await axios.get('http://localhost:4000/api/tallas');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/tallas');
         setTallas(response.data);
       
     };
@@ -181,7 +181,7 @@ import Cookies from 'js-cookie';
 
   useEffect(() => {
     const fetchMarcas = async () => {
-        const response = await axios.get('http://localhost:4000/api/marcas');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/marcas');
         setMarcas(response.data);
     };
     fetchMarcas();
@@ -190,7 +190,7 @@ import Cookies from 'js-cookie';
 
   useEffect(() => {
     const fetchMateriales = async () => {
-        const response = await axios.get('http://localhost:4000/api/materiales');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/materiales');
         setMateriales(response.data);
     };
 
@@ -199,7 +199,7 @@ import Cookies from 'js-cookie';
 
   useEffect(() => {
     const fetchEstilos = async () => {
-        const response = await axios.get('http://localhost:4000/api/estilos');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/estilos');
         setEst(response.data);
     };
     fetchEstilos();
@@ -207,7 +207,7 @@ import Cookies from 'js-cookie';
 
   useEffect(() => {
     const fetchDisenos = async () => {
-        const response = await axios.get('http://localhost:4000/api/disenos');
+        const response = await axios.get('https://api-mafy-store.onrender.com/api/disenos');
         setDisenos(response.data);
     };
     fetchDisenos();
@@ -348,7 +348,7 @@ const getNombreCategoriaById = (categoriaId) => {
 
         console.log('Datos del ingreso a enviar:', ingresoData);
 
-        const responseIngreso = await axios.post('http://localhost:4000/api/ingresos', ingresoData);
+        const responseIngreso = await axios.post('https://api-mafy-store.onrender.com/api/ingresos', ingresoData);
         const idIngreso = responseIngreso.data._id;
 
         console.log('Ingreso creado correctamente:', responseIngreso);
@@ -374,7 +374,7 @@ const getNombreCategoriaById = (categoriaId) => {
             total: subTotalTotal - descuentosTotal + ivaTotal,
         };
         console.log('Datos de los artículos a enviar:', articulosData);
-        const responseArticulos = await axios.post('http://localhost:4000/api/detalleingreso', articulosData);
+        const responseArticulos = await axios.post('https://api-mafy-store.onrender.com/api/detalleingreso', articulosData);
         console.log('Artículos facturados correctamente:', responseArticulos);
 
         for (const articulo of articulosIngresados) {
@@ -402,7 +402,7 @@ const getNombreCategoriaById = (categoriaId) => {
                 Existencias:articulo.cantidad,
             };
             console.log('Datos del stock a enviar:', stockData);
-            const responseStock = await axios.post('http://localhost:4000/api/stock', stockData);
+            const responseStock = await axios.post('https://api-mafy-store.onrender.com/api/stock', stockData);
             toast.success('Venta realizada Exitosamente',{position :toast.POSITION.TOP_CENTER})
             console.log('Stock creado correctamente:', responseStock);
         }

@@ -79,7 +79,7 @@ const VentasView = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get('http://localhost:4000/api/stock');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/stock');
       const receivedStockData = response.data;
       setStockData(receivedStockData);
     };
@@ -92,7 +92,7 @@ const VentasView = () => {
 
   useEffect(() => {
     const fetchBodega = async () => {
-      const response = await axios.get('http://localhost:4000/api/bodegas');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/bodegas');
       const receivedBodegaData = response.data;
       setBodegas(receivedBodegaData);
     };
@@ -101,7 +101,7 @@ const VentasView = () => {
 
   useEffect(() => {
     const fetchTallas = async () => {
-      const response = await axios.get('http://localhost:4000/api/tallas');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/tallas');
       setTallas(response.data);
     };
     fetchTallas();
@@ -110,7 +110,7 @@ const VentasView = () => {
 
   useEffect(() => {
     const fetchPromotions = async () => {
-      const response = await axios.get('http://localhost:4000/api/promociones');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/promociones');
       setPromotions(response.data);
     };
 
@@ -199,7 +199,7 @@ const VentasView = () => {
       console.log('JSON enviado en la primera petición de venta:', ventaData);
 
       // Realizar la primera petición POST a la URL de ventas
-      const responseVenta = await axios.post('http://localhost:4000/api/ventas', ventaData);
+      const responseVenta = await axios.post('https://api-mafy-store.onrender.com/api/ventas', ventaData);
 
       // Extraer el ID de la venta creada
       const ventaId = responseVenta.data._id;
@@ -231,7 +231,7 @@ const VentasView = () => {
       console.log('JSON enviado en la segunda petición de artículos:', articulosVentaData);
 
       // Realizar la segunda petición POST a la URL correspondiente para los artículos
-      const responseArticulos = await axios.post('http://localhost:4000/api/detalleventa', articulosVentaData);
+      const responseArticulos = await axios.post('https://api-mafy-store.onrender.com/api/detalleventa', articulosVentaData);
       console.log('Segunda petición de artículos realizada con éxito:', responseArticulos.data);
 
       setRequestStatus({ loading: false, success: true, error: null });
@@ -250,7 +250,7 @@ const VentasView = () => {
         estado: updatedExistencias === 0 ? false : true,
       };
 
-      const stockUpdateUrl = `http://localhost:4000/api/stock/${item._id}`;
+      const stockUpdateUrl = `https://api-mafy-store.onrender.com/api/stock/${item._id}`;
 
       try {
         // Realiza la solicitud PUT para actualizar el stock
@@ -277,7 +277,7 @@ const VentasView = () => {
 
   useEffect(() => {
     const fetchColores = async () => {
-      const response = await axios.get('http://localhost:4000/api/colores');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/colores');
       setColores(response.data);
     };
     fetchColores();
@@ -285,7 +285,7 @@ const VentasView = () => {
 
   useEffect(() => {
     const fetchArticulos = async () => {
-      const response = await axios.get('http://localhost:4000/api/articulos');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/articulos');
       setArticulos(response.data);
     };
     fetchArticulos();
@@ -293,7 +293,7 @@ const VentasView = () => {
 
   useEffect(() => {
     const fetchCategorias = async () => {
-      const response = await axios.get('http://localhost:4000/api/categorias');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/categorias');
       setCategorias(response.data);
     };
     fetchCategorias();
@@ -301,7 +301,7 @@ const VentasView = () => {
 
   useEffect(() => {
     const fetchEstilos = async () => {
-      const response = await axios.get('http://localhost:4000/api/estilos');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/estilos');
       setEst(response.data);
     };
     fetchEstilos();
@@ -309,7 +309,7 @@ const VentasView = () => {
 
   useEffect(() => {
     const fetchMarcas = async () => {
-      const response = await axios.get('http://localhost:4000/api/marcas');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/marcas');
       setMarcas(response.data);
     };
     fetchMarcas();
@@ -317,7 +317,7 @@ const VentasView = () => {
 
   useEffect(() => {
     const fetchDisenos = async () => {
-      const response = await axios.get('http://localhost:4000/api/disenos');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/disenos');
       setDisenos(response.data);
     };
     fetchDisenos();
@@ -325,7 +325,7 @@ const VentasView = () => {
 
   useEffect(() => {
     const fetchMateriales = async () => {
-      const response = await axios.get('http://localhost:4000/api/materiales');
+      const response = await axios.get('https://api-mafy-store.onrender.com/api/materiales');
       setMateriales(response.data);
     };
     fetchMateriales();

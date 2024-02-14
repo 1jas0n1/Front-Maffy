@@ -45,7 +45,7 @@ const MarcasView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'http://localhost:4000/api/marcas';
+  const url = 'https://api-mafy-store.onrender.com/api/marcas';
 
   const showData = async () => {
     try {

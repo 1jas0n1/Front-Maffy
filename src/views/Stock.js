@@ -91,50 +91,50 @@ const MercanciaView = () => {
 
  const showData = async () => {
   try {
-  const marcasResponse = await fetch('http://localhost:4000/api/marcas/');
+  const marcasResponse = await fetch('https://api-mafy-store.onrender.com/api/marcas/');
   const marcasData = await marcasResponse.json();
   setMarcas(marcasData);
   
-  const categoriasResponse = await fetch('http://localhost:4000/api/categorias/');
+  const categoriasResponse = await fetch('https://api-mafy-store.onrender.com/api/categorias/');
   const categoriasData = await categoriasResponse.json();
   setCategorias(categoriasData);
 
-  const articulosResponse = await fetch('http://localhost:4000/api/articulos');
+  const articulosResponse = await fetch('https://api-mafy-store.onrender.com/api/articulos');
   const articulosData = await articulosResponse.json();
   setArticulos(articulosData);
 
-  const coloresResponse = await fetch('http://localhost:4000/api/colores');
+  const coloresResponse = await fetch('https://api-mafy-store.onrender.com/api/colores');
   const coloresData = await coloresResponse.json();
   setColores(coloresData);
 
-  const tallasResponse = await fetch('http://localhost:4000/api/tallas/');
+  const tallasResponse = await fetch('https://api-mafy-store.onrender.com/api/tallas/');
   const tallasData = await tallasResponse.json();
   setTallas(tallasData);
 
-  const materialesResponse = await fetch('http://localhost:4000/api/materiales');
+  const materialesResponse = await fetch('https://api-mafy-store.onrender.com/api/materiales');
   const materialesData = await materialesResponse.json();
   setMateriales(materialesData);
 
 
-  const tiposDeEstiloResponse = await fetch('http://localhost:4000/api/estilos/');
+  const tiposDeEstiloResponse = await fetch('https://api-mafy-store.onrender.com/api/estilos/');
   const tiposDeEstiloData = await tiposDeEstiloResponse.json();
   setTiposDeEstilo(tiposDeEstiloData);
 
-  const disenosResponse = await fetch('http://localhost:4000/api/disenos');
+  const disenosResponse = await fetch('https://api-mafy-store.onrender.com/api/disenos');
   const disenosData = await disenosResponse.json();
   setDisenos(disenosData);
 
-  const promocionesResponse = await fetch('http://localhost:4000/api/promociones');
+  const promocionesResponse = await fetch('https://api-mafy-store.onrender.com/api/promociones');
   const promocionesData = await promocionesResponse.json();
   setPromociones(promocionesData);
     
 
-    const response = await fetch('http://localhost:4000/api/stock/');
+    const response = await fetch('https://api-mafy-store.onrender.com/api/stock/');
     const data = await response.json();
     setStock(data);
     setFilteredStock(data);
 
-    const bodegasresponse = await fetch('http://localhost:4000/api/bodegas');
+    const bodegasresponse = await fetch('https://api-mafy-store.onrender.com/api/bodegas');
     const bodegasData = await bodegasresponse.json();
     setBodegas(bodegasData);
 
@@ -254,7 +254,7 @@ const handleDamageSubmit = async () => {
     console.log('JSON being sent to server:', JSON.stringify(damageData, null, 2));
 
     // Send data to the specified URL using the POST method
-    const response = await fetch('http://localhost:4000/api/mercancia/', {
+    const response = await fetch('https://api-mafy-store.onrender.com/api/mercancia/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -276,7 +276,7 @@ const handleDamageSubmit = async () => {
       setShowDamageModal(false);
 
       // Send data to update the stock with the calculated difference
-      const updateStockUrl = `http://localhost:4000/api/stock/update/${damageData.id_stock}`;
+      const updateStockUrl = `https://api-mafy-store.onrender.com/api/stock/update/${damageData.id_stock}`;
       const updateStockResponse = await fetch(updateStockUrl, {
         method: 'PUT', // You may need to adjust the method based on your server's API
         headers: {
@@ -504,7 +504,7 @@ centre:true,
       return;
     }
 
-    const urlWithId = `http://localhost:4000/api/stock/update/${selectedItem._id}`;
+    const urlWithId = `https://api-mafy-store.onrender.com/api/stock/update/${selectedItem._id}`;
 
     // Log the formatted JSON being sent
     console.log('JSON being sent:', JSON.stringify(selectedItem, null, 2));

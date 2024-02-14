@@ -32,7 +32,7 @@ class ConfigView extends Component {
   }
 
   fetchData() {
-    axios.get('http://localhost:4000/api/configuracion')
+    axios.get('https://api-mafy-store.onrender.com/api/configuracion')
       .then(response => {
         const configData = response.data.data[0];
 
@@ -78,7 +78,7 @@ class ConfigView extends Component {
       tipo_de_cambio_dolar,
     };
 
-    axios.put(`http://localhost:4000/api/configuracion/${id}`, newData)
+    axios.put(`https://api-mafy-store.onrender.com/configuracion/${id}`, newData)
       .then(response => {
         console.log('Data updated successfully:', response.data);
         this.setState({ isEditing: false });

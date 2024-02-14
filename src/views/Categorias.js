@@ -47,7 +47,7 @@ const CategoriasView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'http://localhost:4000/api/categorias';
+  const url = 'https://api-mafy-store.onrender.com/api/categorias';
 
   const showData = async () => {
     try {
@@ -66,7 +66,7 @@ const CategoriasView = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      const deleteUrl = `http://localhost:4000/api/categorias/${categoryToDelete}`;
+      const deleteUrl = `https://api-mafy-store.onrender.com/api/categorias/${categoryToDelete}`;
       const token = Cookies.get('token'); // Obtener el token de las cookies
   
       const response = await fetch(deleteUrl, {
@@ -134,7 +134,7 @@ const CategoriasView = () => {
  
   const handleCreate = async () => {
     try {
-      const createUrl = 'http://localhost:4000/api/categorias';
+      const createUrl = 'https://api-mafy-store.onrender.com/api/categorias';
       const token = Cookies.get('token');
       const response = await fetch(createUrl, {
         method: 'POST',
@@ -181,7 +181,7 @@ const CategoriasView = () => {
 
   const handleUpdateSubmit = async () => {
     try {
-      const updateUrl = `http://localhost:4000/api/categorias/${selectedCategoria._id}`;
+      const updateUrl = `https://api-mafy-store.onrender.com/api/categorias/${selectedCategoria._id}`;
       const token = Cookies.get('token');
       const response = await fetch(updateUrl, {
         method: 'PUT',

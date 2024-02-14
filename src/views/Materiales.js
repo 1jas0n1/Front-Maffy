@@ -47,7 +47,7 @@ const MaterialesView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'http://localhost:4000/api/materiales';
+  const url = 'https://api-mafy-store.onrender.com/api/materiales';
 
   const showData = async () => {
     try {
