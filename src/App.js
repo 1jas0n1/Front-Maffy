@@ -3,6 +3,8 @@ import React from "react";
 import Home from "./component/Home";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+
+
 import ColoresView from "./views/Colores.js";
 import EstilosView from "./views/Estilos.js";
 import CategoriasView from "./views/Categorias.js";
