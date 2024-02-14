@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 
 import Home from "./component/Home";
 import ColoresView from "./views/Colores.js";
@@ -30,7 +30,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path='/' element={<LoginView />} />
+          <Route path='/' element={<Navigate to="/login" />} />
           <Route path='/index' element={<Home />} />
           <Route path='/configuracion' element={<ConfigView />} />
           <Route path='/colores' element={<ColoresView />} />
