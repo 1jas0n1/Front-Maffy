@@ -1,10 +1,7 @@
 import React from "react";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Home from "./component/Home";
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
-
-
 import ColoresView from "./views/Colores.js";
 import EstilosView from "./views/Estilos.js";
 import CategoriasView from "./views/Categorias.js";
@@ -28,39 +25,35 @@ import DetalleIngresosView from "./views/Detalle-ingresos.js";
 import UserInfo from "./views/ListUser.js";
 import MercanciaDañada from "./views/MercanciaDañada.js";
 
-
-
-
 function App() {
   return (
     <>
       <Router>
-        <Switch>
-          <Route path='/' component={LoginView} exact />
-          <Route path='/index' component={Home} exact />
-          <Route path='/configuracion' component={ConfigView} exact />
-          <Route path='/colores' component={ColoresView} exact />
-          <Route path='/estilos' component={EstilosView} exact />
-          <Route path='/categorias' component={CategoriasView} exact />
-          <Route path='/bodegas' component={BodegasView} />
-          <Route path='/marcas' component={MarcasView}  />
-          <Route path='/materiales' component={MaterialesView}  />
-          <Route path='/tallas' component={TallasView}  />
-          <Route path='/proveedores' component={ProveedoresView}  />
-          <Route path='/disenos' component={DisenosView}  />
-          <Route path='/promociones' component={PromocionesView}  />
-          <Route path='/articulos' component={ArticulosView}  />
-          <Route path='/ventas' component={VentasView}/>
-          <Route path='/ingresos' component={IngresosView} exact />
-          <Route path='/createuser' component={UsuariosView}></Route>
-          <Route path='/mercancia' component={MercanciaView}></Route>
-          <Route path='/historial-ingresos' component={HistorialIngresos}></Route>
-          <Route path='/historial-Ventas' component={HistorialVentas}></Route>
-          <Route path='/ingresos-detalles' component={DetalleIngresosView} ></Route>
-          <Route path='/listuser' component={UserInfo} exact />   
-          <Route path='/mercancia-dañada' component={MercanciaDañada} exact />   
-
-        </Switch>
+        <Routes>
+          <Route path='/' element={<LoginView />} />
+          <Route path='/index' element={<Home />} />
+          <Route path='/configuracion' element={<ConfigView />} />
+          <Route path='/colores' element={<ColoresView />} />
+          <Route path='/estilos' element={<EstilosView />} />
+          <Route path='/categorias' element={<CategoriasView />} />
+          <Route path='/bodegas' element={<BodegasView />} />
+          <Route path='/marcas' element={<MarcasView />} />
+          <Route path='/materiales' element={<MaterialesView />} />
+          <Route path='/tallas' element={<TallasView />} />
+          <Route path='/proveedores' element={<ProveedoresView />} />
+          <Route path='/disenos' element={<DisenosView />} />
+          <Route path='/promociones' element={<PromocionesView />} />
+          <Route path='/articulos' element={<ArticulosView />} />
+          <Route path='/ventas' element={<VentasView />} />
+          <Route path='/ingresos' element={<IngresosView />} />
+          <Route path='/createuser' element={<UsuariosView />} />
+          <Route path='/mercancia' element={<MercanciaView />} />
+          <Route path='/historial-ingresos' element={<HistorialIngresos />} />
+          <Route path='/historial-Ventas' element={<HistorialVentas />} />
+          <Route path='/ingresos-detalles' element={<DetalleIngresosView />} />
+          <Route path='/listuser' element={<UserInfo />} />
+          <Route path='/mercancia-dañada' element={<MercanciaDañada />} />
+        </Routes>
       </Router>
     </>
   );
