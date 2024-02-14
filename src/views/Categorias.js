@@ -81,25 +81,25 @@ const CategoriasView = () => {
       if (response.ok) {
         // Éxito: Categoría eliminada
         console.log(`Categoría con ID ${categoryToDelete} eliminada exitosamente.`);
-        toast.success('Categoría eliminada exitosamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Categoría eliminada exitosamente');
         showData();
       } else if (response.status === 401) {
         // Error 401: No autorizado
         console.error(`Error 401 - No autorizado: ${response.statusText}`);
-        toast.error('Error 401 - No autorizado. Por favor, inicie sesión nuevamente.', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Error 401 - No autorizado. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
         // Error 403: Prohibido
         console.error(`Error 403 - Prohibido: ${response.statusText}`);
-        toast.error('Error 403 - Acceso prohibido.', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Error 403 - Acceso prohibido.');
       } else {
         // Otro tipo de error
         console.error(`Error al intentar borrar la categoría con ID ${categoryToDelete}.`);
-        toast.error(`Error en la solicitud: ${response.statusText}`, { position: toast.POSITION.TOP_CENTER });
+        toast.error(`Error en la solicitud: ${response.statusText}`);
       }
     } catch (error) {
       // Error durante la solicitud
       console.error('Error en la solicitud de eliminación:', error);
-      toast.error('Error en la solicitud de eliminación. Por favor, inténtelo de nuevo.', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Error en la solicitud de eliminación. Por favor, inténtelo de nuevo.');
     } finally {
       setShowConfirmationModal(false);
     }
@@ -147,26 +147,26 @@ const CategoriasView = () => {
   
       if (response.ok) {
         // Éxito: Categoría creada
-        toast.success('Categoría creada exitosamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Categoría creada exitosamente');
         // Después de crear la categoría, actualizar los datos
         showData();
       } else if (response.status === 401) {
         // Error 401: No autorizado
         console.error(`  No autorizado: ${response.statusText}`);
-        toast.error('  No autorizado. Por favor, inicie sesión nuevamente.', { position: toast.POSITION.TOP_CENTER });
+        toast.error('  No autorizado. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
         // Error 403: Prohibido
         console.error(`  Prohibido: ${response.statusText}`);
-        toast.error('  Acceso prohibido.', { position: toast.POSITION.TOP_CENTER });
+        toast.error('  Acceso prohibido.');
       } else {
         // Otro tipo de error
         console.error('Error al intentar crear la categoría.');
-        toast.error(`Error en la solicitud: ${response.statusText}`, { position: toast.POSITION.TOP_CENTER });
+        toast.error(`Error en la solicitud: ${response.statusText}`);
       }
     } catch (error) {
       // Error durante la solicitud
       console.error('Error en la solicitud de creación:', error);
-      toast.error('Error en la solicitud de creación. Por favor, inténtelo de nuevo.', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Error en la solicitud de creación. Por favor, inténtelo de nuevo.');
     } finally {
       handleClose();
     }
@@ -211,7 +211,7 @@ const CategoriasView = () => {
       } else {
         // Otro tipo de error
         console.error('Error al intentar actualizar la categoría.');
-        toast.error(`Error en la solicitud: ${response.statusText}`, { position: toast.POSITION.TOP_CENTER });
+        toast.error(`Error en la solicitud: ${response.statusText}`);
       }
     } catch (error) {
       // Error durante la solicitud

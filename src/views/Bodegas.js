@@ -72,15 +72,15 @@ const BodegasView = () => {
   
         if (response.ok) {
           setBodegas((prevBodegas) => prevBodegas.filter((bodega) => bodega._id !== deletingBodegaId));
-          toast.success('Bodega Eliminado correctamente', { position: toast.POSITION.TOP_CENTER });
+          toast.success('Bodega Eliminado correctamente');
           console.log(`Bodega con ID ${deletingBodegaId} borrada exitosamente.`);
         }else if (response.status === 401) {
           console.error('Error en la autenticacion para borrar la bodega.');
-          toast.error('Permisos insuficientes para borrar el artículo', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Permisos insuficientes para borrar el artículo');
         }
         else if (response.status === 403) {
           console.error('Permisos insuficientes para borrar la bodega.');
-          toast.error('Permisos insuficientes para borrar el artículo', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Permisos insuficientes para borrar el artículo');
         }
         
         else {
@@ -151,15 +151,15 @@ const BodegasView = () => {
       if (response.ok) {
         const nuevaBodegaCreada = await response.json();
         setBodegas((prevBodegas) => [...prevBodegas, nuevaBodegaCreada]);
-        toast.success('Bodega creada exitosamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Bodega creada exitosamente');
         console.log('Bodega creada exitosamente.');
       }
     else if (response.status === 401) {
       console.error('Error de autenticación al crear la bodega.');
-      toast.error('Error de autenticación al intentar actualizar la bodega', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Error de autenticación al intentar actualizar la bodega');
     }else if (response.status === 403) {
         console.error('Permisos insuficientes para crear la bodega.');
-        toast.error('Permisos insuficientes para borrar la bodega', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Permisos insuficientes para borrar la bodega');
       }
     } catch (error) {
       console.error('Error en la solicitud POST:', error);
@@ -193,16 +193,16 @@ const BodegasView = () => {
             bodega._id === updatingBodega._id ? updatedBodegaData : bodega
           )
         );
-        toast.success('Bodega editada exitosamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Bodega editada exitosamente');
         console.log(`Bodega con ID ${updatingBodega._id} actualizada exitosamente.`);
       } else if (response.status === 401) {
         // Unauthorized error (401)
         console.error('Error de autenticación al actualizar la bodega.');
-        toast.error('Error de autenticación al intentar actualizar la bodega', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Error de autenticación al intentar actualizar la bodega');
       } else if (response.status === 403) {
         // Forbidden error (403)
         console.error('Permisos insuficientes para actualizar la bodega.');
-        toast.error('Permisos insuficientes para actualizar la bodega', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Permisos insuficientes para actualizar la bodega');
       } else {
         console.error(`Error actualizando la bodega con ID ${updatingBodega._id}`);
       }
@@ -223,19 +223,19 @@ const BodegasView = () => {
       name: 'Bodega',
       selector: (row) => row.bodega,
       sortable: true,
-      center: true,
+      
     },
     {
       name: 'Estado',
       selector: (row) => (row.estado ? 'Activo' : 'Inactivo'),
       sortable: true,
-      center: true,
+      
     },
     {
       name: 'Descripción',
       selector: (row) => row.descripcion,
       sortable: true,
-      center: true,
+      
     },
     {
       name: 'Acciones',
@@ -252,7 +252,7 @@ const BodegasView = () => {
         </Styles.ActionButton>
       </div>
       ),
-      center: true,
+      
     },
   ];
 

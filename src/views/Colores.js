@@ -107,20 +107,20 @@ const ColoresView = () => {
   
       if (response.ok) {
         console.log(`Color con ID ${deleteColorId} borrado exitosamente.`);
-        toast.success('Color eliminado exitosamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Color eliminado exitosamente');
         showData();
       } else {
         if (response.status === 401) {
           console.error(' No autorizado para eliminar el color.');
-          toast.error(' No autorizado para eliminar el color', { position: toast.POSITION.TOP_CENTER });
+          toast.error(' No autorizado para eliminar el color');
         } else if (response.status === 403) {
           console.error(' Permisos insuficientes para eliminar el color.');
-          toast.error(' Permisos insuficientes para eliminar el color', { position: toast.POSITION.TOP_CENTER });
+          toast.error(' Permisos insuficientes para eliminar el color');
         } else if (response.status === 400) {
           console.error(' Datos incorrectos o incompletos para eliminar el color.');
-          toast.error(' Datos incorrectos o incompletos para eliminar el color', { position: toast.POSITION.TOP_CENTER });
+          toast.error(' Datos incorrectos o incompletos para eliminar el color');
         } else {
-          toast.error('Error al borrar el color', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Error al borrar el color');
           console.error(`Error al borrar el color con ID ${deleteColorId}.`);
         }
       }
@@ -146,21 +146,21 @@ const ColoresView = () => {
       });
   
       if (response.ok) {
-        toast.success('Color actualizado exitosamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Color actualizado exitosamente');
         console.log('Color actualizado exitosamente.');
         showData();
       } else {
         if (response.status === 401) {
           console.error(' No autorizado para actualizar el color.');
-          toast.error(' No autorizado para actualizar el color', { position: toast.POSITION.TOP_CENTER });
+          toast.error(' No autorizado para actualizar el color');
         } else if (response.status === 403) {
           console.error(' Permisos insuficientes para actualizar el color.');
-          toast.error(' Permisos insuficientes para actualizar el color', { position: toast.POSITION.TOP_CENTER });
+          toast.error(' Permisos insuficientes para actualizar el color');
         } else if (response.status === 400) {
           console.error(' Datos incorrectos o incompletos para actualizar el color.');
-          toast.error(' Datos incorrectos o incompletos para actualizar el color', { position: toast.POSITION.TOP_CENTER });
+          toast.error(' Datos incorrectos o incompletos para actualizar el color');
         } else {
-          toast.error('Por favor complete todos los campos', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Por favor complete todos los campos');
           console.error('Error al intentar actualizar el color.');
         }
       }
@@ -184,22 +184,22 @@ const ColoresView = () => {
       });
   
       if (response.ok) {
-        toast.success('Color creado exitosamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Color creado exitosamente');
         console.log('Color creado exitosamente.');
         showData();
         Cookies.set('colorCookie', 'colorValue', { expires: 1 });
       } else {
         if (response.status === 401) {
           console.error(' No autorizado para crear el color.');
-          toast.error(' No autorizado para crear el color', { position: toast.POSITION.TOP_CENTER });
+          toast.error(' No autorizado para crear el color');
         } else if (response.status === 403) {
           console.error(' Permisos insuficientes para crear el color.');
-          toast.error(' Permisos insuficientes para crear el color', { position: toast.POSITION.TOP_CENTER });
+          toast.error(' Permisos insuficientes para crear el color');
         } else if (response.status === 400) {
           console.error(' Datos incorrectos o incompletos para crear el color.');
-          toast.error(' Datos incorrectos o incompletos para crear el color', { position: toast.POSITION.TOP_CENTER });
+          toast.error(' Datos incorrectos o incompletos para crear el color');
         } else {
-          toast.error('Por favor complete todos los campos', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Por favor complete todos los campos');
           console.error('Error al intentar crear el color.');
         }
       }

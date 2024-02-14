@@ -82,10 +82,10 @@ class ConfigView extends Component {
       .then(response => {
         console.log('Data updated successfully:', response.data);
         this.setState({ isEditing: false });
-        toast.success('Cambios guardados correctamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Cambios guardados correctamente', );
       })
       .catch(error => {
-        toast.error('Complete todos los campos', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Complete todos los campos', );
         console.error('Error updating data:', error);
         toast.error('Error al guardar cambios');
       });

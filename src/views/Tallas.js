@@ -73,10 +73,10 @@ const TallasView = () => {
       });
   
       if (response.ok) {
-        toast.success(`Talla con ID ${tallaId} eliminada correctamente.`);
+        toast.success(`Talla c eliminada correctamente.`);
         showData(); // Refresh data after successful deletion
       } else {
-        toast.error(`Error al intentar eliminar la talla con ID ${tallaId}`);
+        toast.error(`Error al intentar eliminar la talla`);
       }
     } catch (error) {
       console.error('Error:', error);
