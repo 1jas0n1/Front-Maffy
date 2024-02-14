@@ -39,7 +39,7 @@ const MyNavbar = () => {
         localStorage.removeItem('token');
         
 
-        const response = await fetch('http://localhost:4000/api/auth/logout', {
+        const response = await fetch('https://prueba-1qyu.onrender.com/api/auth/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
