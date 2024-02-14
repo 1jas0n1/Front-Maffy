@@ -87,22 +87,22 @@ const handleDeleteConfirmed = async () => {
     if (response.ok) {
       console.log(`Articulo con ID ${deleteItemId} borrado exitosamente.`);
       showArticulos();
-      toast.success('Artículo eliminado correctamente', { position: toast.POSITION.TOP_CENTER });
+      toast.success('Artículo eliminado correctamente');
     } else if (response.status === 403) {
       // Forbidden error (403)
       console.error('Permisos insuficientes para borrar el artículo.');
-      toast.error('Permisos insuficientes para borrar el artículo', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Permisos insuficientes para borrar el artículo');
     } else if (response.status === 401) {
       // Unauthorized error (401)
       console.error('Error de autenticación al borrar el artículo.');
-      toast.error('Error de autenticación al intentar eliminar el artículo', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Error de autenticación al intentar eliminar el artículo');
     } else {
       console.error(`Error al borrar el articulo con ID ${deleteItemId}.`);
-      toast.error('Error al intentar eliminar el artículo', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Error al intentar eliminar el artículo');
     }
   } catch (error) {
     console.error('Error al realizar la solicitud DELETE:', error);
-    toast.error('Error al intentar eliminar el artículo', { position: toast.POSITION.TOP_CENTER });
+    toast.error('Error al intentar eliminar el artículo');
   } finally {
     closeDeleteConfirmationModal();
   }
@@ -149,7 +149,7 @@ const handleDeleteConfirmed = async () => {
     
       console.log('miCookie:', miCookie);
     
-      const createUrl = 'http://localhost:4000/api/articulos';
+      const createUrl = 'https://api-mafy-store.onrender.com/api/articulos';
       const response = await fetch(createUrl, {
         method: 'POST',
         headers: {
@@ -230,19 +230,19 @@ const handleUpdateSubmit = async () => {
       name: 'Nombre',
       selector: (row) => row.nombre,
       sortable: true,
-      center: true,
+    
     },
     {
       name: 'Descripción',
       selector: (row) => row.descripcion,
       sortable: true,
-      center: true,
+    
     },
     {
       name: 'Estado',
       selector: (row) => (row.estado ? 'Activo' : 'Inactivo'),
       sortable: true,
-      center: true,
+    
     },
    
     {
@@ -257,7 +257,7 @@ const handleUpdateSubmit = async () => {
           </Styles.ActionButton>
         </div>
       ),
-      center: true,
+    
     },
   ];
 

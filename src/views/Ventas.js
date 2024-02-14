@@ -17,7 +17,8 @@ const VentasView = () => {
   const estadoFormatter = row => (row.Estado ? 'Activo' : 'Descontinuados');
   const danosFormatter = row => (row.Daños ? 'Sí' : 'No');
 
-  const bodegaFormatter = row => (row.Id_bodega ? row.Id_bodega : 'S/B');
+  
+
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -34,33 +35,12 @@ const VentasView = () => {
 
   const [total, setTotal] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
-  const [damageDiscount, setDamageDiscount] = useState(0);
+
   const [promotionDiscount, setPromotionDiscount] = useState(0);
-
-
-  const calculateTotalsAndDiscounts = () => {
-    let newTotal = 0;
-    let newTotalDiscount = 0;
-    let newDamageDiscount = 0;
-    let newPromotionDiscount = 0;
-
-    selectedItems.forEach((item) => {
-      newTotal += item.subtotal;
-      newTotalDiscount += item.Daños ? 0 : item.descuento;
-      newDamageDiscount += item.Daños ? item.descuento : 0;
-      newPromotionDiscount += getDiscountById(item.Id_promocion);
-    });
-
-    setTotal(newTotal);
-    setTotalDiscount(newTotalDiscount);
-    setDamageDiscount(newDamageDiscount);
-    setPromotionDiscount(newPromotionDiscount);
-  };
-
 
   // Inside the component, after setting the selected items state
   useEffect(() => {
-    calculateTotalsAndDiscounts();
+    
   }, [selectedItems]);
 
 
@@ -124,7 +104,7 @@ const VentasView = () => {
 
     const isItemInCart = selectedItems.some((item) => item._id === _id);
     if (isItemInCart) {
-      toast.error('Este Articulo ya a sido seleccionado', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Este Articulo ya a sido seleccionado');
       return;
     }
 
@@ -160,6 +140,7 @@ const VentasView = () => {
 
   const [requestStatus, setRequestStatus] = useState({ loading: false, success: false, error: null });
 
+
   const limpiarTabla = () => {
     setSelectedItems([]);
 
@@ -181,7 +162,7 @@ const VentasView = () => {
 
 
       if (!fechaVenta || !clienteVenta) {
-        toast.error('Por favor, ingrese la fecha y el cliente.', toast.POSITION.TOP_CENTER);
+        toast.error('Por favor, ingrese la fecha y el cliente.');
         return;
       }
 
@@ -256,7 +237,7 @@ const VentasView = () => {
         // Realiza la solicitud PUT para actualizar el stock
         await axios.put(stockUpdateUrl, stockUpdateData);
         limpiarTabla();
-        toast('Venta realizda', toast.POSITION.TOP_CENTER)
+        toast('Venta realizda')
         console.log(`Stock actualizado para el artículo con _id ${item.Id_articulo}`);
       } catch (error) {
         console.error('Error actualizando el stock:', error);
@@ -339,11 +320,7 @@ const VentasView = () => {
     return articulo ? articulo.nombre : 'Desconocido';
   };
 
-  const getNombreBodega = (idBodega) => {
-    const bodega = bodegas.find((a) => a._id === idBodega);
-    return bodega ? bodega.bodega : 'Desconocido';
-  };
-
+ 
 
 
   const handleEditOpen = (item) => {
@@ -406,7 +383,7 @@ const VentasView = () => {
 
   const getMarcaNombreById = (id) => {
     const marca = marcas.find((marca) => marca._id === id);
-    return marca ? marca.marca : '';
+    return marca ? marca.marca : 'Desconocida';
   };
 
   const tableData = filteredData;
@@ -419,7 +396,7 @@ const VentasView = () => {
         return articulo ? articulo.nombre : 'Desconocido';
       },
       sortable: true,
-      center: true,
+      
 
     },
     {
@@ -429,7 +406,7 @@ const VentasView = () => {
         return categoria ? categoria.categoria : 'Desconocida';
       },
       sortable: true,
-      center: true,
+      
     },
     {
       name: 'Color',
@@ -438,7 +415,7 @@ const VentasView = () => {
         return color ? color.color : 'Desconocido';
       },
       sortable: true,
-      center: true,
+      
     },
     {
       name: 'Marca',
@@ -447,7 +424,7 @@ const VentasView = () => {
         return marca ? marca.marca : 'Desconocida';
       },
       sortable: true,
-      center: true,
+      
     },
     {
       name: 'Talla',
@@ -456,7 +433,7 @@ const VentasView = () => {
         return talla ? talla.talla : 'Desconocida';
       },
       sortable: true,
-      center: true,
+      
     },
     { name: 'Estilo', selector: 'Id_estilo', sortable: true, cell: (row) => mapEstiloIdToNombre(row.Id_estilo) },
     {
@@ -466,28 +443,28 @@ const VentasView = () => {
         return material ? material.material : 'Desconocido';
       },
       sortable: true,
-      center: true,
+      
     },
     {
       name: 'Diseño',
       selector: (row) => {
         const diseno = disenos.find((diseno) => diseno._id === row.Id_diseño);
-        return diseno ? diseno.diseno : '';
+        return diseno ? diseno.diseno : 'Desconocido';
       },
       sortable: true,
-      center: true,
+      
     },
     { name: 'Descuento', selector: 'Descuento', sortable: true },
     { name: 'Descuento_maximo', selector: 'Descuento_maximo', sortable: true },
     {
       name: 'Bodega',
       selector: (row) => {
-        const bodega = bodegas.find((bodega) => bodega._id == row.Id_bodega);
+        const bodega = bodegas.find((bodega) => bodega._id === row.Id_bodega);
         return bodega ? bodega.bodega : 'Desconocida';
       }
       ,
       sortable: true,
-      center: true,
+      
     },
     { name: 'Precio', selector: 'Precio_venta', sortable: true },
     { name: 'Existencias', selector: 'Existencias', sortable: true },
@@ -498,10 +475,10 @@ const VentasView = () => {
       name: 'Promoción',
       selector: (row) => {
         const promocion = promotions.find((promocion) => promocion._id === row.Id_promocion);
-        return promocion ? promocion.promocion : '';
+        return promocion ? promocion.promocion : 'Desconocida';
       },
       sortable: true,
-      center: true,
+      
     },
     {
       name: 'Opciones',

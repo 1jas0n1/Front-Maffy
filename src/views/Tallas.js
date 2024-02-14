@@ -9,14 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
 
 const TallasView = () => {
-  const [cookieData, setCookieData] = useState({
-    miCookie: Cookies.get('miCookie') || null, // Puedes ajustar el nombre de la cookie
-  });
+
   const [tallas, setTallas] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [filterText, setFilterText] = useState('');
-  const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
+  const [resetPaginationToggle] = useState(false);
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] = useState(false);
   const [tallaToDeleteId, setTallaToDeleteId] = useState(null);
 
@@ -90,12 +88,7 @@ const TallasView = () => {
   
   
 
-  const handleClear = () => {
-    if (filterText) {
-      setResetPaginationToggle(!resetPaginationToggle);
-      setFilterText('');
-    }
-  };
+
 
   const filteredItems = tallas.filter(
     (item) => item.talla && item.talla.toLowerCase().includes(filterText.toLowerCase())
@@ -112,7 +105,7 @@ const TallasView = () => {
         />
       </div>
     );
-  }, [filterText, resetPaginationToggle]);
+  }, [filterText]);
 
   const handleCreate = async () => {
     try {
