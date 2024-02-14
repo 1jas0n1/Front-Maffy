@@ -1,0 +1,111 @@
+/* ColoresView.css */
+
+.colores-table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-family: roboto;
+
+  }
+  
+  .colores-table th, .colores-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .colores-table th {
+    background-color: #4a4a4a;
+    color: #ddd;
+    text-align: center;
+    font-family: 'Roboto', cursive;
+  }
+  .colores-table tbody td{
+    text-align: center;
+    font-family: 'Roboto', cursive;
+    border-color: #4a4a4a;
+  }
+  
+  .edit-button, .delete-button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    width: 75px;
+    height: 50px;
+    border-radius: 5px;
+  }
+  
+  .delete-button {
+    background-color: #f44336;
+    width: 75px;
+    height: 50px;
+    border-radius: 5px;
+  }
+  
+
+
+  .color-form {
+  
+    background-color: white;
+    color: #000000;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    font-size: 16px;
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+  
+  .color-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .color-form select,
+  .color-form input[type="text"],
+  .color-form textarea {
+    width: 40%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    margin: 20px;
+  }
+  
+  .color-form textarea {
+    height: 80px;
+  }
+  
+  .color-form input[type="submit"] {
+    background-color: #4CAF50;
+    margin-left: 45%;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 20px;
+  }
+  
+  .color-form input[type="submit"]:hover {
+   
+    background-color: rgb(160, 69, 92);
+  }
+  .update-button
+  {
+    background-color: aqua;
+    width: 75px;
+    height: 50px;
+  }
+.delete-button{
+  background-color: red;
+  border-radius: 5%;
+}
