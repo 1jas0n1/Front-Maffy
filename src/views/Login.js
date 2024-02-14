@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/estilos-login.css';
@@ -65,7 +65,7 @@ const LoginView = () => {
   
 
   if (redirectToIndex) {
-    return <Redirect to="/index" />;
+    return <Navigate to="/index" />;
   }
 
   return (
