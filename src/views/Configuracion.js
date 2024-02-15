@@ -78,11 +78,11 @@ class ConfigView extends Component {
       tipo_de_cambio_dolar,
     };
 
-    axios.put(`https://api-mafy-store.onrender.com/configuracion/${id}`, newData)
+    axios.put(`https://api-mafy-store.onrender.com/api/configuracion/${id}`, newData)
       .then(response => {
         console.log('Data updated successfully:', response.data);
         this.setState({ isEditing: false });
-        toast.success('Cambios guardados correctamente', );
+        toast.success('Cambios guardados correctamente' );
       })
       .catch(error => {
         toast.error('Complete todos los campos', );
