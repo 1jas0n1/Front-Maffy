@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useMemo } from 'react';
+
 import { Container, Form, Button, Row, Col, Modal, Alert } from 'react-bootstrap';
 import estilos from '../css/ingresos-estilos';
 import '../css/detalle-ingresos.css';
@@ -403,7 +404,7 @@ const getNombreCategoriaById = (categoriaId) => {
             };
             console.log('Datos del stock a enviar:', stockData);
             const responseStock = await axios.post('https://api-mafy-store.onrender.com/api/stock', stockData);
-            toast.success('Venta realizada Exitosamente',{position :toast.POSITION.TOP_CENTER})
+            toast.success('Venta realizada Exitosamente')
             console.log('Stock creado correctamente:', responseStock);
         }
 

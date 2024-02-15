@@ -49,10 +49,10 @@ function App() {
           <Route path='/createuser' element={<UsuariosView />} />
           <Route path='/mercancia' element={<MercanciaView />} />
           <Route path='/historialIngresos' element={<HistorialIngresos />} />
-          <Route path='/historialVentas' element={<HistorialVentas />} />
-          <Route path='/ingresosDetalles' element={<DetalleIngresosView />} />
+          <Route path='/historialventas' element={<HistorialVentas />} />
+          <Route path='/ingresosdetalles' element={<DetalleIngresosView />} />
           <Route path='/listuser' element={<UserInfo />} />
-          <Route path='/mercanciaDañada' element={<MercanciaDañada />} />
+          <Route path='/mercanciadañada' element={<MercanciaDañada />} />
         </Routes>
       </Router>
     </>

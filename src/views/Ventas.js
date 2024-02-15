@@ -38,7 +38,6 @@ const VentasView = () => {
 
   const [promotionDiscount, setPromotionDiscount] = useState(0);
 
-  // Inside the component, after setting the selected items state
   useEffect(() => {
     
   }, [selectedItems]);
@@ -67,9 +66,6 @@ const VentasView = () => {
     fetchData();
   }, []);
 
-
-
-
   useEffect(() => {
     const fetchBodega = async () => {
       const response = await axios.get('https://api-mafy-store.onrender.com/api/bodegas');
@@ -86,7 +82,6 @@ const VentasView = () => {
     };
     fetchTallas();
   }, []);
-
 
   useEffect(() => {
     const fetchPromotions = async () => {
@@ -118,21 +113,16 @@ const VentasView = () => {
       Id_material,
       Id_talla,
       Id_diseño,
-      cantidad: 1, // You may adjust this based on your logic for the quantity
+      cantidad: 1, 
       precio: Precio_venta,
-      descuento: row.Daños ? Descuento_maximo : Descuento, // Use Descuento_maximo for damaged items
+      descuento: row.Daños ? Descuento_maximo : Descuento,
       Existencias,
       Id_promocion,
-      subtotal: 0, // Initialize subtotal
+      subtotal: 0, 
     };
-
-    // Calculate subtotal based on quantity, price, and discount
+  
     newItem.subtotal = newItem.cantidad * newItem.precio - newItem.descuento;
-
-    // If you want to ensure the subtotal is not negative
     newItem.subtotal = Math.max(newItem.subtotal, 0);
-
-
     setSelectedItems([...selectedItems, newItem]);
     setSelectedRow(row);
   };
@@ -146,7 +136,6 @@ const VentasView = () => {
 
     document.getElementById('fechaVenta').value = '';
     document.getElementById('clienteVenta').value = '';
-
     setTotal(0);
     setTotalDiscount(0);
     setPromotionDiscount(0);
@@ -154,24 +143,18 @@ const VentasView = () => {
 
   const handleRealizarVenta = async () => {
     setRequestStatus({ loading: true, success: false, error: null });
-
     try {
-
       const fechaVenta = document.getElementById('fechaVenta').value;
       const clienteVenta = document.getElementById('clienteVenta').value;
-
-
       if (!fechaVenta || !clienteVenta) {
         toast.error('Por favor, ingrese la fecha y el cliente.');
         return;
       }
-
-
       const ventaData = {
         cliente: clienteVenta,
         fecha: fechaVenta,
-        descuento: totalDiscount + promotionDiscount, // Sumar los dos descuentos
-        subtotal: total - (totalDiscount + promotionDiscount), // Restar los dos descuentos del total
+        descuento: totalDiscount + promotionDiscount, 
+        subtotal: total - (totalDiscount + promotionDiscount),
         total: total,
         estado: true,
       };
@@ -179,14 +162,10 @@ const VentasView = () => {
       // Mostrar el JSON que se enviará en la primera petición POST
       console.log('JSON enviado en la primera petición de venta:', ventaData);
 
-      // Realizar la primera petición POST a la URL de ventas
       const responseVenta = await axios.post('https://api-mafy-store.onrender.com/api/ventas', ventaData);
-
-      // Extraer el ID de la venta creada
       const ventaId = responseVenta.data._id;
       console.log('ID de la venta creada:', ventaId);
-
-      // Construir la data de los artículos asociados a la venta (en el formato especificado)
+  
       const articulosVentaData = {
         id_ventas: ventaId,
         articulos: selectedItems.map(({ Existencias, Id_articulo, Id_categoria, Id_color, Id_diseño, Id_estilo, Id_marca, Id_material, Id_promocion, Id_talla, ...rest }) => ({
@@ -202,27 +181,22 @@ const VentasView = () => {
           id_talla: Id_talla,
           cantidad: parseInt(rest.cantidad, 10),
           subtotal: rest.subtotal,
-          descuento: rest.danos ? 0 : rest.descuento, // Ajustar según tu lógica de descuento
-          _id: rest._id, // Mantener el ID original
+          descuento: rest.danos ? 0 : rest.descuento,
+          _id: rest._id,
         })),
-        total: total - (totalDiscount + promotionDiscount), // Restar los descuentos al total
+        total: total - (totalDiscount + promotionDiscount), 
       };
 
-      // Mostrar el JSON que se enviará en la segunda petición POST
+    
       console.log('JSON enviado en la segunda petición de artículos:', articulosVentaData);
-
-      // Realizar la segunda petición POST a la URL correspondiente para los artículos
       const responseArticulos = await axios.post('https://api-mafy-store.onrender.com/api/detalleventa', articulosVentaData);
       console.log('Segunda petición de artículos realizada con éxito:', responseArticulos.data);
-
       setRequestStatus({ loading: false, success: true, error: null });
       console.log('Venta realizada con éxito');
     } catch (error) {
       setRequestStatus({ loading: false, success: false, error: error.message });
       console.error('Error realizando la venta:', error);
     }
-
-    // ... (tu código existente)
 
     for (const item of selectedItems) {
       const updatedExistencias = item.Existencias - item.cantidad;
@@ -234,26 +208,15 @@ const VentasView = () => {
       const stockUpdateUrl = `https://api-mafy-store.onrender.com/api/stock/${item._id}`;
 
       try {
-        // Realiza la solicitud PUT para actualizar el stock
         await axios.put(stockUpdateUrl, stockUpdateData);
         limpiarTabla();
         toast('Venta realizda')
         console.log(`Stock actualizado para el artículo con _id ${item.Id_articulo}`);
       } catch (error) {
         console.error('Error actualizando el stock:', error);
-        // Maneja el error según sea necesario
       }
     }
-
-
-
-
   };
-
-
-
-
-
 
 
   useEffect(() => {
@@ -313,33 +276,26 @@ const VentasView = () => {
   }, []);
 
 
-  
-
   const getNombreArticulo = (idArticulo) => {
     const articulo = articulos.find((a) => a._id === idArticulo);
     return articulo ? articulo.nombre : 'Desconocido';
   };
-
- 
-
 
   const handleEditOpen = (item) => {
     setEditingItem(item);
     setNewQuantity(item.cantidad);
   };
 
-
   const getDiscountById = (promoId) => {
     const promotion = promotions.find((p) => p._id === promoId);
     return promotion ? promotion.descuento : 0;
   };
 
-
   const handleEditSave = () => {
     const newQuantityNumber = parseInt(newQuantity, 10);
 
     if (newQuantityNumber > editingItem.Existencias) {
-      toast.error('Stock insuficiente', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Stock insuficiente');
       return;
     }
 
@@ -351,13 +307,10 @@ const VentasView = () => {
     setEditingItem(null);
   };
 
-
   const handleDeleteItem = (itemId) => {
     const updatedItems = selectedItems.filter(item => item._id !== itemId);
     setSelectedItems(updatedItems);
   };
-
-
 
   const handleEditClose = () => {
     setEditingItem(null);
@@ -379,8 +332,6 @@ const VentasView = () => {
     const estilo = est.find((e) => e._id === id);
     return estilo ? estilo.estilo : 'Desconocido ';
   };
-
-
   const getMarcaNombreById = (id) => {
     const marca = marcas.find((marca) => marca._id === id);
     return marca ? marca.marca : 'Desconocida';
@@ -397,7 +348,6 @@ const VentasView = () => {
       },
       sortable: true,
       
-
     },
     {
       name: 'Categoria',
@@ -461,10 +411,8 @@ const VentasView = () => {
       selector: (row) => {
         const bodega = bodegas.find((bodega) => bodega._id === row.Id_bodega);
         return bodega ? bodega.bodega : 'Desconocida';
-      }
-      ,
+      },
       sortable: true,
-      
     },
     { name: 'Precio', selector: 'Precio_venta', sortable: true },
     { name: 'Existencias', selector: 'Existencias', sortable: true },
@@ -478,7 +426,6 @@ const VentasView = () => {
         return promocion ? promocion.promocion : 'Desconocida';
       },
       sortable: true,
-      
     },
     {
       name: 'Opciones',
@@ -499,7 +446,6 @@ const VentasView = () => {
   return (
 
     <Container fluid style={estilos.containerStyle}>
-
       <MyNavbar style={{ height: '100%', width: '100%' }}> </MyNavbar>
       <h2 className=" mt-4 center-text" style={estilos.titulo}>
         Registro de Ventas
@@ -537,11 +483,7 @@ const VentasView = () => {
               <th>Categoría</th>
               <th>Marca</th>
               <th>Color</th>
-
-
               <th>Talla</th>
-
-
               <th>Cantidad</th>
               <th>Precio</th>
               <th>Subtotal</th>
@@ -554,15 +496,10 @@ const VentasView = () => {
             {selectedItems.map((item) => (
               <tr key={item._id}>
                 <td>{getNombreArticulo(item.Id_articulo)}</td>
-
                 <td>{getNombreCategoriaById(item.Id_categoria)}</td>
                 <td>{getMarcaNombreById(item.Id_marca)}</td>
                 <td>{getColorNameById(item.Id_color)}</td>
-
-
                 <td>{getNombreTalla(item.Id_talla)}</td>
-
-
                 <td>{item.cantidad}</td>
                 <td>{item.precio}</td>
                 <td>{item.subtotal.toFixed(2)}</td>
@@ -579,19 +516,15 @@ const VentasView = () => {
               </tr>
             ))}
           </tbody>
-
         </table>
       </div>
 
       <div style={{ margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '400px', backgroundColor: 'white', padding: '10px', borderRadius: '5px', marginTop: '10px' }}>
-
-
         <div style={{ marginTop: '10px' }}>
           <h4>Total: C${total.toFixed(2)}</h4>
           <h5>Descuento Total: C${totalDiscount}</h5>
           <h5>Promoción Descuento Total: C${promotionDiscount}</h5>
         </div>
-
       </div>
 
       <Button variant="success" style={{ width: '150px', height: '50px', marginTop: '20px', marginLeft: '45%' }} onClick={handleRealizarVenta} >
@@ -630,7 +563,6 @@ const VentasView = () => {
               value={newQuantity}
               onChange={(e) => setNewQuantity(e.target.value)}
               onKeyPress={(e) => {
-                // Permite solo números y teclas de control (por ejemplo, borrar)
                 const validKey = /[0-9]|[\b]/.test(e.key);
                 if (!validKey) {
                   e.preventDefault();
@@ -648,10 +580,6 @@ const VentasView = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-
-
-
       <ToastContainer />
     </Container>
   );
