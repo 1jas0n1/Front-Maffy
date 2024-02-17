@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 
 import Home from "./component/Home";
 import ColoresView from "./views/Colores.js";
@@ -27,7 +27,7 @@ import MercanciaDañada from "./views/MercanciaDañada.js";
 
 function App() {
   return (
-    <>
+   
       <Router >
         <Routes>
           <Route path='/' element={<LoginView />} />
@@ -48,14 +48,14 @@ function App() {
           <Route path='/ingresos' element={<IngresosView />} />
           <Route path='/create-user' element={<UsuariosView />} />
           <Route path='/mercancia' element={<MercanciaView />} />
-          <Route path='/historial-ventas' element={<HistorialIngresos />} />
+          <Route path='/historial-ingresos' element={<HistorialIngresos />} />
           <Route path='/historial-ventas' element={<HistorialVentas />} />
           <Route path='/ingresos-detalles' element={<DetalleIngresosView />} />
           <Route path='/list-user' element={<UserInfo />} />
           <Route path='/mercancia-dañada' element={<MercanciaDañada />} />
         </Routes>
       </Router>
-    </>
+   
   );
 }
 

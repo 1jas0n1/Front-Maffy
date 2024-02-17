@@ -29,7 +29,7 @@ const Menu = () => {
         </Dropdown.Toggle>
         <Dropdown.Menu style={{backgroundColor:'#4a4a4a',color:'white'}}>
           <Dropdown.Item style={{color:'white'}} href="/ventas">Realizar Venta</Dropdown.Item>
-          <Dropdown.Item style={{color:'white'}} href="/historialventas">Historial Ventas</Dropdown.Item>
+          <Dropdown.Item style={{color:'white'}} href="/historial-ventas">Historial Ventas</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </ButtonGroup>
@@ -48,7 +48,7 @@ const Menu = () => {
         </Dropdown.Toggle>
         <Dropdown.Menu style={{backgroundColor:'#4a4a4a',color:'white'}}>
           <Dropdown.Item style={{color:'white'}} href="/ingresos">Realizar Compra</Dropdown.Item>
-          <Dropdown.Item style={{color:'white'}} href="/historialingresos">Historial Compras</Dropdown.Item>
+          <Dropdown.Item style={{color:'white'}} href="/historial-ingresos">Historial Compras</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </ButtonGroup>
@@ -129,8 +129,8 @@ const Menu = () => {
           Opciones
         </Dropdown.Toggle>
         <Dropdown.Menu style={{backgroundColor:'#4a4a4a',color:'white'}}>
-          <Dropdown.Item style={{color:'white'}} href="/createuser">Crear Usuario</Dropdown.Item>
-          <Dropdown.Item style={{color:'white'}} href="/listuser">Editar Usuario</Dropdown.Item>
+          <Dropdown.Item style={{color:'white'}} href="/create-user">Crear Usuario</Dropdown.Item>
+          <Dropdown.Item style={{color:'white'}} href="/list-user">Editar Usuario</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </ButtonGroup>

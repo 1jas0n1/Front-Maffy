@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Form, Button, Modal, Nav } from 'react-bootstrap';
+import { Form, Button, Modal } from 'react-bootstrap';
 import * as Styles from '../css/styles_colores';
 import { FaEdit,FaTrash } from 'react-icons/fa';
 import Footer from '../component/footer/footer';
@@ -9,9 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
 
 const EstilosView = () => {
-  const [cookieData, setCookieData] = useState({
-    miCookie: Cookies.get('miCookie') || null, // Puedes ajustar el nombre de la cookie
-  });
+
   const [estilos, setEstilos] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -98,20 +96,20 @@ const EstilosView = () => {
     switch (statusCode) {
       case 401:
         console.error('Error 401: No autorizado para realizar esta acción.');
-        toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.');
         // Add logic here to redirect the user to the login page if needed
         break;
       case 400:
         console.error('Error 400: Solicitud incorrecta.');
-        toast.error('Solicitud incorrecta', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Solicitud incorrecta');
         break;
       case 403:
         console.error('Error 403: Permisos insuficientes para la acción.');
-        toast.error('Permisos insuficientes para la acción', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Permisos insuficientes para la acción');
         break;
       default:
         console.error(`Error desconocido con código ${statusCode}`);
-        toast.error('Error desconocido', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Error desconocido');
     }
   };
 
@@ -135,15 +133,15 @@ const EstilosView = () => {
       if (response.ok) {
         console.log('Estilo creado exitosamente.');
         showData();
-        toast.success('Estilo creado exitosamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Estilo creado exitosamente');
       } else {
         handleCommonErrors(response.status);
         console.error('Error al intentar crear el estilo.');
-        toast.error('Error al intentar crear el estilo', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Error al intentar crear el estilo');
       }
     } catch (error) {
       console.error('Error en la solicitud de creación:', error);
-      toast.error('Error en la solicitud de creación', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Error en la solicitud de creación');
     }
   
     handleClose();
@@ -167,11 +165,11 @@ const EstilosView = () => {
       if (response.ok) {
         console.log(`Estilo con ID ${estiloId} eliminado correctamente.`);
         showData(); // Update the styles list after deletion
-        toast.success('Estilo eliminado correctamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Estilo eliminado correctamente');
       } else {
         handleCommonErrors(response.status);
         console.error(`Error al eliminar el estilo con ID ${estiloId}.`);
-        toast.error('Error al eliminar el estilo', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Error al eliminar el estilo');
       }
     } catch (error) {
       console.error('Error:', error);
@@ -196,15 +194,15 @@ const EstilosView = () => {
       if (response.ok) {
         console.log('Estilo actualizado exitosamente.');
         showData();
-        toast.success('Estilo actualizado exitosamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Estilo actualizado exitosamente');
       } else {
         handleCommonErrors(response.status);
         console.error('Error al intentar actualizar el estilo.');
-        toast.error('Error al intentar actualizar el estilo', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Error al intentar actualizar el estilo');
       }
     } catch (error) {
       console.error('Error en la solicitud de actualización:', error);
-      toast.error('Error en la solicitud de actualización', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Error en la solicitud de actualización');
     }
   
     handleClose();
