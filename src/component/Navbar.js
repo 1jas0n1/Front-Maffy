@@ -37,7 +37,7 @@ const MyNavbar = () => {
         localStorage.removeItem('token');
         
 
-        const response = await fetch('https://prueba-1qyu.onrender.com/api/auth/logout', {
+        const response = await fetch('https://api-mafy-store.onrender.com/api/auth/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -77,12 +77,12 @@ const MyNavbar = () => {
           <Nav.Link  href="/configuracion" to="/configuracion" >Configuración</Nav.Link>
           <NavDropdown title="Ventas">
             <NavDropdown.Item href="/ventas"> <FcCurrencyExchange style={{ fontSize: '30px' }}></FcCurrencyExchange>Realizar Venta</NavDropdown.Item>
-            <NavDropdown.Item href="/historialventas"> <FcOvertime style={{ fontSize: '30px' }} />Historial</NavDropdown.Item>
+            <NavDropdown.Item href="/historial-ventas"> <FcOvertime style={{ fontSize: '30px' }} />Historial</NavDropdown.Item>
           </NavDropdown>
 
           <NavDropdown title="Ingresos">
             <NavDropdown.Item href="/ingresos"> <FcCurrencyExchange style={{ fontSize: '30px' }} /> Nueva Compra</NavDropdown.Item>
-            <NavDropdown.Item href="/historialingresos"> <FcOvertime style={{ fontSize: '30px' }} />Historial</NavDropdown.Item>
+            <NavDropdown.Item href="/historial-ventas"> <FcOvertime style={{ fontSize: '30px' }} />Historial</NavDropdown.Item>
           </NavDropdown>
 
           <NavDropdown title="Catalogos">
