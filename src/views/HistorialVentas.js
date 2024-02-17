@@ -262,27 +262,52 @@ const getNombreArticulo = (idArticulo) => {
   );
 
   const articlesTableColumns = [
-    // Define columns for the articles table based on your data structure
     {
       name: 'Articulo',
-      selector: 'id_articulo',
       sortable: true,
       cell: (row) => getNombreArticulo(row.id_articulo),
     },
-    { name: 'Categoria', selector: 'id_categoria', sortable: true, cell: (row) => getNombreCategoriaById(row.id_categoria) },
-    { name: 'Marca', selector: 'id_marca', sortable: true, cell: (row) => getMarcaNombreById(row.id_marca) },
-    { name: 'Color', selector: 'id_color', sortable: true, cell: (row) => getColorNameById(row.id_color) },
-    { name: 'Estilo', selector: 'id_estilo', sortable: true, cell: (row) => mapEstiloIdToNombre(row.id_estilo) },
-    { name: 'Material', selector: 'id_material', sortable: true, cell: (row) => getMaterialNameById(row.id_material) },
-    { name: 'Talla', selector: 'id_talla', sortable: true, cell: (row) => getNombreTalla(row.id_talla) },
-    { name: 'Diseño', selector: 'id_diseño', sortable: true, cell: (row) => obtenerNombreDisenoPorId(row.id_diseño) },
-
-    { name: 'Cantidad', selector: 'cantidad', sortable: true },
-    { name: 'Precio', selector: 'precio', sortable: true },
-    { name: 'Subtotal', selector: 'subtotal', sortable: true },
-    { name: 'Descuento', selector: 'descuento', sortable: true },
-
+    {
+      name: 'Categoria',
+      sortable: true,
+      cell: (row) => getNombreCategoriaById(row.id_categoria),
+    },
+    {
+      name: 'Marca',
+      sortable: true,
+      cell: (row) => getMarcaNombreById(row.id_marca),
+    },
+    {
+      name: 'Color',
+      sortable: true,
+      cell: (row) => getColorNameById(row.id_color),
+    },
+    {
+      name: 'Estilo',
+      sortable: true,
+      cell: (row) => mapEstiloIdToNombre(row.id_estilo),
+    },
+    {
+      name: 'Material',
+      sortable: true,
+      cell: (row) => getMaterialNameById(row.id_material),
+    },
+    {
+      name: 'Talla',
+      sortable: true,
+      cell: (row) => getNombreTalla(row.id_talla),
+    },
+    {
+      name: 'Diseño',
+      sortable: true,
+      cell: (row) => obtenerNombreDisenoPorId(row.id_diseño),
+    },
+    { name: 'Cantidad', sortable: true, cell: (row) => row.cantidad },
+    { name: 'Precio', sortable: true, cell: (row) => row.precio },
+    { name: 'Subtotal', sortable: true, cell: (row) => row.subtotal },
+    { name: 'Descuento', sortable: true, cell: (row) => row.descuento },
   ];
+  
 
   return (
     <div>
