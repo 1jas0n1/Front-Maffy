@@ -46,13 +46,13 @@ function App() {
           <Route path='/articulos' element={<ArticulosView />} />
           <Route path='/ventas' element={<VentasView />} />
           <Route path='/ingresos' element={<IngresosView />} />
-          <Route path='/createuser' element={<UsuariosView />} />
+          <Route path='/create-user' element={<UsuariosView />} />
           <Route path='/mercancia' element={<MercanciaView />} />
-          <Route path='/historialingresos' element={<HistorialIngresos />} />
-          <Route path='/historialventas' element={<HistorialVentas />} />
-          <Route path='/ingresosdetalles' element={<DetalleIngresosView />} />
-          <Route path='/listuser' element={<UserInfo />} />
-          <Route path='/mercanciadañada' element={<MercanciaDañada />} />
+          <Route path='/historial-ingresos' element={<HistorialIngresos />} />
+          <Route path='/historial-ventas' element={<HistorialVentas />} />
+          <Route path='/ingresos-detalles' element={<DetalleIngresosView />} />
+          <Route path='/list-user' element={<UserInfo />} />
+          <Route path='/mercancia-dañada' element={<MercanciaDañada />} />
         </Routes>
       </Router>
     </>
