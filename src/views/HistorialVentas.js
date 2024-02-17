@@ -221,37 +221,50 @@ const getNombreArticulo = (idArticulo) => {
   };
 
   const columns = [
-    { name: 'ID', selector: '_id', sortable: true },
-    { name: 'ID Ventas', selector: 'id_ventas', sortable: true },
-    { name: 'Total', selector: 'total', sortable: true },
+    { name: 'ID', sortable: true, cell: (row) => row._id },
+    { name: 'ID Ventas', sortable: true, cell: (row) => row.id_ventas },
+    { name: 'Total', sortable: true, cell: (row) => row.total },
     {
       name: 'Nombre del Cliente',
-      selector: 'id_ventas',
-      cell: row => clientNames[row.id_ventas],
       sortable: true,
+      cell: (row) => clientNames[row.id_ventas],
     },
-    { name: 'Fecha', selector: 'fecha', sortable: true },
+    { name: 'Fecha', sortable: true, cell: (row) => row.fecha },
     {
       name: 'Acciones',
-      cell: row => (
+      cell: (row) => (
         <div>
           <button
-            style={{ width: '35px', height: '35px', backgroundColor: 'blue', borderRadius: '5px', color: 'white' }}
+            style={{
+              width: '35px',
+              height: '35px',
+              backgroundColor: 'blue',
+              borderRadius: '5px',
+              color: 'white',
+            }}
             onClick={() => openModal(row.articulos)}
           >
             <FaEye />
           </button>
           <button
-        style={{ width: '35px', height: '35px', backgroundColor: 'blue', borderRadius: '5px', color: 'white', marginLeft: '3px' }}
-        onClick={() => handlePrintButtonClick(row._id)}  // Pass the row's _id to the function
-      >
-        <FaPrint />
-      </button>
+            style={{
+              width: '35px',
+              height: '35px',
+              backgroundColor: 'blue',
+              borderRadius: '5px',
+              color: 'white',
+              marginLeft: '3px',
+            }}
+            onClick={() => handlePrintButtonClick(row._id)} // Pass the row's _id to the function
+          >
+            <FaPrint />
+          </button>
         </div>
       ),
       button: true,
     },
   ];
+  
   const filteredData = data.filter(
     item =>
       item._id.toLowerCase().includes(filterText.toLowerCase()) ||
