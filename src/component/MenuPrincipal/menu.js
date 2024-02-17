@@ -28,8 +28,8 @@ const Menu = () => {
           Opciones
         </Dropdown.Toggle>
         <Dropdown.Menu style={{backgroundColor:'#4a4a4a',color:'white'}}>
-          <Dropdown.Item style={{color:'white'}} href="/ventas">Realizar Venta</Dropdown.Item>
-          <Dropdown.Item style={{color:'white'}} href="/historial-ventas">Historial Ventas</Dropdown.Item>
+          <Dropdown.Item style={{color:'white'}} href="/ventas-art">Realizar Venta</Dropdown.Item>
+          <Dropdown.Item style={{color:'white'}} href="/historial-venta">Historial Ventas</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </ButtonGroup>
@@ -47,8 +47,8 @@ const Menu = () => {
           Opciones
         </Dropdown.Toggle>
         <Dropdown.Menu style={{backgroundColor:'#4a4a4a',color:'white'}}>
-          <Dropdown.Item style={{color:'white'}} href="/ingresos">Realizar Compra</Dropdown.Item>
-          <Dropdown.Item style={{color:'white'}} href="/historial-ingresos">Historial Compras</Dropdown.Item>
+          <Dropdown.Item style={{color:'white'}} href="/ingresos-art">Realizar Compra</Dropdown.Item>
+          <Dropdown.Item style={{color:'white'}} href="/historial-ingreso">Historial Compras</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </ButtonGroup>

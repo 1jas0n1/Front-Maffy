@@ -44,12 +44,12 @@ function App() {
           <Route path='/disenos' element={<DisenosView />} />
           <Route path='/promociones' element={<PromocionesView />} />
           <Route path='/articulos' element={<ArticulosView />} />
-          <Route path='/ventas' element={<VentasView />} />
-          <Route path='/ingresos' element={<IngresosView />} />
+          <Route path='/ventas-art' element={<VentasView />} />
+          <Route path='/ingresos-art' element={<IngresosView />} />
           <Route path='/create-user' element={<UsuariosView />} />
           <Route path='/mercancia' element={<MercanciaView />} />
-          <Route path='/historial-ingresos' element={<HistorialIngresos />} />
-          <Route path='/historial-ventas' element={<HistorialVentas />} />
+          <Route path='/historial-ingreso' element={<HistorialIngresos />} />
+          <Route path='/historial-venta' element={<HistorialVentas />} />
           <Route path='/ingresos-detalles' element={<DetalleIngresosView />} />
           <Route path='/list-user' element={<UserInfo />} />
           <Route path='/mercancia-dañada' element={<MercanciaDañada />} />

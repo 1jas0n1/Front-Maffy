@@ -76,12 +76,12 @@ const MyNavbar = () => {
 
           <Nav.Link  href="/configuracion" to="/configuracion" >Configuración</Nav.Link>
           <NavDropdown title="Ventas">
-            <NavDropdown.Item href="/ventas"> <FcCurrencyExchange style={{ fontSize: '30px' }}></FcCurrencyExchange>Realizar Venta</NavDropdown.Item>
-            <NavDropdown.Item href="/historial-ventas"> <FcOvertime style={{ fontSize: '30px' }} />Historial</NavDropdown.Item>
+            <NavDropdown.Item href="/ventas-art"> <FcCurrencyExchange style={{ fontSize: '30px' }}></FcCurrencyExchange>Realizar Venta</NavDropdown.Item>
+            <NavDropdown.Item href="/historial-venta"> <FcOvertime style={{ fontSize: '30px' }} />Historial</NavDropdown.Item>
           </NavDropdown>
 
           <NavDropdown title="Ingresos">
-            <NavDropdown.Item href="/ingresos"> <FcCurrencyExchange style={{ fontSize: '30px' }} /> Nueva Compra</NavDropdown.Item>
+            <NavDropdown.Item href="/ingresos-art"> <FcCurrencyExchange style={{ fontSize: '30px' }} /> Nueva Compra</NavDropdown.Item>
             <NavDropdown.Item href="/historial-ingresos"> <FcOvertime style={{ fontSize: '30px' }} />Historial</NavDropdown.Item>
           </NavDropdown>
 
