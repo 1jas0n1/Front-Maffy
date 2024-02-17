@@ -28,7 +28,7 @@ import MercanciaDañada from "./views/MercanciaDañada.js";
 function App() {
   return (
     <>
-      <Router>
+      <Router basename="/prueba-1qyu">
         <Routes>
           <Route path='/' element={<LoginView />} />
           <Route path='/index' element={<Home />} />
