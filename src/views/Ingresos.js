@@ -113,10 +113,8 @@ import Cookies from 'js-cookie';
   useEffect(() => {
    
     const fetchTallas = async () => {
-     
         const response = await axios.get('https://api-mafy-store.onrender.com/api/tallas');
-        setTallas(response.data);
-      
+        setTallas(response.data);  
     };
 
     fetchTallas();
@@ -152,12 +150,12 @@ import Cookies from 'js-cookie';
   };
 
   const handleEliminarArticulo = (index) => {
-    // Lógica para eliminar el artículo de la lista
+
     const nuevosArticulos = [...articulosIngresados];
     nuevosArticulos.splice(index, 1);
     setArticulosIngresados(nuevosArticulos);
 
-    // Update totals after deleting an article
+ 
     const subTotal = nuevosArticulos.reduce((total, articulo) => {
       return (
         total +

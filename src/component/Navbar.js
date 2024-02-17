@@ -13,7 +13,7 @@ import { FaTshirt } from "react-icons/fa";
 import { FcShipped } from "react-icons/fc";
 import { FcOvertime } from "react-icons/fc";
 import { FcCurrencyExchange } from "react-icons/fc";
-import { FcPaid } from "react-icons/fc";
+
 import { FcAlphabeticalSortingAz } from "react-icons/fc";
 import { FcList } from "react-icons/fc";
 import { FcCalendar } from "react-icons/fc";
@@ -25,9 +25,7 @@ import "./navbar.css";
 
 const MyNavbar = () => {
   const [mobile, setMobile] = useState(false);
-  const [cookieData, setCookieData] = useState({
-    miCookie: Cookies.get('miCookie') || null, 
-  });
+
 
   const handleToggle = () => {
     setMobile(!mobile);
@@ -79,12 +77,12 @@ const MyNavbar = () => {
           <Nav.Link  href="/configuracion" to="/configuracion" >Configuración</Nav.Link>
           <NavDropdown title="Ventas">
             <NavDropdown.Item href="/ventas"> <FcCurrencyExchange style={{ fontSize: '30px' }}></FcCurrencyExchange>Realizar Venta</NavDropdown.Item>
-            <NavDropdown.Item href="/historial-ventas"> <FcOvertime style={{ fontSize: '30px' }} />Historial</NavDropdown.Item>
+            <NavDropdown.Item href="/historialventas"> <FcOvertime style={{ fontSize: '30px' }} />Historial</NavDropdown.Item>
           </NavDropdown>
 
           <NavDropdown title="Ingresos">
             <NavDropdown.Item href="/ingresos"> <FcCurrencyExchange style={{ fontSize: '30px' }} /> Nueva Compra</NavDropdown.Item>
-            <NavDropdown.Item href="/historial-ingresos"> <FcOvertime style={{ fontSize: '30px' }} />Historial</NavDropdown.Item>
+            <NavDropdown.Item href="/historialingresos"> <FcOvertime style={{ fontSize: '30px' }} />Historial</NavDropdown.Item>
           </NavDropdown>
 
           <NavDropdown title="Catalogos">

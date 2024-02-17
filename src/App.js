@@ -48,7 +48,7 @@ function App() {
           <Route path='/ingresos' element={<IngresosView />} />
           <Route path='/createuser' element={<UsuariosView />} />
           <Route path='/mercancia' element={<MercanciaView />} />
-          <Route path='/historialIngresos' element={<HistorialIngresos />} />
+          <Route path='/historialingresos' element={<HistorialIngresos />} />
           <Route path='/historialventas' element={<HistorialVentas />} />
           <Route path='/ingresosdetalles' element={<DetalleIngresosView />} />
           <Route path='/listuser' element={<UserInfo />} />

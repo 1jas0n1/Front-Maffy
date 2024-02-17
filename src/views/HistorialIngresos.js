@@ -4,7 +4,7 @@ import MyNavbar from '../component/Navbar';
 import Footer from '../component/footer/footer';
 import { FaEye } from "react-icons/fa";
 import { MdPrint } from "react-icons/md";
-import { Container, Form, Button, Row, Col, Modal, Alert } from 'react-bootstrap'; // Asegúrate de importar la librería de modales que estás utilizando
+import { Button,Modal } from 'react-bootstrap'; 
 import axios from 'axios';
 import { TbRuler3 } from 'react-icons/tb';
 const HistorialIngresosView = () => {
@@ -26,20 +26,13 @@ const HistorialIngresosView = () => {
 
   const updateFechaIngresoField = async (id_ingreso) => {
     try {
-      // Fetch the data for the specified id_ingreso from the ingresos endpoint
       const response = await axios.get(`https://api-mafy-store.onrender.com/api/ingresos/${id_ingreso}`);
-  
-      // Convert the fecha field to a JavaScript Date object
       const fechaDate = new Date(response.data.fecha);
-  
-      // Format the date to display only day, month, and year
       const formattedFecha = fechaDate.toLocaleDateString('es-ES', {
         day: 'numeric',
         month: 'numeric',
         year: 'numeric',
       });
-  
-      // Update the fecha field in the state based on the formatted date
       setData((prevData) =>
         prevData.map((row) =>
           row.id_ingreso === id_ingreso ? { ...row, fecha: formattedFecha } : row
@@ -134,7 +127,7 @@ const HistorialIngresosView = () => {
     fetchTallas();
   }, []);
 
-  // Inside the existing useEffect for fetching data
+
 useEffect(() => {
   fetch('https://api-mafy-store.onrender.com/api/detalleingreso')
     .then(response => response.json())
@@ -143,7 +136,6 @@ useEffect(() => {
         const incomeResponse = await axios.get(`https://api-mafy-store.onrender.com/api/ingresos/${item.id_ingreso}`);
         const incomeData = incomeResponse.data;
 
-        // Call the updateFechaIngresoField function with the id_ingreso
         updateFechaIngresoField(item.id_ingreso);
 
         return {
@@ -153,7 +145,7 @@ useEffect(() => {
           id_proveedor: incomeData.id_proveedor,
           total: item.total,
           articulos: item.articulos,
-          fecha: '', // Add an empty fecha field for now, it will be updated later
+          fecha: '', 
         };
       }));
       setData(formattedData);
@@ -166,12 +158,8 @@ useEffect(() => {
 
   const handlePrint = (row) => {
     const id = row._id;
-  
-    // Open a new tab with the printing URL
     const printUrl = `https://api-mafy-store.onrender.com/api/detalleingreso/${id}/print`;
     const newTab = window.open(printUrl, '_blank');
-  
-    // Handle cases where opening the new tab fails
     if (!newTab) {
       console.error('Error opening new tab for printing.');
     }
@@ -207,12 +195,12 @@ const mapEstiloIdToNombre = (id) => {
 
 const getNombreCategoriaById = (categoriaId) => {
   const categoria = categorias.find((c) => c._id === categoriaId);
-  return categoria ? categoria.categoria : '';
+  return categoria ? categoria.categoria : 'Desconocida';
 };
 
 const getNombreArticulo = (idArticulo) => {
   const articulo = articulos.find((a) => a._id === idArticulo);
-  return articulo ? articulo.nombre : '';
+  return articulo ? articulo.nombre : 'Desconocido';
 };
 
 const getNombreTalla = (idTalla) => {
@@ -244,11 +232,6 @@ const handleFilterChange = (e) => {
   setFilterText(e.target.value);
 };
 
-
-
-
-
-// Fetch user data
 useEffect(() => {
   const fetchUsers = async () => {
     try {
@@ -261,40 +244,37 @@ useEffect(() => {
   fetchUsers();
 }, []);
 
-// Function to get username by user ID
 const getUserNameById = (userId) => {
   const user = users.find((u) => u._id === userId);
   return user ? user.username : 'Desconocido';
 };
+const columns = [
+  { name: 'Id', cell: row => row._id, sortable: true, center: true },
+  { name: 'Id Ingreso', cell: row => row.id_ingreso, sortable: true },
+  { name: 'Usuario', cell: row => getUserNameById(row.id_usuario), sortable: true },
+  { name: 'Proveedor', cell: row => getProveedorById(row.id_proveedor), sortable: true },
+  {
+    name: 'Total C$',
+    cell: row => parseFloat(row.total).toFixed(2),
+    sortable: true,
+  },
+  { name: 'Fecha', cell: row => row.fecha, sortable: true },
+  {
+    name: 'Acciones',
+    cell: row => (
+      <div>
+        <button style={{ width: '35px', height: '35px', backgroundColor: 'blue', marginRight: '2px', borderRadius: '5px', color: 'white' }} onClick={() => handleViewDetails(row)}><FaEye /></button>
+        <button style={{ width: '35px', height: '35px', backgroundColor: 'blue', borderRadius: '5px', color: 'white' }} onClick={() => handlePrint(row)}><MdPrint /></button>
+      </div>
+    ),
+  },
+];
 
-  const columns = [
-    { name: 'Id', selector: '_id', sortable: true,center:true },
-    { name: 'Id Ingreso', selector: 'id_ingreso', sortable: true },
-     { name: 'Usuario', selector: 'id_usuario', sortable: true, cell: row => getUserNameById(row.id_usuario) },
-    { name: 'Proveedor', selector: 'id_proveedor', sortable: true ,cell :row =>getProveedorById(row.id_proveedor) },
-    {
-      name: 'Total C$',
-      selector: 'total',
-      sortable: true,
-      cell: row => parseFloat(row.total).toFixed(2),
-    },
-    { name: 'Fecha', selector: 'fecha', sortable: true },
-    {
-      name: 'Acciones',
-      cell: row => (
-        <div>
-          <button style={{ width: '35px', height: '35px', backgroundColor: 'blue', marginRight: '2px', borderRadius: '5px', color: 'white' }} onClick={() => handleViewDetails(row)} ><FaEye /></button>
-          <button style={{ width: '35px', height: '35px', backgroundColor: 'blue', borderRadius: '5px', color: 'white' }} onClick={() => handlePrint(row)} ><MdPrint /></button>
-        </div>
-      ),
-    },
-  ];
 
   return (
     <div>
       <MyNavbar />
-    
-      <div style={{ width: '90%', margin: 'auto', borderRadius: '5px', border: '2px solid black', textAlign: 'center' }}>
+      <div style={{ width: '90%', margin: 'auto', borderRadius: '5px', border: '2px solid black' }}>
       <DataTable
           title="Historial de Ingresos"
           columns={columns}
@@ -302,7 +282,7 @@ const getUserNameById = (userId) => {
           pagination
           subHeader
           subHeaderComponent={
-            <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+            <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
              <input
           type="text"
           placeholder="Buscar... "
@@ -318,8 +298,7 @@ const getUserNameById = (userId) => {
       <Modal
         size="xl"
         show={modalVisible}
-        onHide={closeModal}
-      >
+        onHide={closeModal}>
         <Modal.Header closeButton>
           <Modal.Title>Detalle del Ingreso</Modal.Title>
         </Modal.Header>
@@ -355,8 +334,6 @@ const getUserNameById = (userId) => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-
       <Footer />
     </div>
   );
