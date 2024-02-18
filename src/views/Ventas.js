@@ -130,7 +130,7 @@ const VentasView = () => {
 
     const isItemInCart = selectedItems.some((item) => item._id === _id);
     if (isItemInCart) {
-      toast.error('Este Articulo ya a sido seleccionado', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Este Articulo ya a sido seleccionado');
       return;
     }
 
@@ -178,6 +178,7 @@ const VentasView = () => {
   };
 
   const handleRealizarVenta = async () => {
+    const token = Cookies.get('token');
     setRequestStatus({ loading: true, success: false, error: null });
 
     try {
@@ -187,7 +188,7 @@ const VentasView = () => {
 
 
       if (!fechaVenta || !clienteVenta) {
-        toast.error('Por favor, ingrese la fecha y el cliente.', toast.POSITION.TOP_CENTER);
+        toast.error('Por favor, ingrese la fecha y el cliente.');
         return;
       }
 
@@ -204,8 +205,14 @@ const VentasView = () => {
       // Mostrar el JSON que se enviará en la primera petición POST
       console.log('JSON enviado en la primera petición de venta:', ventaData);
 
-      // Realizar la primera petición POST a la URL de ventas
-      const responseVenta = await axios.post('https://api-mafy-store.onrender.com/api/ventas', ventaData);
+
+      const responseVenta = await axios.post('https://api-mafy-store.onrender.com/api/ventas', ventaData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': token, 
+        },
+      });
+      
 
       // Extraer el ID de la venta creada
       const ventaId = responseVenta.data._id;
@@ -237,7 +244,13 @@ const VentasView = () => {
       console.log('JSON enviado en la segunda petición de artículos:', articulosVentaData);
 
       // Realizar la segunda petición POST a la URL correspondiente para los artículos
-      const responseArticulos = await axios.post('https://api-mafy-store.onrender.com/api/detalleventa', articulosVentaData);
+      const responseArticulos = await axios.post('https://api-mafy-store.onrender.com/api/detalleventa', articulosVentaData, {
+       headers: {
+        'Content-Type': 'application/json',
+         'x-access-token': token, 
+                 },
+                  });
+
       console.log('Segunda petición de artículos realizada con éxito:', responseArticulos.data);
 
       setRequestStatus({ loading: false, success: true, error: null });
@@ -260,9 +273,15 @@ const VentasView = () => {
 
       try {
         // Realiza la solicitud PUT para actualizar el stock
-        await axios.put(stockUpdateUrl, stockUpdateData);
+        const responseStockUpdate = await axios.put(stockUpdateUrl, stockUpdateData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': token, // Reemplaza 'tuTokenAquí' con el valor real del token
+          },
+        });
+        
         limpiarTabla();
-        toast('Venta realizda', toast.POSITION.TOP_CENTER)
+        toast('Venta realizda')
         console.log(`Stock actualizado para el artículo con _id ${item.Id_articulo}`);
       } catch (error) {
         console.error('Error actualizando el stock:', error);
@@ -365,7 +384,7 @@ const VentasView = () => {
     const newQuantityNumber = parseInt(newQuantity, 10);
 
     if (newQuantityNumber > editingItem.Existencias) {
-      toast.error('Stock insuficiente', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Stock insuficiente');
       return;
     }
 

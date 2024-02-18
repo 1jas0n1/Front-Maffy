@@ -130,44 +130,51 @@ const BodegasView = () => {
     const bodega = document.getElementById('formBodega').value;
     const estado = document.getElementById('formEstado').value;
     const descripcion = document.getElementById('formDescripcion').value;
-
+  
     const nuevaBodega = {
       bodega,
       estado,
       descripcion,
     };
- 
+  
     try {
       const token = Cookies.get('token');
       const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-access-token': token, // Include the token in the header
+          'x-access-token': token,
         },
         body: JSON.stringify(nuevaBodega),
       });
-
+  
       if (response.ok) {
         const nuevaBodegaCreada = await response.json();
         setBodegas((prevBodegas) => [...prevBodegas, nuevaBodegaCreada]);
         toast.success('Bodega creada exitosamente');
         console.log('Bodega creada exitosamente.');
-      }
-    else if (response.status === 401) {
-      console.error('Error de autenticación al crear la bodega.');
-      toast.error('Error de autenticación al intentar actualizar la bodega');
-    }else if (response.status === 403) {
+      } else if (response.status === 401) {
+        console.error('Error de autenticación al crear la bodega.');
+        toast.error('Error de autenticación al intentar actualizar la bodega');
+      } else if (response.status === 403) {
         console.error('Permisos insuficientes para crear la bodega.');
         toast.error('Permisos insuficientes para borrar la bodega');
+      } else if (response.status === 400) {
+        console.error('No se puede crear la bodega porque ya existe.');
+        toast.error('No se puede crear la bodega porque ya existe.');
+      } else {
+        // Handle other errors if needed
+        console.error('Error en la solicitud POST:', response.statusText);
+        toast.error('Se produjo un error en la solicitud de creación de la bodega.');
       }
     } catch (error) {
       console.error('Error en la solicitud POST:', error);
+      toast.error('Se produjo un error en la solicitud de creación de la bodega.');
     }
-
+  
     handleClose();
   };
-
+  
   const handleUpdateSubmit = async () => {
     const updatedBodega = {
       bodega: document.getElementById('updateFormBodega').value,

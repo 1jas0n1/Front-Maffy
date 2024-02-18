@@ -24,6 +24,7 @@ import HistorialVentas from "./views/HistorialVentas.js";
 import DetalleIngresosView from "./views/Detalle-ingresos.js";
 import UserInfo from "./views/ListUser.js";
 import MercanciaDañada from "./views/MercanciaDañada.js";
+import Reporteventas from "./views/Reportes.js";
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path='/ingresos-detalles' element={<DetalleIngresosView />} />
           <Route path='/list-user' element={<UserInfo />} />
           <Route path='/mercancia-dañada' element={<MercanciaDañada />} />
+          <Route path='/reportes' element={<Reporteventas></Reporteventas>}></Route>
         </Routes>
       </Router>
    

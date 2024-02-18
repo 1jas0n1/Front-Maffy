@@ -331,92 +331,115 @@ const getNombreCategoriaById = (categoriaId) => {
 };
 
 
-  const handleFacturarIngreso = async () => {
-    const id_user = Cookies.get('_id');
-    try {
-        // Primera solicitud POST para crear el ingreso
-        const ingresoData = {
-            id_usuario: id_user,
-            id_proveedor: formulario.idProveedor,
-            fecha: new Date().toISOString(),
-            iva: ivaTotal,
-            descuento: descuentosTotal,
-            subtotal: subTotalTotal,
-            total: subTotalTotal - descuentosTotal + ivaTotal,
-        };
+const handleFacturarIngreso = async () => {
+  const id_user = Cookies.get('_id');
+  const token = Cookies.get('token');  // Obtén el token desde las cookies
 
-        console.log('Datos del ingreso a enviar:', ingresoData);
+  try {
+      // Primera solicitud POST para crear el ingreso
+      const ingresoData = {
+          id_usuario: id_user,
+          id_proveedor: formulario.idProveedor,
+          fecha: new Date().toISOString(),
+          iva: ivaTotal,
+          descuento: descuentosTotal,
+          subtotal: subTotalTotal,
+          total: subTotalTotal - descuentosTotal + ivaTotal,
+      };
 
-        const responseIngreso = await axios.post('https://api-mafy-store.onrender.com/api/ingresos', ingresoData);
-        const idIngreso = responseIngreso.data._id;
+      console.log('Datos del ingreso a enviar:', ingresoData);
 
-        console.log('Ingreso creado correctamente:', responseIngreso);
+      const responseIngreso = await axios.post('https://api-mafy-store.onrender.com/api/ingresos', ingresoData, {
+          headers: {
+              'Content-Type': 'application/json',
+              'x-access-token': token,
+          },
+      });
+      const idIngreso = responseIngreso.data._id;
 
-        // Segunda solicitud POST con datos de la tabla de artículos
-        const articulosData = {
-            id_ingreso: idIngreso,
-            articulos: articulosIngresados.map((articulo) => ({
-                id_articulo: articulo.idArticulo,
-                id_categoria:articulo.idCategoria,
-                id_talla: articulo.idTalla,
-                id_color: articulo.idColor,
-                id_marca: articulo.idMarca,
-                id_material: articulo.idMaterial,
-                id_estilo: articulo.idEstilo,
-                id_diseño: articulo.idDiseño,
-                cantidad: parseInt(articulo.cantidad),
-                precio_proveedor: parseFloat(articulo.precioprov),
-                iva: parseFloat(calculateIVA(articulo.cantidad, articulo.precioprov, articulo.descuento)),
-                descuento: parseFloat((articulo.cantidad * articulo.precioprov * (articulo.descuento / 100)).toFixed(2)),
-                subtotal: parseFloat(((articulo.cantidad * articulo.precioprov * (1 - articulo.descuento / 100)) + parseFloat(calculateIVA(articulo.cantidad, articulo.precioprov, articulo.descuento))).toFixed(2)),
-            })),
-            total: subTotalTotal - descuentosTotal + ivaTotal,
-        };
-        console.log('Datos de los artículos a enviar:', articulosData);
-        const responseArticulos = await axios.post('https://api-mafy-store.onrender.com/api/detalleingreso', articulosData);
-        console.log('Artículos facturados correctamente:', responseArticulos);
+      console.log('Ingreso creado correctamente:', responseIngreso);
 
-        for (const articulo of articulosIngresados) {
-            const stockData = {
-                Id_articulo: articulo.idArticulo,
-                Id_usuario: id_user,
-                Id_categoria:articulo.idCategoria,
-                Id_color: articulo.idColor,
-                Id_marca: articulo.idMarca,
-                Id_talla: articulo.idTalla,
-                Id_estilo: articulo.idEstilo,
-                Id_material: articulo.idMaterial,
-                Id_diseño: articulo.idDiseño,
-                Descuento: articulo.descuento,
-                Descuento_maximo: articulo.descuento * 1.1,
-                Precio_prov: parseFloat(articulo.precioprov),
-                Precio_venta: parseFloat(((articulo.precioprov * (1 - articulo.descuento / 100)) + parseFloat(calculateIVA(articulo.cantidad, articulo.precioprov, articulo.descuento))).toFixed(2)),
-                Estado: true,
-                Daños: false,
-                Descripcion: "",
-                Id_ingreso: idIngreso,
-                Cod_barra: 123456789,
-                Id_bodega: articulo.idBodega || null,
-                Id_promocion: articulo.idPromocion || null,
-                Existencias:articulo.cantidad,
-            };
-            console.log('Datos del stock a enviar:', stockData);
-            const responseStock = await axios.post('https://api-mafy-store.onrender.com/api/stock', stockData);
-            toast.success('Venta realizada Exitosamente')
-            console.log('Stock creado correctamente:', responseStock);
-        }
+      // Segunda solicitud POST con datos de la tabla de artículos
+      const articulosData = {
+          id_ingreso: idIngreso,
+          articulos: articulosIngresados.map((articulo) => ({
+              id_articulo: articulo.idArticulo,
+              id_categoria: articulo.idCategoria,
+              id_talla: articulo.idTalla,
+              id_color: articulo.idColor,
+              id_marca: articulo.idMarca,
+              id_material: articulo.idMaterial,
+              id_estilo: articulo.idEstilo,
+              id_diseño: articulo.idDiseño,
+              cantidad: parseInt(articulo.cantidad),
+              precio_proveedor: parseFloat(articulo.precioprov),
+              iva: parseFloat(calculateIVA(articulo.cantidad, articulo.precioprov, articulo.descuento)),
+              descuento: parseFloat((articulo.cantidad * articulo.precioprov * (articulo.descuento / 100)).toFixed(2)),
+              subtotal: parseFloat(((articulo.cantidad * articulo.precioprov * (1 - articulo.descuento / 100)) + parseFloat(calculateIVA(articulo.cantidad, articulo.precioprov, articulo.descuento))).toFixed(2)),
+          })),
+          total: subTotalTotal - descuentosTotal + ivaTotal,
+      };
+
+      console.log('Datos de los artículos a enviar:', articulosData);
+      const responseArticulos = await axios.post('https://api-mafy-store.onrender.com/api/detalleingreso', articulosData, {
+          headers: {
+              'Content-Type': 'application/json',
+              'x-access-token': token,
+          },
+      });
+      console.log('Artículos facturados correctamente:', responseArticulos);
+
+      // Iterar a través de los artículos y actualizar el stock
+      for (const articulo of articulosIngresados) {
+          const stockData = {
+              Id_articulo: articulo.idArticulo,
+              Id_usuario: id_user,
+              Id_categoria: articulo.idCategoria,
+              Id_color: articulo.idColor,
+              Id_marca: articulo.idMarca,
+              Id_talla: articulo.idTalla,
+              Id_estilo: articulo.idEstilo,
+              Id_material: articulo.idMaterial,
+              Id_diseño: articulo.idDiseño,
+              Descuento: articulo.descuento,
+              Descuento_maximo: articulo.descuento * 1.1,
+              Precio_prov: parseFloat(articulo.precioprov),
+              Precio_venta: parseFloat(((articulo.precioprov * (1 - articulo.descuento / 100)) + parseFloat(calculateIVA(articulo.cantidad, articulo.precioprov, articulo.descuento))).toFixed(2)),
+              Estado: true,
+              Daños: false,
+              Descripcion: "",
+              Id_ingreso: idIngreso,
+              Cod_barra: 123456789,
+              Id_bodega: articulo.idBodega || null,
+              Id_promocion: articulo.idPromocion || null,
+              Existencias: articulo.cantidad,
+          };
+          console.log('Datos del stock a enviar:', stockData);
+          const responseStock = await axios.post('https://api-mafy-store.onrender.com/api/stock', stockData, {
+              headers: {
+                  'Content-Type': 'application/json',
+                  'x-access-token': token,
+              },
+          });
+          console.log('Stock creado correctamente:', responseStock);
+      }
 
 
-    } catch (error) {
+console.log('Ingreso, artículos y stock creados correctamente. Venta realizada Exitosamente');
+toast.success('Venta realizada Exitosamente');
+
+
+  } catch (error) {
       if (error.response && error.response.status === 409) {
-        console.error('Error 409: Conflicto al crear el documento en la colección "Stock".');
-        console.error('Detalles del error:', error.response.data);
-        // Puedes manejar el conflicto de alguna manera específica si es necesario.
-    } else {
-        console.error('Error al facturar ingreso:', error);
-    }
-    }
+          console.error('Error 409: Conflicto al crear el documento en la colección "Stock".');
+          console.error('Detalles del error:', error.response.data);
+          // Puedes manejar el conflicto de alguna manera específica si es necesario.
+      } else {
+          console.error('Error al facturar ingreso:', error);
+      }
+  }
 };
+
 
 
 

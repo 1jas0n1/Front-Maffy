@@ -88,20 +88,20 @@ const ProveedoresView = () => {
       switch (statusCode) {
         case 401:
           console.error('Error 401: No autorizado para realizar esta acción.');
-          toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.');
           // Agregar lógica aquí para redirigir al usuario a la página de inicio de sesión si es necesario
           break;
         case 400:
           console.error('Error 400: Solicitud incorrecta.');
-          toast.error('Solicitud incorrecta', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Solicitud incorrecta');
           break;
         case 403:
           console.error('Error 403: Permisos insuficientes para la acción.');
-          toast.error('Permisos insuficientes para la acción', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Permisos insuficientes para la acción');
           break;
         default:
           console.error(`Error desconocido con código ${statusCode}`);
-          toast.error('Error desconocido', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Error desconocido');
       }
     } catch (error) {
       console.error('Error en handleCommonErrors:', error);
@@ -121,11 +121,11 @@ const ProveedoresView = () => {
       });
   
       if (response.ok) {
-        toast.success('Proveedor creado correctamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Proveedor creado correctamente');
         showData();
       } else {
         handleCommonErrors(response.status);
-        toast.error('Complete todos los campos', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Complete todos los campos');
         console.error('Error al intentar crear el proveedor.');
       }
     } catch (error) {
@@ -147,11 +147,11 @@ const ProveedoresView = () => {
       });
   
       if (response.ok) {
-        toast.success('Proveedor Eliminado correctamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Proveedor Eliminado correctamente');
         showData();
       } else {
         handleCommonErrors(response.status);
-        toast.error('Error Proveedor no encontrado', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Error Proveedor no encontrado');
         console.error(`Error al intentar eliminar el proveedor con ID ${selectedProveedorId}`);
       }
     } catch (error) {
@@ -174,12 +174,12 @@ const ProveedoresView = () => {
       });
   
       if (response.ok) {
-        toast.success('Proveedor Editado correctamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Proveedor Editado correctamente');
         console.log('Proveedor actualizado exitosamente.');
         showData();
       } else {
         handleCommonErrors(response.status);
-        toast.error('Complete todos los campos.', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Complete todos los campos.');
         console.error('Error al intentar actualizar el proveedor.');
       }
     } catch (error) {

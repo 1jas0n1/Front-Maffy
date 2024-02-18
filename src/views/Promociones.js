@@ -47,7 +47,7 @@ const PromocionesView = () => {
 
   const handleNotificacion = () => {
    
-    toast.success('Operación exitosa', { position: toast.POSITION.TOP_CENTER });
+    toast.success('Operación exitosa');
   };
   const isNumeric = (value) => {
     return /^\d+$/.test(value);
@@ -110,20 +110,20 @@ const PromocionesView = () => {
       switch (statusCode) {
         case 401:
           console.error('Error 401: No autorizado para realizar esta acción.');
-          toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.');
           // Agregar lógica aquí para redirigir al usuario a la página de inicio de sesión si es necesario
           break;
         case 400:
           console.error('Error 400: Solicitud incorrecta.');
-          toast.error('Solicitud incorrecta', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Solicitud incorrecta');
           break;
         case 403:
           console.error('Error 403: Permisos insuficientes para la acción.');
-          toast.error('Permisos insuficientes para la acción', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Permisos insuficientes para la acción');
           break;
         default:
           console.error(`Error desconocido con código ${statusCode}`);
-          toast.error('Error desconocido', { position: toast.POSITION.TOP_CENTER });
+          toast.error('Error desconocido');
       }
     } catch (error) {
       console.error('Error en handleCommonErrors:', error);

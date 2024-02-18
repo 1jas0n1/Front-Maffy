@@ -146,31 +146,37 @@ const CategoriasView = () => {
       });
   
       if (response.ok) {
-        // Éxito: Categoría creada
+        // Success: Category created
         toast.success('Categoría creada exitosamente');
-        // Después de crear la categoría, actualizar los datos
+        // After creating the category, update the data
         showData();
+      } else if (response.status === 400) {
+        // Error 400: Bad Request (category already exists)
+        console.error('No se puede crear la categoría porque ya existe.');
+        toast.error('No se puede crear la categoría porque ya existe.');
       } else if (response.status === 401) {
-        // Error 401: No autorizado
-        console.error(`  No autorizado: ${response.statusText}`);
-        toast.error('  No autorizado. Por favor, inicie sesión nuevamente.');
+        // Error 401: Unauthorized
+        console.error(`Unauthorized: ${response.statusText}`);
+        toast.error('No autorizado. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
-        // Error 403: Prohibido
-        console.error(`  Prohibido: ${response.statusText}`);
-        toast.error('  Acceso prohibido.');
+        // Error 403: Forbidden
+        console.error(`Forbidden: ${response.statusText}`);
+        toast.error('Acceso prohibido.');
       } else {
-        // Otro tipo de error
-        console.error('Error al intentar crear la categoría.');
+        // Other types of errors
+        console.error(`Error al intentar crear la categoría. Status: ${response.status}, Message: ${response.statusText}`);
         toast.error(`Error en la solicitud: ${response.statusText}`);
       }
     } catch (error) {
-      // Error durante la solicitud
+      // Error during the request
       console.error('Error en la solicitud de creación:', error);
       toast.error('Error en la solicitud de creación. Por favor, inténtelo de nuevo.');
     } finally {
       handleClose();
     }
   };
+  
+  
   
   
 

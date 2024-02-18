@@ -196,7 +196,7 @@ const ColoresView = () => {
           console.error(' Permisos insuficientes para crear el color.');
           toast.error(' Permisos insuficientes para crear el color');
         } else if (response.status === 400) {
-          console.error(' Datos incorrectos o incompletos para crear el color.');
+          console.error(' para crear el color.');
           toast.error(' Datos incorrectos o incompletos para crear el color');
         } else {
           toast.error('Por favor complete todos los campos');

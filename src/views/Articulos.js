@@ -140,31 +140,33 @@ const handleDeleteConfirmed = async () => {
       </div>
     );
   }, [filterText, resetPaginationToggle]);
-
   const handleCreate = async () => {
     try {
       // Check if the required cookie is available
       const miCookie = Cookies.get('miCookie');
       const token = Cookies.get('token');
-    
+  
       console.log('miCookie:', miCookie);
-    
+  
       const createUrl = 'https://api-mafy-store.onrender.com/api/articulos';
       const response = await fetch(createUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-access-token': token, 
+          'x-access-token': token,
         },
         body: JSON.stringify(newArticulo),
       });
-    
+  
       if (response.status === 401) {
         // Unauthorized error (401)
         toast.error('Error de autenticación. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
         // Forbidden error (403)
         toast.error('Acceso no permitido. No tiene los permisos necesarios.');
+      } else if (response.status === 400) {
+        // Bad Request error (400)
+        toast.error('No se puede crear el artículo porque ya existe.');
       } else if (!response.ok) {
         // Handle other errors if needed
         toast.error('Se produjo un error en la solicitud de creación.');
