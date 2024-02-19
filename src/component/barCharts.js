@@ -7,11 +7,11 @@ const BarChartComponent = ({ data }) => {
   return (
     <div className="container" style={{backgroundColor:"white",borderRadius:'3px'}} >
       <div className="row" >
-        <div className="col-md-14" >
+        <div className="col-md-16" >
           <div   >
             <div className="card-body" >
               
-              <div className="chart-container" style={{ width: '500px', height: '300px' }}>
+              <div className="chart-container" style={{ width: '500px', height: '250px' }}>
                 <ResponsiveContainer>
                   <BarChart
                     data={data}

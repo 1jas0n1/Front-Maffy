@@ -6,7 +6,7 @@ import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
 import { FaEye } from 'react-icons/fa';
-
+import MonthlySalesChart from '../component/barMeses';
 import BarChartComponent from '../component/barCharts';
 
 const ReportesVentas = () => {
@@ -21,17 +21,18 @@ const ReportesVentas = () => {
   const [barChartData, setBarChartData] = useState(null);
 
 
+ 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Fetch data for the first chart
         const response = await fetch("https://api-mafy-store.onrender.com/api/detalleventa/total-Cat/2024");
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
         const data = await response.json();
         setChartData(data);
-
-        // Obtener las categorías y almacenarlas en un objeto
+  
         const categoriesResponse = await fetch("https://api-mafy-store.onrender.com/api/categorias");
         if (!categoriesResponse.ok) {
           throw new Error(`Error ${categoriesResponse.status}: ${categoriesResponse.statusText}`);
@@ -42,13 +43,37 @@ const ReportesVentas = () => {
           categoriesMap[category._id] = category.categoria;
         });
         setCategories(categoriesMap);
+  
+        // Set totalVentas for the first card
+        const totalVentasResponse = await axios.get(`https://api-mafy-store.onrender.com/api/ventas/total/2024`);
+        const { totalVentas } = totalVentasResponse.data;
+        setTotalVentas(totalVentas);
+  
+        // Fetch data for the second chart
+        const totalVentasCategoriesResponse = await axios.get(`https://api-mafy-store.onrender.com/api/detalleventa/total-Cat/2022`);
+        const { data: totalVentasCategoriesData } = totalVentasCategoriesResponse;
+        setTotalVentasCategories(totalVentasCategoriesData);
+        const chartData = {
+          labels: totalVentasCategoriesData.map(item => item._id),
+          datasets: [
+            {
+              label: 'Monto Vendido',
+              data: totalVentasCategoriesData.map(item => item.totalVendido),
+              backgroundColor: 'rgba(255,255,255,0.6)',
+              borderColor: 'rgba(255,255,255,0.6)',
+              color:'white',
+              borderWidth: 1,
+            },
+          ],
+        };
+        setBarChartData(chartData);
       } catch (error) {
         setError(error.message);
       } finally {
         setLoading(false);
       }
     };
-
+  
     fetchData();
   }, []);
 
@@ -132,59 +157,36 @@ const ReportesVentas = () => {
       <MyNavbar />
       <h2 style={{ color: 'black', fontSize: '35px' }}>Reportes de Ventas</h2>
 
-      <div className="d-flex  vh-50">
-        <Card style={{ width: '18rem' ,height:'300px', marginLeft: '5%'  }}>
-          <Card.Body>
-            <Card.Title style={{ textAlign: 'center' }}>Ventas</Card.Title>
-            <Form.Group controlId="selectYear">
-              <Form.Label>Selecciona el año:</Form.Label>
-              <Form.Control as="select" value={selectedYear} onChange={handleYearChange}>
-                <option>2024</option>
-                <option>2023</option>
-                <option>2022</option>
-        
-              </Form.Control>
-            </Form.Group>
+      <div className="d-flex vh-50">
+        <Card style={{ width: '18rem' ,height:'400px', marginLeft: '5%',order:1  }}>
+          <Card.Body style={{textAlign:'center'}}>
+            <Card.Title style={{ textAlign: 'center' }}>Ventas 2024</Card.Title>
 
-            <button
-              style={{
-                width: '120px',
-                height: '60px',
-                backgroundColor: 'red',
-                color: 'white',
-                borderRadius: '5px',
-                marginTop: '15px',
-                marginLeft: '25%',
-              }}
-              onClick={handleGetTotal}
-            >
-              Obtener Total
-            </button>
+          
 
             {totalVentas !== null && (
               <div style={{ marginTop: '15px', textAlign: 'center' }}>
                 <label>Total: C${totalVentas}</label>
               </div>
             )}
+
+
+            <Card.Title>Semana</Card.Title>
+            <p>Total : C$ </p>
+           
+
+            <Card.Title>Hoy</Card.Title>
+            <p>Total : C$ </p>
           </Card.Body>
         </Card>
-        <Card style={{ width: '45rem', marginLeft: '5%',color:'white' }}>
+
+       
+
+
+        <Card style={{ width: '52.5rem', marginLeft: '5%',color:'white',order:2 }}>
           <Card.Body style={{color:'white'}}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-              <Form.Group controlId="selectYearCategories" style={{ display: 'flex', alignItems: 'center' }}>
-                <button
-                  style={{
-                    width: '30px',
-                    height: '30px',
-                    backgroundColor: 'transparent',
-                    border: 'none',
-                    cursor: 'pointer',
-                  }}
-                  onClick={handleSearchCategories}
-                >
-                      <FaEye style={{color:'white'}}/>
-                </button>
-              </Form.Group>
+             
               <p style={{ textAlign: 'center', fontSize: '18px', margin: '0 auto' }}>
                 Ventas por categorías
               </p>
@@ -202,7 +204,21 @@ const ReportesVentas = () => {
        
           </Card.Body>
         </Card>
-      </div>
+        </div>
+
+        <Card style={{ width: '75rem', marginLeft: '5%',order:3,textAlign:'center' }}>
+          <Card.Title>Ventas Mensuales 2024</Card.Title>
+          <Card.Body style={{ color: 'white',backgroundColor:'white', borderRadius:'3px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', width:'100%'}}>
+              <MonthlySalesChart />
+            </div>
+          </Card.Body>
+        </Card>
+
+
+
+
+      
 
       <Footer />
     </div>
