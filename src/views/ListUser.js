@@ -84,9 +84,9 @@ const UserInfo = () => {
   
       const userRoles = editUser.roles || [];
       const roleMappings = {
-        'Admin': '652b4bac458db698d7db1481',
-        'Moderador': '652b4bac458db698d7db1480',
-        'Usuario': '652b4bac458db698d7db147f',
+        'Admin': '65a594f86a8fe64161553130',
+        'Moderador': '65a594f86a8fe6416155312f',
+        'Usuario': '65a594f86a8fe6416155312e',
       };
   
       const filteredRoles = userRoles.filter(role => roleMappings[role] !== undefined);
@@ -108,7 +108,7 @@ const UserInfo = () => {
         },
         body: JSON.stringify(updatedUserData),
       };
-  
+      console.log('Enviando datos al servidor:', updatedUserData);
       const response = await fetch(url, requestOptions);
   
       if (response.ok) {

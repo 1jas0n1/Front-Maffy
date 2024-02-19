@@ -425,8 +425,9 @@ const VentasView = () => {
     return estilo ? estilo.estilo : 'Desconocido ';
   };
 
-  const filteredData = stockData.filter(
-    item =>
+  const filteredData = stockData
+  .filter(
+    (item) =>
       item._id.toLowerCase().includes(filterText.toLowerCase()) ||
       getNombreArticulo(item.Id_articulo).toLowerCase().includes(filterText.toLowerCase()) ||
       getNombreBodega(item.Id_bodega).toLowerCase().includes(filterText.toLowerCase()) ||
@@ -435,8 +436,10 @@ const VentasView = () => {
       estadoFormatter(item).toLowerCase().includes(filterText.toLowerCase()) ||
       danosFormatter(item).toLowerCase().includes(filterText.toLowerCase()) ||
       item.Descripcion.toLowerCase().includes(filterText.toLowerCase())
-  );
+  )
+  .filter((item) => item.Existencias > 0);
 
+  
   const getMarcaNombreById = (id) => {
     const marca = marcas.find((marca) => marca._id === id);
     return marca ? marca.marca : '';

@@ -4,8 +4,7 @@ import Footer from '../component/footer/footer';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
-import { FaSearch } from 'react-icons/fa';
-import { FaEye } from 'react-icons/fa';
+
 import MonthlySalesChart from '../component/barMeses';
 import BarChartComponent from '../component/barCharts';
 

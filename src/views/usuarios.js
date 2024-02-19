@@ -56,7 +56,7 @@ const UsuariosView = () => {
       if (response.ok) {
         // La solicitud fue exitosa
         toast.success('Usuario registrado exitosamente', {
-          position: toast.POSITION.TOP_CENTER, // Ajusta la posición del toast al centro superior
+           // Ajusta la posición del toast al centro superior
           style: {
             colorScheme:'white',
             background: '#007394',
@@ -68,11 +68,11 @@ const UsuariosView = () => {
       } else {
         // La solicitud no fue exitosa
         toast.error('Error al registrar usuario', {
-          position: toast.POSITION.TOP_CENTER, // Ajusta la posición del toast al centro superior
+           // Ajusta la posición del toast al centro superior
           style: {
             colorScheme:'white',
             background: '#007394',
-            color: 'white', // Puedes ajustar el color del texto si lo necesitas
+            color: 'white', // Puedes ajustar l color del texto si lo necesitas
             margin: 'auto', // Esto centra el toast horizontalmente
           },
         });
@@ -81,11 +81,10 @@ const UsuariosView = () => {
       }
     } catch (error) {
       toast.error('Error en la solicitud. Por favor, inténtelo de nuevo.',{
-        position: toast.POSITION.TOP_CENTER, // Ajusta la posición del toast al centro superior
+         // Ajusta la posición del toast al centro superior
         style: {
           colorScheme:'white',
-          background: '#007394',
-          color: 'white', // Puedes ajustar el color del texto si lo necesitas
+          background: '#007394',          color: 'white', // Puedes ajustar el color del texto si lo necesitas
           margin: 'auto', // Esto centra el toast horizontalmente
         },
       });
@@ -97,8 +96,7 @@ const UsuariosView = () => {
   return (
     <Styles.AppContainer style={{ height: '700px', backgroundImage:'linear-gradient(to right top, #80285a, #742a62, #652d69, #54306e, #3f3371, #323d7a, #204781, #005086, #006290, #007393, #008391, #04928b)',color:'white' }}>
       <Navbar />
-      <h1>Crear Usuario</h1>
-      <Form
+      <h1>Crear Usuario</h1>      <Form
         style={{
           textAlign: 'center',
           width: '60%',
