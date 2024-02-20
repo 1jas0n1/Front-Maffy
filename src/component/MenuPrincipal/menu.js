@@ -8,6 +8,8 @@ import { MdOutlineSettings } from "react-icons/md";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsBoxes } from "react-icons/bs";
 import './menu.css';
+import { IoStatsChartSharp } from "react-icons/io5";
+import { FaChartBar } from "react-icons/fa";
 import MyNavbar from '../Navbar';
 import Footer from '../footer/footer';
 const Menu = () => {
@@ -137,8 +139,26 @@ const Menu = () => {
           </div>
         </div>
         <SocialBar />
+        <div className="col-md-3">
+          <div className="card custom-card text-center ">
+            <div className="card-icon"> <IoStatsChartSharp  style={{fontSize:60,margin:0}}/>
+          </div>
+            <div className="card-title">Reportes</div>
+            <div className="card-description"></div>
+            <NavLink to="/reportes" className="card-link btn btn-primary custom-btn">
+              Ir a Reportes  <FontAwesomeIcon icon={faArrowRight} />
+            </NavLink>
+          </div>
+        </div>
       </div>
+
+
+     
     </div>
+
+
+
+   
     <Footer></Footer>
     </div>
   );
