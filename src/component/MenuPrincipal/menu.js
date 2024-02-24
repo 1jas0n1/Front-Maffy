@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsBoxes } from "react-icons/bs";
 import './menu.css';
 import { IoStatsChartSharp } from "react-icons/io5";
-import { FaChartBar } from "react-icons/fa";
+
 import MyNavbar from '../Navbar';
 import Footer from '../footer/footer';
 const Menu = () => {

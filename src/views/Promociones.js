@@ -270,12 +270,7 @@ const PromocionesView = () => {
       sortable: true,
       center: true,
     },
-    {
-      name: 'Cantidad',
-      selector: (row) => row.cantidad_Articulos,
-      sortable: true,
-      center: true,
-    },
+
     {
       name: 'Acciones',
       cell: (row) => (
@@ -371,20 +366,7 @@ const PromocionesView = () => {
                 <option>Inactivo</option>
               </Form.Control>
             </Form.Group>
-            <Form.Group controlId="formCantidadArticulos">
-              <Form.Label>Cantidad de Artículos</Form.Label>
-              <Form.Control
-                type="number"
-                placeholder="Ingrese la cantidad de artículos"
-                value={newPromocion.cantidad_Articulos}
-                onChange={(e) =>
-                  setNewPromocion({
-                    ...newPromocion,
-                    cantidad_Articulos: e.target.value,
-                  })
-                }
-              />
-            </Form.Group>
+         
           </Form>
         </Modal.Body>
         <Styles.ModalFooter>
@@ -495,20 +477,7 @@ const PromocionesView = () => {
               </Form.Control>
             </Form.Group>
 
-           <Form.Group controlId="formCantidadArticulos">
-  <Form.Label>Cantidad de Artículos</Form.Label>
-  <Form.Control
-    type="number"
-    placeholder="Ingrese la cantidad de artículos"
-    value={newPromocion.cantidad_Articulos}
-    onChange={(e) => {
-      const inputValue = e.target.value;
-      if (isNumeric(inputValue) || inputValue === '') {
-        setNewPromocion({ ...newPromocion, cantidad_Articulos: inputValue });
-      }
-    }}
-  />
-</Form.Group>
+
 
           </Form>
         </Modal.Body>

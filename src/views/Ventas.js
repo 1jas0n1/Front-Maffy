@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { MdDeleteForever } from "react-icons/md";
 import MyNavbar from '../component/Navbar';
 import Cookies from 'js-cookie';
-
+import Conversion from '../component/conversion/convetion';
 
 const VentasView = () => {
   const [filterText, setFilterText] = useState('');
@@ -291,12 +291,6 @@ const VentasView = () => {
 
   };
 
-
-
-
-
-
-
   useEffect(() => {
     const fetchColores = async () => {
       const response = await axios.get('https://api-mafy-store.onrender.com/api/colores');
@@ -549,6 +543,7 @@ const VentasView = () => {
   return (
 
     <Container fluid style={estilos.containerStyle}>
+      <Conversion></Conversion>
 
       <MyNavbar style={{ height: '100%', width: '100%' }}> </MyNavbar>
       <h2 className=" mt-4 center-text" style={estilos.titulo}>

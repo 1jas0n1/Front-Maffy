@@ -9,6 +9,7 @@ import MyNavbar from '../component/Navbar';
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import Cookies from 'js-cookie';
+import Conversion from '../component/conversion/convetion';
 
   const IngresosView = () => {
   const [articulos, setArticulos] = useState([]);
@@ -467,6 +468,7 @@ toast.success('Venta realizada Exitosamente');
 
     <Container fluid style={estilos.containerStyle}>
       <MyNavbar/>
+      <Conversion></Conversion>
       <Form style={{ width: '95%', backgroundColor: 'white', marginTop: '10px', marginLeft: 'auto', marginRight: 'auto', borderRadius: '5px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <Form.Group controlId="formFechaVenta" style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: '35px' }}>
           <Form.Label style={{ marginBottom: '5px' }}>Fecha de Venta</Form.Label>
