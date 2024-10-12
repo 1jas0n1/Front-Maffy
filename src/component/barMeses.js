@@ -10,7 +10,7 @@ const MonthlySalesChart = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/ventas/Mes');
+        const response = await axios.get('https://apimafy.zeabur.app/api/ventas/Mes');
         if (!response.data) {
           throw new Error('No data available');
         }

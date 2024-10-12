@@ -25,14 +25,14 @@ const ReportesVentas = () => {
     const fetchData = async () => {
       try {
         // Fetch data for the first chart
-        const response = await fetch("https://api-mafy-store.onrender.com/api/detalleventa/total-Cat/2024");
+        const response = await fetch("https://apimafy.zeabur.app/api/detalleventa/total-Cat/2024");
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
         }
         const data = await response.json();
         setChartData(data);
   
-        const categoriesResponse = await fetch("https://api-mafy-store.onrender.com/api/categorias");
+        const categoriesResponse = await fetch("https://apimafy.zeabur.app/api/categorias");
         if (!categoriesResponse.ok) {
           throw new Error(`Error ${categoriesResponse.status}: ${categoriesResponse.statusText}`);
         }
@@ -44,12 +44,12 @@ const ReportesVentas = () => {
         setCategories(categoriesMap);
   
         // Set totalVentas for the first card
-        const totalVentasResponse = await axios.get(`https://api-mafy-store.onrender.com/api/ventas/total/2024`);
+        const totalVentasResponse = await axios.get(`https://apimafy.zeabur.app/api/ventas/total/2024`);
         const { totalVentas } = totalVentasResponse.data;
         setTotalVentas(totalVentas);
   
         // Fetch data for the second chart
-        const totalVentasCategoriesResponse = await axios.get(`https://api-mafy-store.onrender.com/api/detalleventa/total-Cat/2022`);
+        const totalVentasCategoriesResponse = await axios.get(`https://apimafy.zeabur.app/api/detalleventa/total-Cat/2022`);
         const { data: totalVentasCategoriesData } = totalVentasCategoriesResponse;
         setTotalVentasCategories(totalVentasCategoriesData);
         const chartData = {
@@ -104,7 +104,7 @@ const ReportesVentas = () => {
 
   const handleGetTotal = async () => {
     try {
-      const response = await axios.get(`https://api-mafy-store.onrender.com/api/ventas/total/${selectedYear}`);
+      const response = await axios.get(`https://apimafy.zeabur.app/api/ventas/total/${selectedYear}`);
       const { totalVentas } = response.data;
       setTotalVentas(totalVentas);
     } catch (error) {
@@ -114,7 +114,7 @@ const ReportesVentas = () => {
 
   const handleSearchCategories = async () => {
     try {
-      const response = await axios.get(`https://api-mafy-store.onrender.com/api/detalleventa/total-Cat/${selectedYearCategories}`);
+      const response = await axios.get(`https://apimafy.zeabur.app/api/detalleventa/total-Cat/${selectedYearCategories}`);
       const { data } = response;
       setTotalVentasCategories(data);
       const chartData = {

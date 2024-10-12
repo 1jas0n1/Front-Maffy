@@ -28,7 +28,7 @@ const LoginView = () => {
     }
   
     try {
-      const response = await fetch('https://api-mafy-store.onrender.com/api/auth/signin', {
+      const response = await fetch('https://apimafy.zeabur.app/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

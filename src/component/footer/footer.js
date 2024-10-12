@@ -7,20 +7,20 @@ const Footer = () => {
   return (
     <footer className="footer-distributed">
       <div className="footer-left">
-        <h3>Mafy<span style={{ fontStyle: 'italic' }}>Store</span></h3>
+        <h3>Tammys<span style={{ fontStyle: 'italic' }}> Closet</span></h3>
         <p className="footer-links">
           <NavLink to="/">Home</NavLink> |
           <NavLink to="/about">About</NavLink> |
           <NavLink to="/contact">Contact</NavLink> |
           <NavLink to="/blog">Blog</NavLink>
         </p>
-        <p className="footer-company-name">Copyright © 2023 <strong>Mafy Store</strong> All rights reserved</p>
+        <p className="footer-company-name">Copyright © 2024 <strong>Tammy´s Closet</strong> All rights reserved</p>
       </div>
 
       <div className="footer-center">
         <div className='icon-central'>
           <FaMapMarker />
-          <p><span>San Marcos</span> Carazo</p>
+          <span style={{ marginLeft: '3px' }}>San Marcos</span>
         </div>
         <div className='icon-central'>
           <FaPhone />
@@ -35,10 +35,10 @@ const Footer = () => {
       <div className="footer-right">
         <p className="footer-company-about">
           <span>Acerca de Nosotros </span>
-          <strong>Mafy Store</strong> es una tienda de Ropa ubicada en la ciudad de San Marcos Carazo
+          <strong>Mafy Store</strong> es una tienda de Ropa ubicada en la ciudad de San Marcos
         </p>
         <div className="footer-icons">
-          {/* Botones con espacio entre ellos */}
+       
           <button className="icon-button">
             <FaTwitter />
           </button>

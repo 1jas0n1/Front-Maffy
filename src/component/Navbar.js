@@ -55,7 +55,7 @@ const MyNavbar = () => {
 
   const fetchRoles = async () => {
     try {
-      const response = await axios.get(`https://api-mafy-store.onrender.com/api/user/roles/${IdUser}`, {
+      const response = await axios.get(`https://apimafy.zeabur.app/user/roles/${IdUser}`, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -85,7 +85,7 @@ const MyNavbar = () => {
   const handleLogout = async () => {
     try {
     localStorage.removeItem('token');
-        const response = await fetch('https://api-mafy-store.onrender.com/api/auth/logout', {
+        const response = await fetch('https://apimafy.zeabur.app/api/auth/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

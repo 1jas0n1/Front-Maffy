@@ -54,7 +54,7 @@ const ArticulosView = () => {
 
   const showArticulos = async () => {
     try {
-      const articulosResponse = await fetch('https://api-mafy-store.onrender.com/api/articulos');
+      const articulosResponse = await fetch('https://apimafy.zeabur.app/api/articulos');
       const articulosData = await articulosResponse.json();
       const articulosWithCategoria = articulosData.map((articulo) => ({
         ...articulo,
@@ -73,7 +73,7 @@ const ArticulosView = () => {
 
 const handleDeleteConfirmed = async () => {
   try {
-    const deleteUrl = `https://api-mafy-store.onrender.com/api/articulos/${deleteItemId}`;
+    const deleteUrl = `https://apimafy.zeabur.app/api/articulos/${deleteItemId}`;
     const token = Cookies.get('token'); // Get the token from cookies
 
     const response = await fetch(deleteUrl, {
@@ -148,7 +148,7 @@ const handleDeleteConfirmed = async () => {
   
       console.log('miCookie:', miCookie);
   
-      const createUrl = 'https://api-mafy-store.onrender.com/api/articulos';
+      const createUrl = 'https://apimafy.zeabur.app/api/articulos';
       const response = await fetch(createUrl, {
         method: 'POST',
         headers: {
@@ -186,7 +186,7 @@ const handleDeleteConfirmed = async () => {
 
 const handleUpdateSubmit = async () => {
   try {
-    const updateUrl = `https://api-mafy-store.onrender.com/api/articulos/${selectedArticulo._id}`;
+    const updateUrl = `https://apimafy.zeabur.app/api/articulos/${selectedArticulo._id}`;
     const token = Cookies.get('token'); // Get the token from cookies
 
     const response = await fetch(updateUrl, {

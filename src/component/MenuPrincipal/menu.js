@@ -1,7 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SocialBar from '../socialbar/social-bar';
 import { faSackDollar, faBoxesPacking, faArrowRight,faCalendarCheck,faAddressCard } from '@fortawesome/free-solid-svg-icons';
 import { ButtonGroup, Dropdown } from 'react-bootstrap';
 import { MdOutlineSettings } from "react-icons/md";
@@ -138,7 +137,7 @@ const Menu = () => {
     </ButtonGroup>
           </div>
         </div>
-        <SocialBar />
+     
         <div className="col-md-3">
           <div className="card custom-card text-center ">
             <div className="card-icon"> <IoStatsChartSharp  style={{fontSize:60,margin:0}}/>

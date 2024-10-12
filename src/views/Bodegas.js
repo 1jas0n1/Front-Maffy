@@ -36,7 +36,7 @@ const BodegasView = () => {
     setUpdatingBodega(null);
   };
 
-  const url = "https://api-mafy-store.onrender.com/api/bodegas";
+  const url = "https://apimafy.zeabur.app/api/bodegas";
 
   const showData = async () => {
     try {
@@ -62,7 +62,7 @@ const BodegasView = () => {
     if (deletingBodegaId) {
       try {
         const token = Cookies.get('token');
-        const response = await fetch(`https://api-mafy-store.onrender.com/api/bodegas/${deletingBodegaId}`, {
+        const response = await fetch(`https://apimafy.zeabur.app/api/bodegas/${deletingBodegaId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -152,23 +152,22 @@ const BodegasView = () => {
         const nuevaBodegaCreada = await response.json();
         setBodegas((prevBodegas) => [...prevBodegas, nuevaBodegaCreada]);
         toast.success('Bodega creada exitosamente');
-        console.log('Bodega creada exitosamente.');
+
       } else if (response.status === 401) {
-        console.error('Error de autenticación al crear la bodega.');
+
         toast.error('Error de autenticación al intentar actualizar la bodega');
       } else if (response.status === 403) {
-        console.error('Permisos insuficientes para crear la bodega.');
+
         toast.error('Permisos insuficientes para borrar la bodega');
       } else if (response.status === 400) {
-        console.error('No se puede crear la bodega porque ya existe.');
+
         toast.error('No se puede crear la bodega porque ya existe.');
       } else {
-        // Handle other errors if needed
-        console.error('Error en la solicitud POST:', response.statusText);
+
         toast.error('Se produjo un error en la solicitud de creación de la bodega.');
       }
     } catch (error) {
-      console.error('Error en la solicitud POST:', error);
+
       toast.error('Se produjo un error en la solicitud de creación de la bodega.');
     }
   
@@ -184,7 +183,7 @@ const BodegasView = () => {
   
     try {
       const token = Cookies.get('token');
-      const response = await fetch(`https://api-mafy-store.onrender.com/api/bodegas/${updatingBodega._id}`, {
+      const response = await fetch(`https://apimafy.zeabur.app/api/bodegas/${updatingBodega._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -203,11 +202,11 @@ const BodegasView = () => {
         toast.success('Bodega editada exitosamente');
         console.log(`Bodega con ID ${updatingBodega._id} actualizada exitosamente.`);
       } else if (response.status === 401) {
-        // Unauthorized error (401)
+       
         console.error('Error de autenticación al actualizar la bodega.');
         toast.error('Error de autenticación al intentar actualizar la bodega');
       } else if (response.status === 403) {
-        // Forbidden error (403)
+     
         console.error('Permisos insuficientes para actualizar la bodega.');
         toast.error('Permisos insuficientes para actualizar la bodega');
       } else {
@@ -304,13 +303,11 @@ const BodegasView = () => {
   </Form.Control>
 </Form.Group>
 
-
-
-
             <Form.Group controlId="formDescripcion">
               <Form.Label>Descripción</Form.Label>
               <Form.Control type="text" placeholder="Ingrese la descripción" />
             </Form.Group>
+
           </Form>
         </Modal.Body>
         <Styles.ModalFooter>
