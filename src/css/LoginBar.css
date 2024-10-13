@@ -1,0 +1,44 @@
+/* Loading bar styles */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .loading-bar {
+    width: 50%;
+    height: 20px;
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  
+  .loading-progress {
+    height: 100%;
+    width: 0%;
+    background-color: #28a745;
+    animation: load 3s infinite;
+    border-radius: 10px;
+  }
+  
+  @keyframes load {
+    0% {
+      width: 0%;
+    }
+    50% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
+  }
+  
+  .loading-text {
+    font-size: 18px;
+    color: #333;
+  }
+  

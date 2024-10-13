@@ -21,7 +21,6 @@ const VentasView = () => {
 
   const estadoFormatter = row => (row.Estado ? 'Activo' : 'Descontinuados');
   const danosFormatter = row => (row.Daños ? 'Sí' : 'No');
-
   const bodegaFormatter = row => (row.Id_bodega ? row.Id_bodega : 'S/B');
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
@@ -63,7 +62,6 @@ const VentasView = () => {
   };
 
 
-  // Inside the component, after setting the selected items state
   useEffect(() => {
     calculateTotalsAndDiscounts();
   }, [selectedItems]);
@@ -72,15 +70,13 @@ const VentasView = () => {
   const [editingItem, setEditingItem] = useState(null);
   const [newQuantity, setNewQuantity] = useState(0);
   const handleShowModal = () => {
-    setShowModal(true);
+  setShowModal(true);
   };
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
   const [stockData, setStockData] = useState([]);
-
-
 
   useEffect(() => {
     const fetchData = async () => {

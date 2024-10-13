@@ -61,7 +61,6 @@ const MyNavbar = () => {
         },
       });
 
-      // Ordena los roles según tu preferencia (Usuario, Vendedor, Administrador)
       const sortedRoles = response.data.roles.sort((a, b) => {
         const order = { user: 1, moderator: 2, admin: 3 };
         return order[a.name] - order[b.name];
@@ -107,7 +106,7 @@ const MyNavbar = () => {
 
   return (
     <Navbar style={{ marginLeft: '0 auto', padding: '5px' }} bg="dark" expand="lg" variant="dark">
-      <Navbar.Brand style={{ marginLeft: '10px', fontSize: '30px', fontFamily: 'MV Boli' }} > Mafy<span style={{ color: '#e0ac1c', fontFamily: 'MV Boli' }}>Store</span></Navbar.Brand>
+      <Navbar.Brand style={{ marginLeft: '10px', fontSize: '30px', fontFamily: 'MV Boli' }} >Tammy<span style={{ color: '#E61B79', fontFamily: 'MV Boli' }}>Closet</span></Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle}>
         {mobile ? <ImCross /> : <FaBars />}
       </Navbar.Toggle>

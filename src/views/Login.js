@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/estilos-login.css';
-import logo from './logo.jpg';
+import logo from './Tammy.png';
 import Cookies from 'js-cookie';
 
 const LoginView = () => {
@@ -68,7 +68,8 @@ const LoginView = () => {
   return (
     <div className="cont">
       <div className="cont_form">
-        <img src={logo} alt="Logo" />
+      <img src={logo} alt="Logo" className="img-fluid" />
+
         <form id="frm" onSubmit={handleSubmit}>
           <input type="text" name="email" placeholder="Email" onChange={handleChange} />
           <input type="password" name="password" placeholder="Contraseña" onChange={handleChange} />
