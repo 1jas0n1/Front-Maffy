@@ -37,7 +37,7 @@ const Detalle_IngresosView = () => {
   };
   const showData = async () => {
     try {
-      const response = await fetch('https://api-mafy-store.onrender.com/api/detalleingreso');
+      const response = await fetch('https://apimafy.zeabur.app/detalleingreso');
       const data = await response.json();
       setDetalleIngresos(data);
     } catch (error) {
@@ -50,7 +50,7 @@ const Detalle_IngresosView = () => {
   }, []);
   const obtenerNombresArticulos = async () => {
     try {
-      const response = await fetch('https://api-mafy-store.onrender.com/api/articulos');
+      const response = await fetch('https://apimafy.zeabur.app/articulos');
       const data = await response.json();
       const nombres = {};
 
@@ -66,7 +66,7 @@ const Detalle_IngresosView = () => {
 
   const obtenerNombresTallas = async () => {
     try {
-      const response = await fetch('https://api-mafy-store.onrender.com/api/tallas');
+      const response = await fetch('https://apimafy.zeabur.app/tallas');
       const data = await response.json();
       const nombres = {};
 
@@ -81,7 +81,7 @@ const Detalle_IngresosView = () => {
   };
   const obtenerNombresColores = async () => {
     try {
-      const response = await fetch('https://api-mafy-store.onrender.com/api/colores');
+      const response = await fetch('https://apimafy.zeabur.app/colores');
       const data = await response.json();
       const nombres = {};
 
@@ -97,7 +97,7 @@ const Detalle_IngresosView = () => {
 
   const obtenerNombresMarcas = async () => {
     try {
-      const response = await fetch('https://api-mafy-store.onrender.com/api/marcas');
+      const response = await fetch('https://apimafy.zeabur.app/marcas');
       const data = await response.json();
       const nombres = {};
 
@@ -113,7 +113,7 @@ const Detalle_IngresosView = () => {
 
   const obtenerNombresMateriales = async () => {
     try {
-      const response = await fetch('https://api-mafy-store.onrender.com/api/materiales');
+      const response = await fetch('https://apimafy.zeabur.app/materiales');
       const data = await response.json();
       const nombres = {};
 
@@ -128,7 +128,7 @@ const Detalle_IngresosView = () => {
   };
    const obtenerNombresEstilos = async () => {
     try {
-      const response = await fetch('https://api-mafy-store.onrender.com/api/estilos');
+      const response = await fetch('https://apimafy.zeabur.app/estilos');
       const data = await response.json();
       const nombres = {};
 
@@ -145,7 +145,7 @@ const Detalle_IngresosView = () => {
 
    const obtenerNombresDisenos = async () => {
     try {
-      const response = await fetch('https://api-mafy-store.onrender.com/api/disenos');
+      const response = await fetch('https://apimafy.zeabur.app/disenos');
       const data = await response.json();
       const nombres = {};
 

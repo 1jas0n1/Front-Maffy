@@ -44,7 +44,7 @@ const TallasView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://api-mafy-store.onrender.com/api/tallas';
+  const url = 'https://apimafy.zeabur.app/api/tallas';
 
   const showData = async () => {
     try {

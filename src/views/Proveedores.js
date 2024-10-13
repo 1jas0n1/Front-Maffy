@@ -46,7 +46,7 @@ const ProveedoresView = () => {
 
   const handleShow = () => setShowCreateModal(true);
 
-  const url = 'https://api-mafy-store.onrender.com/api/proveedores';
+  const url = 'https://apimafy.zeabur.app/api/proveedores';
 
   const showData = async () => {
     try {

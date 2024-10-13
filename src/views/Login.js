@@ -21,7 +21,6 @@ const LoginView = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    // Validar si los campos están vacíos
     if (!formData.email || !formData.password) {
       toast.error('Complete el formulario');
       return;
@@ -38,11 +37,9 @@ const LoginView = () => {
   
       if (response.ok) {
         const data = await response.json();
-  
-        // Guardar el token, el email y el _id en cookies con una duración de 1 día (ajustable)
         Cookies.set('token', data.token, { expires: 1 });
         Cookies.set('email', formData.email, { expires: 1 });
-        Cookies.set('_id', data._id, { expires: 1 }); // Guardar el _id en la cookie
+        Cookies.set('_id', data._id, { expires: 1 }); 
   
      
   

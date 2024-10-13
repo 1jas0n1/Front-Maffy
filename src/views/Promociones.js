@@ -54,7 +54,7 @@ const PromocionesView = () => {
   };
   const handleShow = () => setShowCreateModal(true);
 
-  const url = 'https://api-mafy-store.onrender.com/api/promociones';
+  const url = 'https://apimafy.zeabur.app/api/promociones';
 
   const showData = async () => {
     try {
@@ -66,7 +66,6 @@ const PromocionesView = () => {
     }
   };
 
- 
 
   const handleDelete = (promocionId) => {
     const selected = promociones.find((promocion) => promocion._id === promocionId);
@@ -74,7 +73,6 @@ const PromocionesView = () => {
     setShowDeleteConfirmationModal(true);
   };
 
-  
 
   const handleCloseDeleteConfirmationModal = () => {
     setShowDeleteConfirmationModal(false);
@@ -379,8 +377,6 @@ const PromocionesView = () => {
         </Styles.ModalFooter>
       </Styles.StyledModal>
 
-   
-
       <Styles.StyledModal show={showUpdateModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Actualizar Promoción</Modal.Title>
@@ -443,7 +439,6 @@ const PromocionesView = () => {
   />
 </Form.Group>
 
-
             <Form.Group controlId="formDescripcion">
               <Form.Label>Descripción</Form.Label>
               <Form.Control
@@ -476,8 +471,6 @@ const PromocionesView = () => {
                 <option>Inactivo</option>
               </Form.Control>
             </Form.Group>
-
-
 
           </Form>
         </Modal.Body>
@@ -515,5 +508,3 @@ const PromocionesView = () => {
 };
 
 export default PromocionesView;
-
-

@@ -47,7 +47,7 @@ const ColoresView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://api-mafy-store.onrender.com/api/colores';
+  const url = 'https://apimafy.zeabur.app/api/colores';
 
   const showData = async () => {
     try {
@@ -96,7 +96,7 @@ const ColoresView = () => {
 
   const handleDeleteConfirm = async () => {
     try {
-      const deleteUrl = `https://api-mafy-store.onrender.com/api/colores/${deleteColorId}`;
+      const deleteUrl = `https://apimafy.zeabur.app/api/colores/${deleteColorId}`;
       const response = await fetch(deleteUrl, {
         method: 'DELETE',
         headers: {
@@ -133,7 +133,7 @@ const ColoresView = () => {
 
   const handleUpdateSubmit = async () => {
     try {
-      const updateUrl = `https://api-mafy-store.onrender.com/colores/${selectedColor._id}`;
+      const updateUrl = `https://apimafy.zeabur.app/colores/${selectedColor._id}`;
       const token = Cookies.get('token');
   
       const response = await fetch(updateUrl, {
@@ -173,7 +173,7 @@ const ColoresView = () => {
 
   const handleCreate = async () => {
     try {
-      const createUrl = 'https://api-mafy-store.onrender.com/api/colores';
+      const createUrl = 'https://apimafy.zeabur.app/api/colores';
       const response = await fetch(createUrl, {
         method: 'POST',
         headers: {

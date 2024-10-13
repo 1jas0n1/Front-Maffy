@@ -10,7 +10,7 @@ import Cookies from 'js-cookie';
 
 const MarcasView = () => {
     const [cookieData, setCookieData] = useState({
-    miCookie: Cookies.get('miCookie') || null, // Puedes ajustar el nombre de la cookie
+    miCookie: Cookies.get('miCookie') || null,
   });
   
   const [marcas, setMarcas] = useState([]);
@@ -45,7 +45,7 @@ const MarcasView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://api-mafy-store.onrender.com/api/marcas';
+  const url = 'https://apimafy.zeabur.app/api/marcas';
 
   const showData = async () => {
     try {
@@ -89,20 +89,16 @@ const MarcasView = () => {
   const handleCommonErrors = (statusCode) => {
     switch (statusCode) {
       case 401:
-        console.error('Error 401: No autorizado para realizar esta acción.');
         toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.', { position: toast.POSITION.TOP_CENTER });
-        // Add logic here to redirect the user to the login page if needed
         break;
       case 400:
-        console.error('Error 400: Solicitud incorrecta.');
+
         toast.error('Solicitud incorrecta', { position: toast.POSITION.TOP_CENTER });
         break;
       case 403:
-        console.error('Error 403: Permisos insuficientes para la acción.');
         toast.error('Permisos insuficientes para la acción', { position: toast.POSITION.TOP_CENTER });
         break;
       default:
-        console.error(`Error desconocido con código ${statusCode}`);
         toast.error('Error desconocido', { position: toast.POSITION.TOP_CENTER });
     }
   };
@@ -121,7 +117,7 @@ const MarcasView = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-access-token': token, // Include the token in the header
+          'x-access-token': token, 
         },
         body: JSON.stringify(newMarcaToSend),
       });
@@ -131,7 +127,7 @@ const MarcasView = () => {
         console.log('Marca creada exitosamente.');
         showData();
       } else {
-        handleCommonErrors(response.status); // Agregar notificación de error común
+        handleCommonErrors(response.status); 
         console.error('Error al intentar crear la marca.');
       }
     } catch (error) {
@@ -148,7 +144,7 @@ const MarcasView = () => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'x-access-token': token, // Include the token in the header
+          'x-access-token': token, 
         },
       });
   
@@ -157,7 +153,7 @@ const MarcasView = () => {
         console.log(`Marca con ID ${marcaId} eliminada correctamente`);
         showData(); 
       } else {
-        handleCommonErrors(response.status); // Agregar notificación de error común
+        handleCommonErrors(response.status); 
         console.error(`Error al eliminar la marca con ID ${marcaId}`);
       }
     } catch (error) {
@@ -178,7 +174,7 @@ const MarcasView = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'x-access-token': token, // Include the token in the header
+          'x-access-token': token, 
         },
         body: JSON.stringify(selectedMarcaToSend),
       });
@@ -188,7 +184,7 @@ const MarcasView = () => {
         console.log('Marca actualizada exitosamente.');
         showData();
       } else {
-        handleCommonErrors(response.status); // Agregar notificación de error común
+        handleCommonErrors(response.status); 
         console.error('Error al intentar actualizar la marca.');
       }
     } catch (error) {

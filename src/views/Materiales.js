@@ -11,7 +11,7 @@ import Cookies from 'js-cookie';
 
 const MaterialesView = () => {
   const [cookieData, setCookieData] = useState({
-    miCookie: Cookies.get('miCookie') || null, // Puedes ajustar el nombre de la cookie
+    miCookie: Cookies.get('miCookie') || null, 
   });
   const [materiales, setMateriales] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -47,7 +47,7 @@ const MaterialesView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://api-mafy-store.onrender.com/api/materiales';
+  const url = 'https://apimafy.zeabur.app/api/materiales';
 
   const showData = async () => {
     try {
@@ -64,9 +64,6 @@ const MaterialesView = () => {
     setMaterialToDelete(selected);
     setShowDeleteConfirmationModal(true);
   };
-
- 
-
 
   const handleClear = () => {
     if (filterText) {
@@ -96,20 +93,15 @@ const MaterialesView = () => {
   const handleCommonErrors = (statusCode) => {
     switch (statusCode) {
       case 401:
-        console.error('Error 401: No autorizado para realizar esta acción.');
         toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.');
-        // Agregar lógica aquí para redirigir al usuario a la página de inicio de sesión si es necesario
         break;
       case 400:
-        console.error('Error 400: Solicitud incorrecta.');
         toast.error('Solicitud incorrecta');
         break;
       case 403:
-        console.error('Error 403: Permisos insuficientes para la acción.');
         toast.error('Permisos insuficientes para la acción');
         break;
       default:
-        console.error(`Error desconocido con código ${statusCode}`);
         toast.error('Error desconocido');
     }
   };
@@ -130,7 +122,7 @@ const MaterialesView = () => {
         toast.success('Material creado exitosamente');
         showData();
       } else {
-        handleCommonErrors(response.status); // Agregar notificación de error común
+        handleCommonErrors(response.status); 
         console.error('Error al intentar crear el material.');
       }
     } catch (error) {
@@ -156,7 +148,7 @@ const MaterialesView = () => {
         console.log(`Material con ID ${materialId} eliminado correctamente`);
         showData();
       } else {
-        handleCommonErrors(response.status); // Agregar notificación de error común
+        handleCommonErrors(response.status); 
         console.error(`Error al intentar eliminar el material con ID ${materialId}`);
       }
     } catch (error) {
@@ -183,7 +175,7 @@ const MaterialesView = () => {
         console.log('Material actualizado exitosamente.');
         showData();
       } else {
-        handleCommonErrors(response.status); // Agregar notificación de error común
+        handleCommonErrors(response.status); 
         console.error('Error al intentar actualizar el material.');
       }
     } catch (error) {
@@ -366,8 +358,6 @@ const MaterialesView = () => {
         
         </Styles.ModalFooter>
 
-
-        
       </Styles.StyledModal>
 
       <Modal show={showDeleteConfirmationModal} onHide={() => setShowDeleteConfirmationModal(false)}>

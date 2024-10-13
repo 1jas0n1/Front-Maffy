@@ -11,7 +11,7 @@ import Cookies from 'js-cookie';
 
 const ArticulosView = () => {
   const [cookieData, setCookieData] = useState({
-    miCookie: Cookies.get('miCookie') || null, // Puedes ajustar el nombre de la cookie
+    miCookie: Cookies.get('miCookie') || null, 
   });
   
   const [articulos, setArticulos] = useState([]);
@@ -74,13 +74,13 @@ const ArticulosView = () => {
 const handleDeleteConfirmed = async () => {
   try {
     const deleteUrl = `https://apimafy.zeabur.app/api/articulos/${deleteItemId}`;
-    const token = Cookies.get('token'); // Get the token from cookies
+    const token = Cookies.get('token'); 
 
     const response = await fetch(deleteUrl, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        'x-access-token': token, // Include the token in the header
+        'x-access-token': token, 
       },
     });
 
@@ -107,9 +107,6 @@ const handleDeleteConfirmed = async () => {
     closeDeleteConfirmationModal();
   }
 };
-
-
-
 
   const closeDeleteConfirmationModal = () => {
     setShowDeleteConfirmation(false);
@@ -142,7 +139,7 @@ const handleDeleteConfirmed = async () => {
   }, [filterText, resetPaginationToggle]);
   const handleCreate = async () => {
     try {
-      // Check if the required cookie is available
+ 
       const miCookie = Cookies.get('miCookie');
       const token = Cookies.get('token');
   
@@ -159,21 +156,21 @@ const handleDeleteConfirmed = async () => {
       });
   
       if (response.status === 401) {
-        // Unauthorized error (401)
+        
         toast.error('Error de autenticación. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
-        // Forbidden error (403)
+      
         toast.error('Acceso no permitido. No tiene los permisos necesarios.');
       } else if (response.status === 400) {
-        // Bad Request error (400)
+       
         toast.error('No se puede crear el artículo porque ya existe.');
       } else if (!response.ok) {
-        // Handle other errors if needed
+      
         toast.error('Se produjo un error en la solicitud de creación.');
       } else {
-        // Handle successful response
+       
         toast.success('Artículo creado con éxito.');
-        showArticulos(); // Update the table data
+        showArticulos(); 
         handleClose();
       }
     } catch (error) {
@@ -199,18 +196,15 @@ const handleUpdateSubmit = async () => {
     });
 
     if (response.status === 401) {
-        // Unauthorized error (401)
+     
         toast.error('Error de autenticación. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
-        // Forbidden error (403)
         toast.error('Acceso no permitido. No tiene los permisos necesarios.');
       } else if (!response.ok) {
-        // Handle other errors if needed
         toast.error('Se produjo un error en la solicitud de Actualizacion.');
       } else {
-        // Handle successful response
         toast.success('Artículo actualizado con éxito.');
-        showArticulos(); // Update the table data
+        showArticulos(); 
         handleClose();
       }
     } catch (error) {

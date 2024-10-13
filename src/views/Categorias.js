@@ -47,7 +47,7 @@ const CategoriasView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://api-mafy-store.onrender.com/api/categorias';
+  const url = 'https://apimafy.zeabur.app/api/categorias';
 
   const showData = async () => {
     try {
@@ -66,7 +66,7 @@ const CategoriasView = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      const deleteUrl = `https://api-mafy-store.onrender.com/api/categorias/${categoryToDelete}`;
+      const deleteUrl = `https://apimafy.zeabur.app/api/categorias/${categoryToDelete}`;
       const token = Cookies.get('token'); // Obtener el token de las cookies
   
       const response = await fetch(deleteUrl, {
@@ -134,7 +134,7 @@ const CategoriasView = () => {
  
   const handleCreate = async () => {
     try {
-      const createUrl = 'https://api-mafy-store.onrender.com/api/categorias';
+      const createUrl = 'https://apimafy.zeabur.app/api/categorias';
       const token = Cookies.get('token');
       const response = await fetch(createUrl, {
         method: 'POST',
@@ -187,7 +187,7 @@ const CategoriasView = () => {
 
   const handleUpdateSubmit = async () => {
     try {
-      const updateUrl = `https://api-mafy-store.onrender.com/api/categorias/${selectedCategoria._id}`;
+      const updateUrl = `https://apimafy.zeabur.app/api/categorias/${selectedCategoria._id}`;
       const token = Cookies.get('token');
       const response = await fetch(updateUrl, {
         method: 'PUT',

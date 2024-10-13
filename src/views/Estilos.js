@@ -53,7 +53,7 @@ const EstilosView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://api-mafy-store.onrender.com/api/estilos';
+  const url = 'https://apimafy.zeabur.app/api/estilos';
 
   const showData = async () => {
     try {
@@ -119,7 +119,7 @@ const EstilosView = () => {
       // Log the JSON being sent
       console.log('Creating new style with JSON:', JSON.stringify(newEstilo));
   
-      const createUrl = 'https://api-mafy-store.onrender.com/api/estilos';
+      const createUrl = 'https://apimafy.zeabur.app/api/estilos';
       const token = Cookies.get('token');
       const response = await fetch(createUrl, {
         method: 'POST',
@@ -180,7 +180,7 @@ const EstilosView = () => {
   
   const handleUpdateSubmit = async () => {
     try {
-      const updateUrl = `https://api-mafy-store.onrender.com/api/estilos/${selectedEstilo._id}`;
+      const updateUrl = `https://apimafy.zeabur.app/api/estilos/${selectedEstilo._id}`;
       const token = Cookies.get('token');
       const response = await fetch(updateUrl, {
         method: 'PUT',

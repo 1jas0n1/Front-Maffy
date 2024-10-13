@@ -6,7 +6,7 @@ import { FaEye } from "react-icons/fa";
 import { MdPrint } from "react-icons/md";
 import { Button, Modal } from 'react-bootstrap';
 import axios from 'axios';
-import { TbRuler3 } from 'react-icons/tb';
+
 const HistorialIngresosView = () => {
   const [data, setData] = useState([]);
   const [selectedRecord, setSelectedRecord] = useState(null);
@@ -25,7 +25,7 @@ const HistorialIngresosView = () => {
 
   const updateFechaIngresoField = async (id_ingreso) => {
     try {
-      const response = await axios.get(`https://api-mafy-store.onrender.com/api/ingresos/${id_ingreso}`);
+      const response = await axios.get(`https://apimafy.zeabur.app/api/ingresos/${id_ingreso}`);
       const fechaDate = new Date(response.data.fecha);
       const formattedFecha = fechaDate.toLocaleDateString('es-ES', {
         day: 'numeric',
@@ -44,7 +44,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchMarcas = async () => {
-      const response = await axios.get('https://api-mafy-store.onrender.com/api/marcas');
+      const response = await axios.get('https://apimafy.zeabur.app/api/marcas');
       setMarcas(response.data);
     };
     fetchMarcas();
@@ -52,7 +52,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchMateriales = async () => {
-      const response = await axios.get('https://api-mafy-store.onrender.com/api/materiales');
+      const response = await axios.get('https://apimafy.zeabur.app/api/materiales');
       setMateriales(response.data);
     };
     fetchMateriales();
@@ -60,7 +60,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchEstilos = async () => {
-      const response = await axios.get('https://api-mafy-store.onrender.com/api/estilos');
+      const response = await axios.get('https://apimafy.zeabur.app/api/estilos');
       setEst(response.data);
     };
     fetchEstilos();
@@ -68,7 +68,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchDisenos = async () => {
-      const response = await axios.get('https://api-mafy-store.onrender.com/api/disenos');
+      const response = await axios.get('https://apimafy.zeabur.app/api/disenos');
       setDisenos(response.data);
     };
     fetchDisenos();
@@ -77,7 +77,7 @@ const HistorialIngresosView = () => {
   useEffect(() => {
     const fetchArticulos = async () => {
       try {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/articulos');
+        const response = await axios.get('https://apimafy.zeabur.app/api/articulos');
         setArticulos(response.data);
       } catch (error) {
         console.error('Error fetching articles:', error);
@@ -88,7 +88,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchCategorias = async () => {
-      const response = await axios.get('https://api-mafy-store.onrender.com/api/categorias');
+      const response = await axios.get('https://apimafy.zeabur.app/api/categorias');
       setCategorias(response.data);
     };
     fetchCategorias();
@@ -98,7 +98,7 @@ const HistorialIngresosView = () => {
 
     const fetchProveedores = async () => {
       try {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/proveedores');
+        const response = await axios.get('https://apimafy.zeabur.app/api/proveedores');
         setProveedores(response.data);
       } catch (error) {
         console.error('Error fetching suppliers:', error);
@@ -110,7 +110,7 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchColores = async () => {
-      const response = await axios.get('https://api-mafy-store.onrender.com/api/colores');
+      const response = await axios.get('https://apimafy.zeabur.app/api/colores');
       setColores(response.data);
     };
     fetchColores();
@@ -118,18 +118,18 @@ const HistorialIngresosView = () => {
 
   useEffect(() => {
     const fetchTallas = async () => {
-      const response = await axios.get('https://api-mafy-store.onrender.com/api/tallas');
+      const response = await axios.get('https://apimafy.zeabur.app/api/tallas');
       setTallas(response.data);
     };
     fetchTallas();
   }, []);
 
   useEffect(() => {
-    fetch('https://api-mafy-store.onrender.com/api/detalleingreso')
+    fetch('https://apimafy.zeabur.app/api/detalleingreso')
       .then(response => response.json())
       .then(async data => {
         const formattedData = await Promise.all(data.map(async item => {
-          const incomeResponse = await axios.get(`https://api-mafy-store.onrender.com/api/ingresos/${item.id_ingreso}`);
+          const incomeResponse = await axios.get(`https://apimafy.zeabur.app/api/ingresos/${item.id_ingreso}`);
           const incomeData = incomeResponse.data;
           updateFechaIngresoField(item.id_ingreso);
           return {
@@ -151,7 +151,7 @@ const HistorialIngresosView = () => {
 
   const handlePrint = (row) => {
     const id = row._id;
-    const printUrl = `https://api-mafy-store.onrender.com/api/detalleingreso/${id}/print`;
+    const printUrl = `https://apimafy.zeabur.app/api/detalleingreso/${id}/print`;
     const newTab = window.open(printUrl, '_blank');
     if (!newTab) {
       console.error('Error opening new tab for printing.');
@@ -226,7 +226,7 @@ const HistorialIngresosView = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/user/all');
+        const response = await axios.get('https://apimafy.zeabur.app/api/user/all');
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);

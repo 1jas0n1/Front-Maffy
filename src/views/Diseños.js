@@ -11,7 +11,7 @@ import Cookies from 'js-cookie';
 
 const DisenosView = () => {
   const [cookieData, setCookieData] = useState({
-    miCookie: Cookies.get('miCookie') || null, // Puedes ajustar el nombre de la cookie
+    miCookie: Cookies.get('miCookie') || null, 
   });
   const [disenos, setDisenos] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -49,7 +49,7 @@ const DisenosView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://api-mafy-store.onrender.com/api/disenos';
+  const url = 'https://apimafy.zeabur.app/api/disenos';
 
   const showData = async () => {
     try {
@@ -145,7 +145,7 @@ const DisenosView = () => {
   
   const handleCreate = async () => {
     try {
-      const createUrl = 'https://api-mafy-store.onrender.com/api/disenos';
+      const createUrl = 'https://apimafy.zeabur.app/api/disenos';
       const token = Cookies.get('token');
       console.log('JSON que se envía al crear:', JSON.stringify(newDiseno));
   
@@ -176,7 +176,7 @@ const DisenosView = () => {
   
   const handleUpdateSubmit = async () => {
     try {
-      const updateUrl = `https://api-mafy-store.onrender.com/api/disenos/${selectedDiseno._id}`;
+      const updateUrl = `https://apimafy.zeabur.app/api/disenos/${selectedDiseno._id}`;
       const token = Cookies.get('token');
       console.log('JSON que se envía al actualizar:', JSON.stringify(selectedDiseno));
   

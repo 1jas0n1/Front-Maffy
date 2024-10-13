@@ -48,10 +48,10 @@ import Conversion from '../component/conversion/convetion';
   });
 
   useEffect(() => {
-    // Fetch the list of articles when the component mounts
+
     const fetchArticulos = async () => {
       try {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/articulos');
+        const response = await axios.get('https://apimafy.zeabur.app/api/articulos');
         setArticulos(response.data);
       } catch (error) {
         console.error('Error fetching articles:', error);
@@ -63,17 +63,17 @@ import Conversion from '../component/conversion/convetion';
 
   useEffect(() => {
     const fetchCategorias = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/categorias');
+        const response = await axios.get('https://apimafy.zeabur.app/api/categorias');
         setCategorias(response.data);
     };
     fetchCategorias();
   }, []); 
 
   useEffect(() => {
-    // Fetch the list of suppliers when the component mounts
+
     const fetchProveedores = async () => {
       try {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/proveedores');
+        const response = await axios.get('https://apimafy.zeabur.app/api/proveedores');
         setProveedores(response.data);
       } catch (error) {
         console.error('Error fetching suppliers:', error);
@@ -85,7 +85,7 @@ import Conversion from '../component/conversion/convetion';
 
   useEffect(() => {
     const fetchColores = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/colores');
+        const response = await axios.get('https://apimafy.zeabur.app/api/colores');
         setColores(response.data);
     };
     fetchColores();
@@ -114,7 +114,7 @@ import Conversion from '../component/conversion/convetion';
   useEffect(() => {
    
     const fetchTallas = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/tallas');
+        const response = await axios.get('https://apimafy.zeabur.app/api/tallas');
         setTallas(response.data);  
     };
 
@@ -181,7 +181,7 @@ import Conversion from '../component/conversion/convetion';
 
   useEffect(() => {
     const fetchMarcas = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/marcas');
+        const response = await axios.get('https://apimafy.zeabur.app/api/marcas');
         setMarcas(response.data);
     };
     fetchMarcas();
@@ -190,7 +190,7 @@ import Conversion from '../component/conversion/convetion';
 
   useEffect(() => {
     const fetchMateriales = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/materiales');
+        const response = await axios.get('https://apimafy.zeabur.app/api/materiales');
         setMateriales(response.data);
     };
 
@@ -199,7 +199,7 @@ import Conversion from '../component/conversion/convetion';
 
   useEffect(() => {
     const fetchEstilos = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/estilos');
+        const response = await axios.get('https://apimafy.zeabur.app/api/estilos');
         setEst(response.data);
     };
     fetchEstilos();
@@ -207,7 +207,7 @@ import Conversion from '../component/conversion/convetion';
 
   useEffect(() => {
     const fetchDisenos = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/disenos');
+        const response = await axios.get('https://apimafy.zeabur.app/api/disenos');
         setDisenos(response.data);
     };
     fetchDisenos();
@@ -350,7 +350,7 @@ const handleFacturarIngreso = async () => {
 
       console.log('Datos del ingreso a enviar:', ingresoData);
 
-      const responseIngreso = await axios.post('https://api-mafy-store.onrender.com/api/ingresos', ingresoData, {
+      const responseIngreso = await axios.post('https://apimafy.zeabur.app/api/ingresos', ingresoData, {
           headers: {
               'Content-Type': 'application/json',
               'x-access-token': token,
@@ -382,7 +382,7 @@ const handleFacturarIngreso = async () => {
       };
 
       console.log('Datos de los artículos a enviar:', articulosData);
-      const responseArticulos = await axios.post('https://api-mafy-store.onrender.com/api/detalleingreso', articulosData, {
+      const responseArticulos = await axios.post('https://apimafy.zeabur.app/api/detalleingreso', articulosData, {
           headers: {
               'Content-Type': 'application/json',
               'x-access-token': token,
@@ -416,7 +416,7 @@ const handleFacturarIngreso = async () => {
               Existencias: articulo.cantidad,
           };
           console.log('Datos del stock a enviar:', stockData);
-          const responseStock = await axios.post('https://api-mafy-store.onrender.com/api/stock', stockData, {
+          const responseStock = await axios.post('https://apimafy.zeabur.app/api/stock', stockData, {
               headers: {
                   'Content-Type': 'application/json',
                   'x-access-token': token,

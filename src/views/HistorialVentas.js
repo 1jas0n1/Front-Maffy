@@ -26,25 +26,19 @@ const DataTableComponent = () => {
   const [disenos, setDisenos] = useState([]);
   const [promotions, setPromotions] = useState([]);
 
-// Import useState and useEffect if not already imported
-// Add this function outside the DataTableComponent component
+
 
 const updateFechaField = async (id_ventas) => {
   try {
-    // Fetch the data for the specified id_ventas from the ventas endpoint
-    const response = await axios.get(`https://api-mafy-store.onrender.com/api/ventas/${id_ventas}`);
+    const response = await axios.get(`https://apimafy.zeabur.app/api/ventas/${id_ventas}`);
 
-    // Convert the fecha field to a JavaScript Date object
     const fechaDate = new Date(response.data.fecha);
-
-    // Format the date to display only day, month, and year
     const formattedFecha = fechaDate.toLocaleDateString('es-ES', {
       day: 'numeric',
       month: 'numeric',
       year: 'numeric',
     });
 
-    // Update the fecha field in the state based on the formatted date
     setData((prevData) =>
       prevData.map((row) =>
         row.id_ventas === id_ventas ? { ...row, fecha: formattedFecha } : row
@@ -55,14 +49,14 @@ const updateFechaField = async (id_ventas) => {
   }
 };
 
-// Inside the first useEffect
+
 useEffect(() => {
-  axios.get('https://api-mafy-store.onrender.com/api/detalleventa')
+  axios.get('https://apimafy.zeabur.app/api/detalleventa')
     .then(response => {
       setData(response.data);
 
       response.data.forEach(row => {
-        axios.get(`https://api-mafy-store.onrender.com/api/ventas/${row.id_ventas}`)
+        axios.get(`https://apimafy.zeabur.app/api/ventas/${row.id_ventas}`)
           .then(clientResponse => {
             setClientNames(prevNames => ({
               ...prevNames,
@@ -85,7 +79,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchTallas = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/tallas');
+        const response = await axios.get('https://apimafy.zeabur.app/api/tallas');
         setTallas(response.data);
     };
     fetchTallas();
@@ -93,7 +87,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchColores = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/colores');
+        const response = await axios.get('https://apimafy.zeabur.app/api/colores');
         setColores(response.data);
     };
     fetchColores();
@@ -101,7 +95,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchArticulos = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/articulos');
+        const response = await axios.get('https://apimafy.zeabur.app/api/articulos');
         setArticulos(response.data);
     };
     fetchArticulos();
@@ -109,7 +103,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchCategorias = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/categorias');
+        const response = await axios.get('https://apimafy.zeabur.app/api/categorias');
         setCategorias(response.data);
     };
     fetchCategorias();
@@ -117,7 +111,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchEstilos = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/estilos');
+        const response = await axios.get('https://apimafy.zeabur.app/api/estilos');
         setEst(response.data);
     };
     fetchEstilos();
@@ -125,7 +119,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchMarcas = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/marcas');
+        const response = await axios.get('https://apimafy.zeabur.app/api/marcas');
         setMarcas(response.data);
     };
     fetchMarcas();
@@ -133,7 +127,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchDisenos = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/disenos');
+        const response = await axios.get('https://apimafy.zeabur.app/api/disenos');
         setDisenos(response.data);
     };
     fetchDisenos();
@@ -141,7 +135,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchMateriales = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/materiales');
+        const response = await axios.get('https://apimafy.zeabur.app/api/materiales');
         setMateriales(response.data);
     };
     fetchMateriales();
@@ -150,7 +144,7 @@ useEffect(() => {
 
   useEffect(() => {
     const fetchPromotions = async () => {
-        const response = await axios.get('https://api-mafy-store.onrender.com/api/promociones');
+        const response = await axios.get('https://apimafy.zeabur.app/api/promociones');
         setPromotions(response.data);
     };
 
@@ -160,7 +154,7 @@ useEffect(() => {
 
   const handlePrintButtonClick = (id) => {
     // Construct the print URL with the 'id' parameter
-    const printUrl = `https://api-mafy-store.onrender.com/api/detalleventa/${id}/print`;
+    const printUrl = `https://apimafy.zeabur.app/api/detalleventa/${id}/print`;
 
 
     window.open(printUrl, '_blank');

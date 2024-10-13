@@ -23,12 +23,12 @@ const UsuariosView = () => {
       return;
     }
   
-    // Validar que todos los campos estén completos
+ 
     if (!nombreUsuario || !email || !contrasena) {
       toast.success('Completa los Campos por favor', {
         style: {
           background: 'white',
-          color: 'green', // Puedes ajustar el color del texto si lo necesitas
+          color: 'green', 
         },
       });
       return;
@@ -43,8 +43,8 @@ const UsuariosView = () => {
     };
   
     try {
-      // Enviar la solicitud POST al servidor
-      const response = await fetch('https://api-mafy-store.onrender.com/api/auth/signup', {
+   
+      const response = await fetch('https://apimafy.zeabur.app/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
