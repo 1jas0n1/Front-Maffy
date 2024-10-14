@@ -25,7 +25,7 @@ const Menu = () => {
             <div className="card-description"></div>
             <ButtonGroup role="group" aria-label="Button group with nested dropdown"  >
       <Dropdown as={ButtonGroup}>
-        <Dropdown.Toggle variant="primary" id="dropdown-basic" style={{width:'225px',height:'30px',padding:'0'}}>
+        <Dropdown.Toggle className='custom-btn' style={{width:'225px',height:'30px',padding:'0'}}>
           Opciones
         </Dropdown.Toggle>
         <Dropdown.Menu style={{backgroundColor:'#4a4a4a',color:'white'}}>
@@ -44,7 +44,7 @@ const Menu = () => {
             <div className="card-description"> </div>
             <ButtonGroup role="group" aria-label="Button group with nested dropdown"  >
       <Dropdown as={ButtonGroup}>
-        <Dropdown.Toggle variant="primary" id="dropdown-basic" style={{width:'225px',height:'30px',padding:'0'}}>
+        <Dropdown.Toggle className="custom-btn" style={{width:'225px',height:'30px',padding:'0'}}>
           Opciones
         </Dropdown.Toggle>
         <Dropdown.Menu style={{backgroundColor:'#4a4a4a',color:'white'}}>
@@ -67,7 +67,7 @@ const Menu = () => {
             <div className="card-description"> </div>
             <ButtonGroup role="group" aria-label="Button group with nested dropdown"  >
       <Dropdown as={ButtonGroup}>
-        <Dropdown.Toggle variant="primary" id="dropdown-basic" style={{width:'225px',height:'30px',padding:'0'}}>
+        <Dropdown.Toggle variant="primary" id="dropdown-basic" className='custom-btn' style={{width:'225px',height:'30px',padding:'0'}}>
           Opciones
         </Dropdown.Toggle>
         <Dropdown.Menu style={{backgroundColor:'#4a4a4a',color:'white'}}>
@@ -99,7 +99,7 @@ const Menu = () => {
             <div className="card-description"></div>
             <ButtonGroup role="group" aria-label="Button group with nested dropdown"  >
       <Dropdown as={ButtonGroup}>
-        <Dropdown.Toggle variant="primary" id="dropdown-basic" style={{width:'225px',height:'30px',padding:'0'}}>
+        <Dropdown.Toggle  className='custom-btn'  style={{width:'225px',height:'30px',padding:'0'}}>
           Opciones
         </Dropdown.Toggle>
         <Dropdown.Menu style={{backgroundColor:'#4a4a4a',color:'white'}}>
@@ -126,7 +126,7 @@ const Menu = () => {
             <div className="card-description"></div>
             <ButtonGroup role="group" aria-label="Button group with nested dropdown"  >
       <Dropdown as={ButtonGroup}>
-        <Dropdown.Toggle variant="primary" id="dropdown-basic" style={{width:'225px',height:'30px',padding:'0'}}>
+        <Dropdown.Toggle className='custom-btn' style={{width:'225px',height:'30px',padding:'0'}}>
           Opciones
         </Dropdown.Toggle>
         <Dropdown.Menu style={{backgroundColor:'#4a4a4a',color:'white'}}>
