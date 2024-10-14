@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import MyNavbar from "../component/Navbar";
 import Footer from "../component/footer/footer";
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileInvoiceDollar } from '@fortawesome/free-solid-svg-icons';
-
+import { faFileInvoiceDollar,faMoneyCheckDollar,faCoins } from '@fortawesome/free-solid-svg-icons';
+import {  Button } from 'react-bootstrap'; 
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import MonthlySalesChart from "../component/barMeses";
@@ -177,43 +176,56 @@ const ReportesVentas = () => {
 
   return (
     <div
-      style={{
-        backgroundImage:
-          "linear-gradient(to right top, #f9b7dc, #f9b5e0, #f8b3e4, #f7b1e8, #f5b0ed, #e3b9f8, #d2c1fe, #c3c8ff, #a8d7ff, #8ee5ff, #80f1ff, #89fbf4)",
-      }}
+      
     >
       <MyNavbar />
 
       <div className="d-flex justify-content-around" style={{ marginBottom: "20px" }}>
         
       <Card style={{ width: "30%", height: "400px", textAlign: "center" }}>
-        <Card.Body>
-          <NavLink to="/ruta-del-reporte-ventas" style={{ textDecoration: 'none', color: 'white' }}>
-            
-            <Card.Title>Reporte Ventas</Card.Title>
-            <FaFileInvoiceDollar size={40} />
-          </NavLink>
-        </Card.Body>
-      </Card>
-
-      <Card style={{ width: "30%", height: "400px", textAlign: "center" }}>
-        <Card.Body>
-          <NavLink to="/ruta-del-reporte-ventas" style={{ textDecoration: 'none', color: 'white' }}>
+      <Card.Body style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
+        <div>
           <Card.Title>Reporte Compras</Card.Title>
-          <FaSackDollar size={40} />
-          </NavLink>
-        </Card.Body>
-      </Card>
+          <FontAwesomeIcon icon={faCoins} size="10x" bounce style={{color: "#FFD43B",}} />
+        </div>
+        <NavLink to="/ruta-del-reporte-ventas" style={{ textDecoration: 'none' }}>
+          <Button variant="primary" style={{ marginTop: 'auto', width: '150px', height:'50px' }}>
+            Generar Reporte
+          </Button>
+        </NavLink>
+      </Card.Body>
+    </Card>
+
+     
 
       <Card style={{ width: "30%", height: "400px", textAlign: "center" }}>
-        <Card.Body>
-          <NavLink to="/ruta-del-reporte-ventas" style={{ textDecoration: 'none', color: 'white' }}>
-          <Card.Title>Reporte Ganancias </Card.Title>
-          <FontAwesomeIcon icon={faFileInvoiceDollar} bounce size="10x" style={{ color: "#74C0FC" }} />
+      <Card.Body style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
+        <div>
+          <Card.Title>Reporte Compras</Card.Title>
+          <FontAwesomeIcon icon={faMoneyCheckDollar} size="10x" bounce style={{color: "#fafafa",}} />
+        </div>
+        <NavLink to="/ruta-del-reporte-ventas" style={{ textDecoration: 'none' }}>
+          <Button variant="primary" style={{ marginTop: 'auto', width: '150px', height:'50px' }}>
+            Generar Reporte
+          </Button>
+        </NavLink>
+      </Card.Body>
+    </Card>
 
-          </NavLink>
-        </Card.Body>
-      </Card>
+      <Card style={{ width: "30%", height: "400px", textAlign: "center" }}>
+      <Card.Body style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
+        <div>
+          <Card.Title>Reporte Ganancias</Card.Title>
+          <FontAwesomeIcon icon={faFileInvoiceDollar} bounce size="10x" style={{ color: "#74C0FC" }} />
+        </div>
+        <NavLink to="/ruta-del-reporte-ventas" style={{ textDecoration: 'none' }}>
+          <Button variant="primary" style={{ marginTop: 'auto', width: '150px', height:'50px' }}>
+            Generar Reporte
+          </Button>
+        </NavLink>
+      </Card.Body>
+    </Card>
+
 
       </div>
 
@@ -235,7 +247,7 @@ const ReportesVentas = () => {
           style={{
             width: "52rem",
            
-            marginBottom:"5%",
+            marginBottom:"10%",
             color: "white",
             order: 2,
           }}
@@ -245,6 +257,7 @@ const ReportesVentas = () => {
               style={{
                 display: "flex",
                 justifyContent: "space-between",
+                borderRadius:"10%",
                 marginBottom: "10px",
               }}
             >
