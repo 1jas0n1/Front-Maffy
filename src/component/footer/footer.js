@@ -1,6 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { FaTwitter, FaInstagram, FaFacebook, FaWhatsapp, FaMapMarker, FaPhone, FaEnvelope } from 'react-icons/fa';
+import {  FaMapMarker, FaPhone, FaEnvelope } from 'react-icons/fa';
 import "./footer.css";
 
 const Footer = () => {
@@ -8,49 +7,31 @@ const Footer = () => {
     <footer className="footer-distributed">
       <div className="footer-left">
         <h3>Tammys<span style={{ fontStyle: 'italic' }}> Closet</span></h3>
-        <p className="footer-links">
-          <NavLink to="/">Home</NavLink> |
-          <NavLink to="/about">About</NavLink> |
-          <NavLink to="/contact">Contact</NavLink> |
-          <NavLink to="/blog">Blog</NavLink>
-        </p>
+        <br></br>
         <p className="footer-company-name">Copyright © 2024 <strong>Tammy´s Closet</strong> All rights reserved</p>
       </div>
 
-      <div className="footer-center">
-        <div className='icon-central'>
+      <div className="footer-center" style={{alignItems:'center'}} >
+        <div style={{alignItems:'center'}} className='icon-central'>
           <FaMapMarker />
-          <span style={{ marginLeft: '3px' }}>San Marcos</span>
+          <span style={{ marginLeft: '10px' }}>San Marcos</span>
         </div>
         <div className='icon-central'>
           <FaPhone />
-          <p>+505 8888-8888</p>
+          <p style={{marginLeft:'10px'}} >+505 8888-8888</p>
         </div>
-        <div className='icon-central'>
+        <div style={{alignItems:'center'}} className='icon-central'>
           <FaEnvelope />
-          <p><a href="mailto:mafystore@gmail.com">correo@gmail.com</a></p>
+          <p style={{marginLeft:'10px'}} ><a href="mailto:mafystore@gmail.com">correo@gmail.com</a></p>
         </div>
       </div>
 
       <div className="footer-right">
-        <p className="footer-company-about">
-          <span>Acerca de Nosotros </span>
+        <p className="footer-company-about" style={{color:'white',textAlign:'center'}} >
+          <span style={{textAlign:'center'}} >Acerca de Nosotros </span>
           <strong>Mafy Store</strong> es una tienda de Ropa ubicada en la ciudad de San Marcos
         </p>
         <div className="footer-icons">
-       
-          <button className="icon-button">
-            <FaTwitter />
-          </button>
-          <button className="icon-button">
-            <FaInstagram />
-          </button>
-          <button className="icon-button">
-            <FaFacebook />
-          </button>
-          <button className="icon-button">
-            <FaWhatsapp />
-          </button>
         </div>
       </div>
     </footer>

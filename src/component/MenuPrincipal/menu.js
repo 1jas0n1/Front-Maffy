@@ -92,6 +92,7 @@ const Menu = () => {
             </NavLink>
           </div>
         </div>
+
         <div className="col-md-3">
           <div className="card custom-card text-center ">
             <div className="card-icon"> <FontAwesomeIcon icon={faCalendarCheck} /> </div>
@@ -150,6 +151,19 @@ const Menu = () => {
           </div>
         </div>
       </div>
+
+      <div className="col-md-3">
+          <div className="card custom-card text-center ">
+            <div className="card-icon"> <MdOutlineSettings style={{fontSize:'60px',padding:'0'}} />
+          </div>
+            <div className="card-title">Servicios</div>
+            <div className="card-description"></div>
+            <NavLink to="/servicios" className="card-link btn btn-primary custom-btn">
+              Ir a Servicios <FontAwesomeIcon icon={faArrowRight} />
+            </NavLink>
+          </div>
+        </div>
+
 
 
      

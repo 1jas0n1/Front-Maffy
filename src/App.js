@@ -25,6 +25,7 @@ import DetalleIngresosView from "./views/Detalle-ingresos.js";
 import UserInfo from "./views/ListUser.js";
 import MercanciaDañada from "./views/MercanciaDañada.js";
 import Reporteventas from "./views/Reportes.js";
+import ServiciosView from "./views/Servicios.js";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
           <Route path='/list-user' element={<UserInfo />} />
           <Route path='/mercancia-dañada' element={<MercanciaDañada />} />
           <Route path='/reportes' element={<Reporteventas></Reporteventas>}></Route>
+          <Route path='/servicios' element={<ServiciosView/>} />
         </Routes>
       </Router>
    
