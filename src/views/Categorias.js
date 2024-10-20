@@ -40,7 +40,6 @@ const CategoriasView = () => {
   };
 
   const handleShow = () => setShowCreateModal(true);
-
   const handleUpdate = (categoriaId) => {
     const selected = categorias.find((categoria) => categoria._id === categoriaId);
     setSelectedCategoria(selected);
@@ -67,38 +66,29 @@ const CategoriasView = () => {
   const handleConfirmDelete = async () => {
     try {
       const deleteUrl = `https://apimafy.zeabur.app/api/categorias/${categoryToDelete}`;
-      const token = Cookies.get('token'); // Obtener el token de las cookies
+      const token = Cookies.get('token'); 
   
       const response = await fetch(deleteUrl, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'x-access-token': token, // Incluir el token en el encabezado
+          'x-access-token': token,
         },
       });
       console.log('Data sent in handleConfirmDelete:', JSON.stringify({ categoriaId: categoryToDelete }));
   
       if (response.ok) {
-        // Éxito: Categoría eliminada
         console.log(`Categoría con ID ${categoryToDelete} eliminada exitosamente.`);
         toast.success('Categoría eliminada exitosamente');
         showData();
       } else if (response.status === 401) {
-        // Error 401: No autorizado
-        console.error(`Error 401 - No autorizado: ${response.statusText}`);
         toast.error('Error 401 - No autorizado. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
-        // Error 403: Prohibido
-        console.error(`Error 403 - Prohibido: ${response.statusText}`);
         toast.error('Error 403 - Acceso prohibido.');
       } else {
-        // Otro tipo de error
-        console.error(`Error al intentar borrar la categoría con ID ${categoryToDelete}.`);
         toast.error(`Error en la solicitud: ${response.statusText}`);
       }
     } catch (error) {
-      // Error durante la solicitud
-      console.error('Error en la solicitud de eliminación:', error);
       toast.error('Error en la solicitud de eliminación. Por favor, inténtelo de nuevo.');
     } finally {
       setShowConfirmationModal(false);
@@ -146,42 +136,27 @@ const CategoriasView = () => {
       });
   
       if (response.ok) {
-        // Success: Category created
+
         toast.success('Categoría creada exitosamente');
-        // After creating the category, update the data
         showData();
       } else if (response.status === 400) {
-        // Error 400: Bad Request (category already exists)
-        console.error('No se puede crear la categoría porque ya existe.');
         toast.error('No se puede crear la categoría porque ya existe.');
       } else if (response.status === 401) {
-        // Error 401: Unauthorized
-        console.error(`Unauthorized: ${response.statusText}`);
         toast.error('No autorizado. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
-        // Error 403: Forbidden
-        console.error(`Forbidden: ${response.statusText}`);
         toast.error('Acceso prohibido.');
       } else {
-        // Other types of errors
-        console.error(`Error al intentar crear la categoría. Status: ${response.status}, Message: ${response.statusText}`);
         toast.error(`Error en la solicitud: ${response.statusText}`);
       }
     } catch (error) {
-      // Error during the request
-      console.error('Error en la solicitud de creación:', error);
       toast.error('Error en la solicitud de creación. Por favor, inténtelo de nuevo.');
     } finally {
       handleClose();
     }
   };
-  
-  
-  
-  
 
   useEffect(() => {
-    showData();
+   showData();
   }, []);
   
 
@@ -199,29 +174,19 @@ const CategoriasView = () => {
       });
   
       if (response.ok) {
-        // Éxito: Categoría actualizada
-        toast.success('Categoría actualizada exitosamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Categoría actualizada exitosamente');
         showData();
       } else if (response.status === 400) {
-        // Error 400: Datos incompletos
-        console.error(' Por favor complete todos los campos.');
-        toast.error(' Por favor complete todos los campos.', { position: toast.POSITION.TOP_CENTER });
+        toast.error(' Por favor complete todos los campos.');
       } else if (response.status === 401) {
-        // Error 401: No autorizado
-        console.error(` No autorizado: ${response.statusText}`);
-        toast.error('No autorizado. Por favor, inicie sesión nuevamente.', { position: toast.POSITION.TOP_CENTER });
+
+        toast.error('No autorizado. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
-        // Error 403: Prohibido
-        console.error(`Prohibido: ${response.statusText}`);
-        toast.error(' Acceso prohibido.', { position: toast.POSITION.TOP_CENTER });
+        toast.error(' Acceso prohibido.');
       } else {
-        // Otro tipo de error
-        console.error('Error al intentar actualizar la categoría.');
         toast.error(`Error en la solicitud: ${response.statusText}`);
       }
     } catch (error) {
-      // Error durante la solicitud
-      console.error('Error en la solicitud de actualización:', error);
     } finally {
       handleClose();
     }
@@ -232,6 +197,15 @@ const CategoriasView = () => {
     showData();
   }, []);
 
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
   const columns = [
     {
       name: 'Categoría',
@@ -256,10 +230,10 @@ const CategoriasView = () => {
       cell: (row) => (
         <div>
         <Styles.ActionButton onClick={() => handleUpdate(row._id)} update>
-          <FaEdit /> 
+       Editar
         </Styles.ActionButton>
         <Styles.ActionButton onClick={() => handleDelete(row._id)}>
-          <FaTrash /> 
+       Borrar
         </Styles.ActionButton>
       </div>
       ),
@@ -275,6 +249,7 @@ const CategoriasView = () => {
       </Styles.CreateButton>
 
       <Styles.StyledDataTable
+        customStyles={customStyles}
         columns={columns}
         data={filteredItems}
         pagination

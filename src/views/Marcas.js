@@ -63,10 +63,6 @@ const MarcasView = () => {
     setShowDeleteConfirmation(true);
   };
 
-  
-  
-
-
   const filteredItems = marcas.filter(
     (item) => item.marca && item.marca.toLowerCase().includes(filterText.toLowerCase())
   );
@@ -84,22 +80,19 @@ const MarcasView = () => {
     );
   }, [filterText, resetPaginationToggle]);
 
-
-
   const handleCommonErrors = (statusCode) => {
     switch (statusCode) {
       case 401:
-        toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.' );
         break;
       case 400:
-
-        toast.error('Solicitud incorrecta', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Solicitud incorrecta' );
         break;
       case 403:
-        toast.error('Permisos insuficientes para la acción', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Permisos insuficientes para la acción' );
         break;
       default:
-        toast.error('Error desconocido', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Error desconocido' );
     }
   };
 
@@ -123,15 +116,16 @@ const MarcasView = () => {
       });
   
       if (response.ok) {
-        toast.success('Marca creada exitosamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Marca creada exitosamente');
         console.log('Marca creada exitosamente.');
         showData();
       } else {
         handleCommonErrors(response.status); 
-        console.error('Error al intentar crear la marca.');
+        toast.error('Error al intentar crear la marca.');
       }
     } catch (error) {
-      console.error('Error en la solicitud de creación:', error);
+      toast.error('Error en la solicitud de creación:', error);
+
     }
   
     handleClose();
@@ -149,15 +143,12 @@ const MarcasView = () => {
       });
   
       if (response.ok) {
-        toast.success('Material eliminado exitosamente', { position: toast.POSITION.TOP_CENTER });
-        console.log(`Marca con ID ${marcaId} eliminada correctamente`);
+        toast.success('Material eliminado exitosamente' );
         showData(); 
       } else {
         handleCommonErrors(response.status); 
-        console.error(`Error al eliminar la marca con ID ${marcaId}`);
       }
     } catch (error) {
-      console.error('Error deleting marca:', error);
     }
   };
   
@@ -180,8 +171,7 @@ const MarcasView = () => {
       });
   
       if (response.ok) {
-        toast.success('Marca actualizado exitosamente', { position: toast.POSITION.TOP_CENTER });
-        console.log('Marca actualizada exitosamente.');
+        toast.success('Marca actualizado exitosamente', );
         showData();
       } else {
         handleCommonErrors(response.status); 
@@ -198,6 +188,18 @@ const MarcasView = () => {
   useEffect(() => {
     showData();
   }, []);
+
+
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
+
 
   const columns  = [
   
@@ -224,11 +226,11 @@ const MarcasView = () => {
       cell: (row) => (
         <div>
         <Styles.ActionButton onClick={() => handleUpdate(row._id)} update>
-          <FaEdit /> 
+          Editar
         </Styles.ActionButton>
         <Styles.ActionButton onClick={() => handleDelete(row._id)}>
-  <FaTrash /> 
-</Styles.ActionButton>
+          Borrar
+        </Styles.ActionButton>
       </div>
       ),
       center: true,
@@ -244,6 +246,7 @@ const MarcasView = () => {
 
       <Styles.StyledDataTable
         columns={columns}
+        customStyles={customStyles}
         data={filteredItems}
         pagination
         paginationResetDefaultPage={resetPaginationToggle}

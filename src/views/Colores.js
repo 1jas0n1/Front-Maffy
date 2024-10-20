@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import * as Styles from '../css/styles_colores';
 import Footer from '../component/footer/footer';
-import { FaTrash,FaEdit } from 'react-icons/fa';
 import MyNavbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -37,8 +36,6 @@ const ColoresView = () => {
     setSelectedColor(null);
   };
 
-  
-
   const handleShow = () => setShowCreateModal(true);
 
   const handleUpdate = (colorId) => {
@@ -64,17 +61,12 @@ const ColoresView = () => {
     setShowDeleteModal(true);
   };
 
- 
-
-
   const handleClear = () => {
     if (filterText) {
       setResetPaginationToggle(!resetPaginationToggle);
       setFilterText('');
     }
   };
-
-
 
   const filteredItems = colors.filter(
     (item) =>
@@ -84,15 +76,16 @@ const ColoresView = () => {
   const subHeaderComponentMemo = useMemo(() => {
     return (
       <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
-        <input
+        <input  style={{borderRadius:'5px',textAlign:'center'}}
           type="text"
-          placeholder="Buscar por color"
+          placeholder="Buscar "
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
         />
       </div>
     );
   }, [filterText, resetPaginationToggle]);
+
 
   const handleDeleteConfirm = async () => {
     try {
@@ -111,17 +104,13 @@ const ColoresView = () => {
         showData();
       } else {
         if (response.status === 401) {
-          console.error(' No autorizado para eliminar el color.');
           toast.error(' No autorizado para eliminar el color');
         } else if (response.status === 403) {
-          console.error(' Permisos insuficientes para eliminar el color.');
           toast.error(' Permisos insuficientes para eliminar el color');
         } else if (response.status === 400) {
-          console.error(' Datos incorrectos o incompletos para eliminar el color.');
           toast.error(' Datos incorrectos o incompletos para eliminar el color');
         } else {
           toast.error('Error al borrar el color');
-          console.error(`Error al borrar el color con ID ${deleteColorId}.`);
         }
       }
     } catch (error) {
@@ -133,9 +122,8 @@ const ColoresView = () => {
 
   const handleUpdateSubmit = async () => {
     try {
-      const updateUrl = `https://apimafy.zeabur.app/colores/${selectedColor._id}`;
+      const updateUrl = `https://apimafy.zeabur.app/api/colores/${selectedColor._id}`;
       const token = Cookies.get('token');
-  
       const response = await fetch(updateUrl, {
         method: 'PUT',
         headers: {
@@ -147,27 +135,21 @@ const ColoresView = () => {
   
       if (response.ok) {
         toast.success('Color actualizado exitosamente');
-        console.log('Color actualizado exitosamente.');
         showData();
       } else {
         if (response.status === 401) {
-          console.error(' No autorizado para actualizar el color.');
           toast.error(' No autorizado para actualizar el color');
         } else if (response.status === 403) {
-          console.error(' Permisos insuficientes para actualizar el color.');
           toast.error(' Permisos insuficientes para actualizar el color');
         } else if (response.status === 400) {
-          console.error(' Datos incorrectos o incompletos para actualizar el color.');
           toast.error(' Datos incorrectos o incompletos para actualizar el color');
         } else {
           toast.error('Por favor complete todos los campos');
-          console.error('Error al intentar actualizar el color.');
         }
       }
     } catch (error) {
       console.error('Error en la solicitud de actualización:', error);
     }
-  
     handleClose();
   };
 
@@ -185,35 +167,37 @@ const ColoresView = () => {
   
       if (response.ok) {
         toast.success('Color creado exitosamente');
-        console.log('Color creado exitosamente.');
         showData();
         Cookies.set('colorCookie', 'colorValue', { expires: 1 });
       } else {
         if (response.status === 401) {
-          console.error(' No autorizado para crear el color.');
           toast.error(' No autorizado para crear el color');
         } else if (response.status === 403) {
-          console.error(' Permisos insuficientes para crear el color.');
           toast.error(' Permisos insuficientes para crear el color');
         } else if (response.status === 400) {
-          console.error(' para crear el color.');
           toast.error(' Datos incorrectos o incompletos para crear el color');
         } else {
           toast.error('Por favor complete todos los campos');
-          console.error('Error al intentar crear el color.');
         }
       }
     } catch (error) {
       console.error('Error en la solicitud de creación:', error);
     }
-  
     handleClose();
   };
-  
-
   useEffect(() => {
     showData();
   }, []);
+
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
 
   const columns = [
     {
@@ -239,10 +223,10 @@ const ColoresView = () => {
       cell: (row) => (
         <div>
         <Styles.ActionButton onClick={() => handleUpdate(row._id)} update>
-          <FaEdit /> 
+          Editar
         </Styles.ActionButton>
         <Styles.ActionButton onClick={() => handleDelete(row._id)}>
-          <FaTrash /> 
+          Borrar
         </Styles.ActionButton>
       </div>
       ),
@@ -260,6 +244,7 @@ const ColoresView = () => {
 
       <Styles.StyledDataTable
         columns={columns}
+        customStyles={customStyles}
         data={filteredItems}
         pagination
         paginationResetDefaultPage={resetPaginationToggle}

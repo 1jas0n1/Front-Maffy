@@ -8,13 +8,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BsBoxes } from "react-icons/bs";
 import './menu.css';
 import { IoStatsChartSharp } from "react-icons/io5";
-
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import MyNavbar from '../Navbar';
 import Footer from '../footer/footer';
 const Menu = () => {
  
   return (
-  <div>    <MyNavbar></MyNavbar>
+    
+  <div>    
+    <MyNavbar></MyNavbar>
     <div className="container">
     
       <div className="row">
@@ -154,7 +156,7 @@ const Menu = () => {
 
       <div className="col-md-3">
           <div className="card custom-card text-center ">
-            <div className="card-icon"> <MdOutlineSettings style={{fontSize:'60px',padding:'0'}} />
+            <div className="card-icon"> <HiOutlineClipboardDocumentList style={{fontSize:60,margin:0}} />
           </div>
             <div className="card-title">Servicios</div>
             <div className="card-description"></div>

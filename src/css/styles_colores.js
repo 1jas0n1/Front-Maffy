@@ -3,18 +3,15 @@ import { Button, Modal } from 'react-bootstrap';
 import DataTable from 'react-data-table-component';
 
 export const AppContainer = styled.div`
-
   display: flex;
   flex-direction: column;
   align-items: center;
- 
 
 `;
-// background-image: linear-gradient(to right top, #f9b7dc, #f9b5e0, #f8b3e4, #f7b1e8, #f5b0ed, #e3b9f8, #d2c1fe, #c3c8ff, #a8d7ff, #8ee5ff, #80f1ff, #89fbf4);
 
 export const StyledDataTable = styled(DataTable)`
   border: 2px solid #333;
-  border-radius: 8px;
+  border-radius: 3px;
   width: 80%;
   margin-bottom: 5px;
 `;
@@ -27,19 +24,20 @@ export const ActionButton = styled.button`
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 14px;
-  margin:  2px;
+  font-size: 12px;
+  margin:2px;
   cursor: pointer;
   border-radius: 4px;
-  width: 35px;
+  width: 75px;
   height: 35px;
 `;
 
 export const CreateButton = styled(Button)`
   margin-top: 20px;
   margin-bottom: 20px;
-  width: 100px;
-  height: 50px;
+  background-color:darkred;
+  width: 110px;
+  height: 60px;
 `;
 export const StyledModal = styled(Modal)`
   .modal-content {

@@ -2,9 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Button, Modal} from 'react-bootstrap';
 import * as Styles from '../css/styles_colores';
 import Footer from '../component/footer/footer';
-import { FaEdit, FaTrash } from 'react-icons/fa';
 import Navbar from '../component/Navbar';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
@@ -39,10 +37,7 @@ const DisenosView = () => {
     setSelectedDiseno(null);
   };
 
- 
-
   const handleShow = () => setShowCreateModal(true);
-
   const handleUpdate = (disenoId) => {
     const selected = disenos.find((diseno) => diseno._id === disenoId);
     setSelectedDiseno(selected);
@@ -50,7 +45,6 @@ const DisenosView = () => {
   };
 
   const url = 'https://apimafy.zeabur.app/api/disenos';
-
   const showData = async () => {
     try {
       const response = await fetch(url);
@@ -65,8 +59,6 @@ const DisenosView = () => {
     setDeleteItemId(disenoId);
     setShowDeleteModal(true);
   };
-
- 
 
   const handleClear = () => {
     if (filterText) {
@@ -95,25 +87,19 @@ const DisenosView = () => {
   const handleCommonErrors = (statusCode) => {
     switch (statusCode) {
       case 401:
-        console.error('Error 401: No autorizado para realizar esta acción.');
-        toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.', { position: toast.POSITION.TOP_CENTER });
-        // Add logic here to redirect the user to the login page if needed
+        toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.');
         break;
       case 400:
-        console.error('Error 400: Solicitud incorrecta.');
-        toast.error('Solicitud incorrecta', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Solicitud incorrecta');
         break;
       case 403:
-        console.error('Error 403: Permisos insuficientes para la acción.');
-        toast.error('Permisos insuficientes para la acción', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Permisos insuficientes para la acción');
         break;
       default:
-        console.error(`Error desconocido con código ${statusCode}`);
-        toast.error('Error desconocido', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Error desconocido');
     }
   };
-  
-  
+
   const handleDeleteConfirmed = async () => {
     try {
       const token = Cookies.get('token');
@@ -126,17 +112,14 @@ const DisenosView = () => {
       });
   
       if (response.ok) {
-        console.log(`Diseño con ID ${deleteItemId} eliminado correctamente`);
         showData();
-        toast.success('Diseño eliminado correctamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Diseño eliminado correctamente');
       } else {
         handleCommonErrors(response.status);
-        console.error(`Error al eliminar el diseño con ID ${deleteItemId}`);
-        toast.error('Error al eliminar el diseño', { position: toast.POSITION.TOP_CENTER });
+        toast.error('Error al eliminar el diseño');
       }
     } catch (error) {
-      console.error('Error deleting design:', error);
-      toast.error('Error al eliminar el diseño', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Error al eliminar el diseño');
     } finally {
       setShowDeleteModal(false);
       setDeleteItemId(null);
@@ -159,18 +142,15 @@ const DisenosView = () => {
       });
   
       if (response.ok) {
-        console.log('Diseño creado exitosamente.');
         showData();
-        toast.success('Diseño creado correctamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Diseño creado correctamente');
       } else {
         handleCommonErrors(response.status);
         console.error('Error al intentar crear el diseño.');
       }
     } catch (error) {
-      console.error('Error en la solicitud de creación:', error);
-      toast.error('Error al crear el diseño', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Error al crear el diseño');
     }
-  
     handleClose();
   };
   
@@ -190,22 +170,17 @@ const DisenosView = () => {
       });
   
       if (response.ok) {
-        console.log('Diseño actualizado exitosamente.');
         showData();
-        toast.success('Diseño actualizado correctamente', { position: toast.POSITION.TOP_CENTER });
+        toast.success('Diseño actualizado correctamente');
       } else {
         handleCommonErrors(response.status);
-        console.error('Error al intentar actualizar el diseño.');
       }
     } catch (error) {
-      console.error('Error en la solicitud de actualización:', error);
-      toast.error('Error al actualizar el diseño', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Error al actualizar el diseño');
     } finally {
       handleClose();
     }
   };
-  
-  
 
   useEffect(() => {
     showData();
@@ -234,13 +209,11 @@ const DisenosView = () => {
       name: 'Acciones',
       cell: (row) => (
         <div>
-
         <Styles.ActionButton onClick={() => handleUpdate(row._id)} update>
-          <FaEdit /> 
+          Editar
         </Styles.ActionButton>
-
         <Styles.ActionButton onClick={() => handleDelete(row._id)}>
-          <FaTrash /> 
+          Borrar
         </Styles.ActionButton>
         
       </div>
@@ -281,8 +254,6 @@ const DisenosView = () => {
                 onChange={(e) => setNewDiseno({ ...newDiseno, diseno: e.target.value })}
               />
             </Form.Group>
-
-         
             <Form.Group controlId="formEstado">
   <Form.Label>Estado</Form.Label>
   <Form.Control
@@ -295,8 +266,6 @@ const DisenosView = () => {
     <option value="false">Inactivo</option>
   </Form.Control>
 </Form.Group>
-
-
 
             <Form.Group controlId="formDescripcion">
               <Form.Label>Descripción</Form.Label>
@@ -352,8 +321,6 @@ const DisenosView = () => {
     <option value="false">Inactivo</option>
   </Form.Control>
 </Form.Group>
-
-
             <Form.Group controlId="formDescripcion">
               <Form.Label>Descripción</Form.Label>
               <Form.Control
@@ -377,7 +344,6 @@ const DisenosView = () => {
           <Button className="otros" variant="secondary" onClick={handleClose}>
             Cerrar
           </Button>
-          
         </Styles.ModalFooter>
       </Styles.StyledModal>
 
@@ -395,10 +361,8 @@ const DisenosView = () => {
           <Button style={{ width: '100px', height: '50px' }} variant="secondary"onClick={() => setShowDeleteModal(false)}>
             Cancelar
           </Button>
-        
         </Modal.Footer >
       </Modal>
-
       <Footer />
       <ToastContainer />
     </Styles.AppContainer>

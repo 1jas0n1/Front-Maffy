@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import * as Styles from '../css/styles_colores';
 import Footer from '../component/footer/footer';
-import { FaTrash, FaEdit } from 'react-icons/fa';
+
 import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -59,17 +59,13 @@ const ProveedoresView = () => {
   };
 
   const handleDelete = (proveedorId) => {
-    setSelectedProveedorId(proveedorId); // Assuming you have a state for selected provider ID
+    setSelectedProveedorId(proveedorId); 
     setShowConfirmationModal(true);
   };
   
- 
-
-
   const filteredItems = proveedores.filter(
     (item) => item.nombre && item.nombre.toLowerCase().includes(filterText.toLowerCase())
   );
-
   const subHeaderComponentMemo = useMemo(() => {
     return (
       <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
@@ -87,24 +83,18 @@ const ProveedoresView = () => {
     try {
       switch (statusCode) {
         case 401:
-          console.error('Error 401: No autorizado para realizar esta acción.');
           toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.');
-          // Agregar lógica aquí para redirigir al usuario a la página de inicio de sesión si es necesario
           break;
         case 400:
-          console.error('Error 400: Solicitud incorrecta.');
           toast.error('Solicitud incorrecta');
           break;
         case 403:
-          console.error('Error 403: Permisos insuficientes para la acción.');
           toast.error('Permisos insuficientes para la acción');
           break;
         default:
-          console.error(`Error desconocido con código ${statusCode}`);
           toast.error('Error desconocido');
       }
     } catch (error) {
-      console.error('Error en handleCommonErrors:', error);
     }
   };
   
@@ -126,10 +116,8 @@ const ProveedoresView = () => {
       } else {
         handleCommonErrors(response.status);
         toast.error('Complete todos los campos');
-        console.error('Error al intentar crear el proveedor.');
       }
     } catch (error) {
-      console.error('Error en la solicitud de creación:', error);
     }
   
     handleClose();
@@ -152,7 +140,6 @@ const ProveedoresView = () => {
       } else {
         handleCommonErrors(response.status);
         toast.error('Error Proveedor no encontrado');
-        console.error(`Error al intentar eliminar el proveedor con ID ${selectedProveedorId}`);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -175,21 +162,16 @@ const ProveedoresView = () => {
   
       if (response.ok) {
         toast.success('Proveedor Editado correctamente');
-        console.log('Proveedor actualizado exitosamente.');
         showData();
       } else {
         handleCommonErrors(response.status);
         toast.error('Complete todos los campos.');
-        console.error('Error al intentar actualizar el proveedor.');
       }
     } catch (error) {
-      console.error('Error en la solicitud de actualización:', error);
     }
   
     handleClose();
   };
-  
-
 
   const handleUpdate = (proveedorId) => {
     const selected = proveedores.find((proveedor) => proveedor._id === proveedorId);
@@ -201,7 +183,6 @@ const ProveedoresView = () => {
     showData();
   }, []);
 
-  
   const columns = [
     {
       name: 'Nombre',
@@ -244,16 +225,27 @@ const ProveedoresView = () => {
       cell: (row) => (
         <div>
           <Styles.ActionButton onClick={() => handleUpdate(row._id)} update>
-            <FaEdit />
+           Editar
           </Styles.ActionButton>
           <Styles.ActionButton onClick={() => handleDelete(row._id)}>
-            <FaTrash />
+           Borrar
           </Styles.ActionButton>
         </div>
       ),
       center: true,
     },
   ];
+
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
+
 
   return (
     <Styles.AppContainer>
@@ -262,8 +254,9 @@ const ProveedoresView = () => {
         Crear
       </Styles.CreateButton>
 
-      <Styles.StyledDataTable
+      <Styles.StyledDataTable 
         columns={columns}
+        customStyles={customStyles}
         data={filteredItems}
         pagination
         paginationResetDefaultPage={resetPaginationToggle}

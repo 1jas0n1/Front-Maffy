@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import * as Styles from '../css/styles_colores';
-import { FaEdit,FaTrash } from 'react-icons/fa';
 import Footer from '../component/footer/footer';
 import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
@@ -95,20 +94,15 @@ const EstilosView = () => {
   const handleCommonErrors = (statusCode) => {
     switch (statusCode) {
       case 401:
-        console.error('Error 401: No autorizado para realizar esta acción.');
-        toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.');
-        // Add logic here to redirect the user to the login page if needed
+        toast.error('Su sesión ha caducado. Por favor, vuelva a iniciar sesión.'); 
         break;
       case 400:
-        console.error('Error 400: Solicitud incorrecta.');
         toast.error('Solicitud incorrecta');
         break;
       case 403:
-        console.error('Error 403: Permisos insuficientes para la acción.');
         toast.error('Permisos insuficientes para la acción');
         break;
       default:
-        console.error(`Error desconocido con código ${statusCode}`);
         toast.error('Error desconocido');
     }
   };
@@ -116,9 +110,6 @@ const EstilosView = () => {
 
   const handleCreate = async () => {
     try {
-      // Log the JSON being sent
-      console.log('Creating new style with JSON:', JSON.stringify(newEstilo));
-  
       const createUrl = 'https://apimafy.zeabur.app/api/estilos';
       const token = Cookies.get('token');
       const response = await fetch(createUrl, {
@@ -129,18 +120,14 @@ const EstilosView = () => {
         },
         body: JSON.stringify(newEstilo),
       });
-  
       if (response.ok) {
-        console.log('Estilo creado exitosamente.');
         showData();
         toast.success('Estilo creado exitosamente');
       } else {
         handleCommonErrors(response.status);
-        console.error('Error al intentar crear el estilo.');
         toast.error('Error al intentar crear el estilo');
       }
     } catch (error) {
-      console.error('Error en la solicitud de creación:', error);
       toast.error('Error en la solicitud de creación');
     }
   
@@ -163,12 +150,10 @@ const EstilosView = () => {
       });
   
       if (response.ok) {
-        console.log(`Estilo con ID ${estiloId} eliminado correctamente.`);
-        showData(); // Update the styles list after deletion
+        showData(); 
         toast.success('Estilo eliminado correctamente');
       } else {
         handleCommonErrors(response.status);
-        console.error(`Error al eliminar el estilo con ID ${estiloId}.`);
         toast.error('Error al eliminar el estilo');
       }
     } catch (error) {
@@ -192,19 +177,15 @@ const EstilosView = () => {
       });
   
       if (response.ok) {
-        console.log('Estilo actualizado exitosamente.');
         showData();
         toast.success('Estilo actualizado exitosamente');
       } else {
         handleCommonErrors(response.status);
-        console.error('Error al intentar actualizar el estilo.');
         toast.error('Error al intentar actualizar el estilo');
       }
     } catch (error) {
-      console.error('Error en la solicitud de actualización:', error);
       toast.error('Error en la solicitud de actualización');
     }
-  
     handleClose();
   };
   
@@ -240,12 +221,10 @@ const EstilosView = () => {
         <div>
        
         <Styles.ActionButton onClick={() => handleUpdate(row._id)} update>
-          <FaEdit /> 
+          Editar
         </Styles.ActionButton>
-
-       
         <Styles.ActionButton onClick={() => handleDelete(row._id)}>
-          <FaTrash /> 
+         Borrar 
         </Styles.ActionButton>
       </div>
       ),
@@ -253,15 +232,25 @@ const EstilosView = () => {
     },
   ];
 
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
+
   return (
     <Styles.AppContainer>
     <Navbar />
       <Styles.CreateButton variant="primary" onClick={handleShow}>
         Crear
       </Styles.CreateButton>
-
       <Styles.StyledDataTable
         columns={columns}
+        customStyles={customStyles}
         data={filteredItems}
         pagination
         paginationResetDefaultPage={resetPaginationToggle}

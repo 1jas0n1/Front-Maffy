@@ -72,23 +72,19 @@ const BodegasView = () => {
   
         if (response.ok) {
           setBodegas((prevBodegas) => prevBodegas.filter((bodega) => bodega._id !== deletingBodegaId));
-          toast.success('Bodega Eliminado correctamente');
-          console.log(`Bodega con ID ${deletingBodegaId} borrada exitosamente.`);
+        toast.success('Bodega Eliminado correctamente');
         }else if (response.status === 401) {
-          console.error('Error en la autenticacion para borrar la bodega.');
           toast.error('Permisos insuficientes para borrar el artículo');
         }
         else if (response.status === 403) {
-          console.error('Permisos insuficientes para borrar la bodega.');
           toast.error('Permisos insuficientes para borrar el artículo');
-        }
-        
+        }  
         else {
-          console.error(`Error borrando la bodega con ID ${deletingBodegaId}`);
+          toast.error(`Error borrando la bodega con ID ${deletingBodegaId}`);
         }
         
       } catch (error) {
-        console.error('Error en la solicitud DELETE:', error);
+        toast.error('Error en la solicitud DELETE:', error);
       }
   
       setShowDeleteConfirmation(false);
@@ -130,7 +126,6 @@ const BodegasView = () => {
     const bodega = document.getElementById('formBodega').value;
     const estado = document.getElementById('formEstado').value;
     const descripcion = document.getElementById('formDescripcion').value;
-  
     const nuevaBodega = {
       bodega,
       estado,
@@ -154,20 +149,15 @@ const BodegasView = () => {
         toast.success('Bodega creada exitosamente');
 
       } else if (response.status === 401) {
-
         toast.error('Error de autenticación al intentar actualizar la bodega');
       } else if (response.status === 403) {
-
         toast.error('Permisos insuficientes para borrar la bodega');
       } else if (response.status === 400) {
-
         toast.error('No se puede crear la bodega porque ya existe.');
       } else {
-
         toast.error('Se produjo un error en la solicitud de creación de la bodega.');
       }
     } catch (error) {
-
       toast.error('Se produjo un error en la solicitud de creación de la bodega.');
     }
   
@@ -200,20 +190,15 @@ const BodegasView = () => {
           )
         );
         toast.success('Bodega editada exitosamente');
-        console.log(`Bodega con ID ${updatingBodega._id} actualizada exitosamente.`);
       } else if (response.status === 401) {
-       
-        console.error('Error de autenticación al actualizar la bodega.');
         toast.error('Error de autenticación al intentar actualizar la bodega');
       } else if (response.status === 403) {
-     
-        console.error('Permisos insuficientes para actualizar la bodega.');
         toast.error('Permisos insuficientes para actualizar la bodega');
       } else {
-        console.error(`Error actualizando la bodega con ID ${updatingBodega._id}`);
+        toast.error(`Error actualizando la bodega con ID ${updatingBodega._id}`);
       }
     } catch (error) {
-      console.error('Error en la solicitud PUT:', error);
+      toast.error('Error en la solicitud PUT:', error);
     }
   
     handleUpdateClose();
@@ -249,12 +234,10 @@ const BodegasView = () => {
         <div>
         
         <Styles.ActionButton onClick={() => handleUpdate(row._id)} update>
-          <FaEdit /> 
+        Editar
         </Styles.ActionButton>
-
-       
         <Styles.ActionButton onClick={() => handleDelete(row._id)}>
-          <FaTrash /> 
+        Borrar 
         </Styles.ActionButton>
       </div>
       ),
@@ -262,6 +245,16 @@ const BodegasView = () => {
     },
   ];
 
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
+  
   return (
     <Styles.AppContainer>
         <Navbar />
@@ -271,6 +264,7 @@ const BodegasView = () => {
 
       <Styles.StyledDataTable
         columns={columns}
+        customStyles={customStyles}
         data={filteredItems}
         pagination
         paginationResetDefaultPage={resetPaginationToggle}

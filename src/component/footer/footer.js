@@ -12,10 +12,6 @@ const Footer = () => {
       </div>
 
       <div className="footer-center" style={{alignItems:'center'}} >
-        <div style={{alignItems:'center'}} className='icon-central'>
-          <FaMapMarker />
-          <span style={{ marginLeft: '10px' }}>San Marcos</span>
-        </div>
         <div className='icon-central'>
           <FaPhone />
           <p style={{marginLeft:'10px'}} >+505 8888-8888</p>
@@ -25,7 +21,6 @@ const Footer = () => {
           <p style={{marginLeft:'10px'}} ><a href="mailto:mafystore@gmail.com">correo@gmail.com</a></p>
         </div>
       </div>
-
       <div className="footer-right">
         <p className="footer-company-about" style={{color:'white',textAlign:'center'}} >
           <span style={{textAlign:'center'}} >Acerca de Nosotros </span>

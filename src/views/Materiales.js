@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import * as Styles from '../css/styles_colores';
 import Footer from '../component/footer/footer';
-import { FaTrash, FaEdit } from 'react-icons/fa';
+
 import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -190,6 +190,18 @@ const MaterialesView = () => {
     showData();
   }, []);
 
+
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
+
+
   const columns = [
     {
       name: 'Material',
@@ -214,10 +226,10 @@ const MaterialesView = () => {
       cell: (row) => (
         <div>
           <Styles.ActionButton onClick={() => handleUpdate(row._id)} update>
-            <FaEdit />
+            Editar
           </Styles.ActionButton>
           <Styles.ActionButton onClick={() => handleDelete(row._id)}>
-            <FaTrash />
+            Borrar
           </Styles.ActionButton>
         </div>
       ),
@@ -234,6 +246,7 @@ const MaterialesView = () => {
 
       <Styles.StyledDataTable
         columns={columns}
+        customStyles={customStyles}
         data={filteredItems}
         pagination
         paginationResetDefaultPage={resetPaginationToggle}

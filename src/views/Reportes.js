@@ -12,6 +12,7 @@ import { FaFileInvoiceDollar } from "react-icons/fa6";
 import { NavLink } from 'react-router-dom';
 import { FaSackDollar } from "react-icons/fa6";
 import { FaChartPie } from "react-icons/fa";
+import Loader from "../component/Loader"
 
 
 const ReportesVentas = () => {
@@ -93,14 +94,7 @@ const ReportesVentas = () => {
   };
 
   if (loading) {
-    return (
-      <div style={loadingStyles.container}>
-        <div style={loadingStyles.loadingBar}>
-          <div style={loadingStyles.loadingProgress}></div>
-        </div>
-        <p style={loadingStyles.loadingText}>Cargando...</p>
-      </div>
-    );
+    return <Loader />; 
   }
 
   if (error) {
@@ -175,9 +169,7 @@ const ReportesVentas = () => {
   };
 
   return (
-    <div
-      
-    >
+    <div>
       <MyNavbar />
 
       <div className="d-flex justify-content-around" style={{ marginBottom: "20px" }}>
@@ -195,8 +187,6 @@ const ReportesVentas = () => {
         </NavLink>
       </Card.Body>
     </Card>
-
-     
 
       <Card style={{ width: "30%", height: "400px", textAlign: "center" }}>
       <Card.Body style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
@@ -315,33 +305,6 @@ const ReportesVentas = () => {
   );
 };
 
-const loadingStyles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    color: '#333',
-  },
-  loadingBar: {
-    width: '50%',
-    height: '20px',
-    backgroundColor: '#ddd',
-    borderRadius: '5px',
-    overflow: 'hidden',
-  },
-  loadingProgress: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#4caf50',
-    animation: 'loading 2s infinite',
-  },
-  loadingText: {
-    marginTop: '10px',
-    fontSize: '18px',
-  },
-};
+
 
 export default ReportesVentas;

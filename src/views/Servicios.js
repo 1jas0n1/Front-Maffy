@@ -1,73 +1,73 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
-import * as Styles from '../css/styles_colores'; // Update import for styles
+import * as Styles from '../css/styles_colores'; 
 import Footer from '../component/footer/footer';
-import { FaTrash, FaEdit } from 'react-icons/fa';
+
 import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
 
 
-const ArticulosView = () => {
+const ServiciosView = () => {
   const [cookieData, setCookieData] = useState({
     miCookie: Cookies.get('miCookie') || null, 
   });
   
-  const [articulos, setArticulos] = useState([]);
+  const [Servicios, setServicios] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [filterText, setFilterText] = useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [deleteItemId, setDeleteItemId] = useState(null);
-  const [newArticulo, setNewArticulo] = useState({
+  const [newServicio, setNewServicio] = useState({
     nombre: '',
     descripcion: '',
     estado: '',
+    precio:''
    
   });
-  const [selectedArticulo, setSelectedArticulo] = useState(null);
+  const [selectedServicio, setSelectedServicio] = useState(null);
 
   const handleClose = () => {
     setShowCreateModal(false);
     setShowUpdateModal(false);
-    setNewArticulo({
+    setNewServicio({
       nombre: '',
       descripcion: '',
       estado: true,
+      precio:'',
     
     });
-    setSelectedArticulo(null);
+    setSelectedServicio(null);
   };
 
   const handleShow = () => setShowCreateModal(true);
 
-  const handleUpdate = (articuloId) => {
-    const selected = articulos.find((articulo) => articulo._id === articuloId);
-    setSelectedArticulo({
+  const handleUpdate = (ServicioId) => {
+    const selected = Servicios.find((Servicio) => Servicio._id === ServicioId);
+    setSelectedServicio({
       ...selected,
-     // Set the category ID for the select value
     });
     setShowUpdateModal(true);
   };
 
-  const showArticulos = async () => {
+  const showServicios = async () => {
     try {
-      const articulosResponse = await fetch('https://apimafy.zeabur.app/api/servicios');
-      const articulosData = await articulosResponse.json();
-      const articulosWithCategoria = articulosData.map((articulo) => ({
-        ...articulo,
+      const ServiciosResponse = await fetch('https://apimafy.zeabur.app/api/servicios');
+      const ServiciosData = await ServiciosResponse.json();
+      const ServiciosWithCategoria = ServiciosData.map((Servicio) => ({
+        ...Servicio,
       }));
-      setArticulos(articulosWithCategoria);
+      setServicios(ServiciosWithCategoria);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
-  
 
-  const handleDelete = (articuloId) => {
-    setDeleteItemId(articuloId);
+  const handleDelete = (ServicioId) => {
+    setDeleteItemId(ServicioId);
     setShowDeleteConfirmation(true);
   };
 
@@ -85,7 +85,7 @@ const handleDeleteConfirmed = async () => {
     });
 
     if (response.ok) {
-      showArticulos();
+      showServicios();
       toast.success('Servicio eliminado correctamente');
     } else if (response.status === 403) {
       toast.error('Permisos insuficientes para borrar el artículo');
@@ -113,15 +113,17 @@ const handleDeleteConfirmed = async () => {
     }
   };
 
-  const filteredItems = articulos.filter(
+  const filteredItems = Servicios.filter(
     (item) =>
-      item.nombre && item.nombre.toLowerCase().includes(filterText.toLowerCase())
+      (item.nombre && item.nombre.toLowerCase().includes(filterText.toLowerCase())) ||
+      (item.descripcion && item.descripcion.toLowerCase().includes(filterText.toLowerCase())) ||
+      (item.precio && item.precio.toString().includes(filterText))
   );
-
+  
   const subHeaderComponentMemo = useMemo(() => {
     return (
-      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
-        <input
+      <div style={{ display: 'flex', margin: '0 auto'}}>
+        <input style={{borderRadius:'5px',textAlign:'center'}}
           type="text"
           placeholder="Buscar por nombre"
           value={filterText}
@@ -145,36 +147,30 @@ const handleDeleteConfirmed = async () => {
           'Content-Type': 'application/json',
           'x-access-token': token,
         },
-        body: JSON.stringify(newArticulo),
+        body: JSON.stringify(newServicio),
       });
   
       if (response.status === 401) {
-        
         toast.error('Error de autenticación. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
-      
         toast.error('Acceso no permitido. No tiene los permisos necesarios.');
       } else if (response.status === 400) {
-       
         toast.error('No se puede crear el artículo porque ya existe.');
       } else if (!response.ok) {
-      
         toast.error('Se produjo un error en la solicitud de creación.');
       } else {
         toast.success('Artículo creado con éxito.');
-        showArticulos(); 
+        showServicios(); 
         handleClose();
       }
     } catch (error) {
       toast.error('Se produjo un error en la solicitud de creación.');
     }
   };
-  
-
 
 const handleUpdateSubmit = async () => {
   try {
-    const updateUrl = `https://apimafy.zeabur.app/api/articulos/${selectedArticulo._id}`;
+    const updateUrl = `https://apimafy.zeabur.app/api/Servicios/${selectedServicio._id}`;
     const token = Cookies.get('token'); 
 
     const response = await fetch(updateUrl, {
@@ -183,11 +179,10 @@ const handleUpdateSubmit = async () => {
         'Content-Type': 'application/json',
         'x-access-token': token, 
       },
-      body: JSON.stringify(selectedArticulo),
+      body: JSON.stringify(selectedServicio),
     });
 
     if (response.status === 401) {
-     
         toast.error('Error de autenticación. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
         toast.error('Acceso no permitido. No tiene los permisos necesarios.');
@@ -195,68 +190,75 @@ const handleUpdateSubmit = async () => {
         toast.error('Se produjo un error en la solicitud de Actualizacion.');
       } else {
         toast.success('Artículo actualizado con éxito.');
-        showArticulos(); 
+        showServicios(); 
         handleClose();
       }
     } catch (error) {
-      console.error('Error en la solicitud de creación:', error);
       toast.error('Se produjo un error en la solicitud de Actualizacion.');
     }
-
   handleClose();
 };
 
-
   useEffect(() => {
-    showArticulos();
- 
+    showServicios();
   }, []);
+
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
 
   const columns = [
     {
       name: 'Nombre',
       selector: (row) => row.nombre,
       sortable: true,
-    
     },
     {
       name: 'Descripción',
       selector: (row) => row.descripcion,
       sortable: true,
-    
     },
     {
       name: 'Estado',
       selector: (row) => (row.estado ? 'Activo' : 'Inactivo'),
       sortable: true,
-    
     },
-   
+    {
+      name: 'Precio',
+      selector: (row) => row.precio,
+      sortable: true,
+    },
     {
       name: 'Acciones',
       cell: (row) => (
         <div>
           <Styles.ActionButton onClick={() => handleUpdate(row._id)} update>
-            <FaEdit />
+            Editar
           </Styles.ActionButton>
           <Styles.ActionButton onClick={() => handleDelete(row._id)}>
-            <FaTrash />
+            Borrar
           </Styles.ActionButton>
         </div>
       ),
-    
     },
   ];
 
   return (
     <Styles.AppContainer>
       <Navbar />
-      <Styles.CreateButton variant="primary" onClick={handleShow}>
-        Crear 
+      <Styles.CreateButton  onClick={handleShow}>
+        Crear Nuevo
       </Styles.CreateButton>
 
       <Styles.StyledDataTable
         columns={columns}
+        customStyles={customStyles}
         data={filteredItems}
         pagination
         paginationResetDefaultPage={resetPaginationToggle}
@@ -276,8 +278,8 @@ const handleUpdateSubmit = async () => {
               <Form.Control
                 type="text"
                 placeholder="Ingrese el nombre"
-                value={newArticulo.nombre}
-                onChange={(e) => setNewArticulo({ ...newArticulo, nombre: e.target.value })}
+                value={newServicio.nombre}
+                onChange={(e) => setNewServicio({ ...newServicio, nombre: e.target.value })}
               />
             </Form.Group>
             <Form.Group controlId="formDescripcion">
@@ -285,16 +287,27 @@ const handleUpdateSubmit = async () => {
               <Form.Control
                 type="text"
                 placeholder="Ingrese la descripción"
-                value={newArticulo.descripcion}
-                onChange={(e) => setNewArticulo({ ...newArticulo, descripcion: e.target.value })}
+                value={newServicio.descripcion}
+                onChange={(e) => setNewServicio({ ...newServicio, descripcion: e.target.value })}
               />
             </Form.Group>
+
+            <Form.Group controlId="formDescripcion">
+              <Form.Label>Precio</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Ingrese el precio"
+                value={newServicio.precio}
+                onChange={(e) => setNewServicio({ ...newServicio, precio: e.target.value })}
+              />
+            </Form.Group>
+
             <Form.Group controlId="formEstado">
               <Form.Label>Estado</Form.Label>
               <Form.Control
                 as="select"
-                value={newArticulo.estado}
-                onChange={(e) => setNewArticulo({ ...newArticulo, estado: e.target.value })}
+                value={newServicio.estado}
+                onChange={(e) => setNewServicio({ ...newServicio, estado: e.target.value })}
               >
                 <option value="">Selecciona un Estado</option>
                 <option value={true}>Activo</option>
@@ -326,10 +339,10 @@ const handleUpdateSubmit = async () => {
               <Form.Control
                 type="text"
                 placeholder="Ingrese el nombre"
-                value={selectedArticulo ? selectedArticulo.nombre : ''}
+                value={selectedServicio ? selectedServicio.nombre : ''}
                 onChange={(e) =>
-                  setSelectedArticulo({
-                    ...selectedArticulo,
+                  setSelectedServicio({
+                    ...selectedServicio,
                     nombre: e.target.value,
                   })
                 }
@@ -340,23 +353,40 @@ const handleUpdateSubmit = async () => {
               <Form.Control
                 type="text"
                 placeholder="Ingrese la descripción"
-                value={selectedArticulo ? selectedArticulo.descripcion : ''}
+                value={selectedServicio ? selectedServicio.descripcion : ''}
                 onChange={(e) =>
-                  setSelectedArticulo({
-                    ...selectedArticulo,
+                  setSelectedServicio({
+                    ...selectedServicio,
                     descripcion: e.target.value,
                   })
                 }
               />
             </Form.Group>
+
+            <Form.Group controlId="formDescripcion">
+              <Form.Label>Precio</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Ingrese el Precio"
+                value={selectedServicio ? selectedServicio.precio : ''}
+                onChange={(e) =>
+                  setSelectedServicio({
+                    ...selectedServicio,
+                    precio: e.target.value,
+                  })
+                }
+              />
+            </Form.Group>
+
+
             <Form.Group controlId="formEstado">
               <Form.Label>Estado</Form.Label>
               <Form.Control
                 as="select"
-                value={selectedArticulo ? selectedArticulo.estado : ''}
+                value={selectedServicio ? selectedServicio.estado : ''}
                 onChange={(e) =>
-                  setSelectedArticulo({
-                    ...selectedArticulo,
+                  setSelectedServicio({
+                    ...selectedServicio,
                     estado: e.target.value,
                   })
                 }
@@ -404,4 +434,4 @@ const handleUpdateSubmit = async () => {
   );
 };
 
-export default ArticulosView;
+export default ServiciosView;

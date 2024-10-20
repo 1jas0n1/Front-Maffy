@@ -73,20 +73,29 @@ const TallasView = () => {
       });
   
       if (response.ok) {
-        toast.success(`Talla c eliminada correctamente.`);
-        showData(); // Refresh data after successful deletion
+        toast.success(`Talla eliminada correctamente.`);
+        showData(); 
       } else {
         toast.error(`Error al intentar eliminar la talla`);
       }
     } catch (error) {
-      console.error('Error:', error);
+  
       toast.error('Error al intentar eliminar la talla.');
     }
   
     setShowDeleteConfirmationModal(false);
   };
   
-  
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
+
 
 
 
@@ -123,13 +132,12 @@ const TallasView = () => {
         toast.success('Talla creada exitosamente.');
         showData();
       } else {
-        toast.error('Complete todos los campos');
+        toast.warning('Complete todos los campos');
       }
     } catch (error) {
       console.error('Error en la solicitud de creación:', error);
       toast.error('Error en la solicitud de creación.');
     }
-  
     handleClose();
   };
   
@@ -153,7 +161,6 @@ const TallasView = () => {
         toast.error('Completa todos los campos');
       }
     } catch (error) {
-      console.error('Error en la solicitud de actualización:', error);
       toast.error('Error en la solicitud de actualización.');
     }
   
@@ -188,10 +195,10 @@ const TallasView = () => {
       cell: (row) => (
         <div>
         <Styles.ActionButton onClick={() => handleUpdate(row._id)} update>
-          <FaEdit /> 
+          Editar
         </Styles.ActionButton>
         <Styles.ActionButton onClick={() => handleDelete(row._id)}>
-  <FaTrash />
+          Borrar
 </Styles.ActionButton>
 
       </div>
@@ -209,6 +216,7 @@ const TallasView = () => {
 
       <Styles.StyledDataTable
         columns={columns}
+        customStyles={customStyles}
         data={filteredItems}
         pagination
         paginationResetDefaultPage={resetPaginationToggle}
@@ -354,7 +362,7 @@ const TallasView = () => {
   </Styles.ModalFooter>
 </Styles.StyledModal>
 
-      <ToastContainer  position="top-center" />
+      <ToastContainer  />
     </Styles.AppContainer>
 
   );

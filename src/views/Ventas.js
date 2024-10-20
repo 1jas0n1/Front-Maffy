@@ -11,14 +11,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { MdDeleteForever } from "react-icons/md";
 import MyNavbar from '../component/Navbar';
 import Cookies from 'js-cookie';
-import Conversion from '../component/conversion/convetion';
 
 const VentasView = () => {
   const [filterText, setFilterText] = useState('');
   const handleFilterChange = (e) => {
     setFilterText(e.target.value);
   };
-
   const estadoFormatter = row => (row.Estado ? 'Activo' : 'Descontinuados');
   const danosFormatter = row => (row.Daños ? 'Sí' : 'No');
   const bodegaFormatter = row => (row.Id_bodega ? row.Id_bodega : 'S/B');
@@ -35,37 +33,31 @@ const VentasView = () => {
   const [disenos, setDisenos] = useState([]);
   const [promotions, setPromotions] = useState([]);
   const [bodegas, setBodegas] = useState([]);
-
   const [total, setTotal] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
   const [damageDiscount, setDamageDiscount] = useState(0);
   const [promotionDiscount, setPromotionDiscount] = useState(0);
-
 
   const calculateTotalsAndDiscounts = () => {
     let newTotal = 0;
     let newTotalDiscount = 0;
     let newDamageDiscount = 0;
     let newPromotionDiscount = 0;
-
     selectedItems.forEach((item) => {
       newTotal += item.subtotal;
       newTotalDiscount += item.Daños ? 0 : item.descuento;
       newDamageDiscount += item.Daños ? item.descuento : 0;
       newPromotionDiscount += getDiscountById(item.Id_promocion);
     });
-
     setTotal(newTotal);
     setTotalDiscount(newTotalDiscount);
     setDamageDiscount(newDamageDiscount);
     setPromotionDiscount(newPromotionDiscount);
   };
 
-
   useEffect(() => {
     calculateTotalsAndDiscounts();
   }, [selectedItems]);
-
 
   const [editingItem, setEditingItem] = useState(null);
   const [newQuantity, setNewQuantity] = useState(0);
@@ -79,51 +71,27 @@ const VentasView = () => {
   const [stockData, setStockData] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/stock');
-      const receivedStockData = response.data;
-      setStockData(receivedStockData);
+    const fetchData = async (url, setData) => {
+      const response = await axios.get(url);
+      setData(response.data);
     };
-
-    fetchData();
+    fetchData('https://apimafy.zeabur.app/api/stock', setStockData);
+    fetchData('https://apimafy.zeabur.app/api/bodegas', setBodegas);
+    fetchData('https://apimafy.zeabur.app/api/tallas', setTallas);
+    fetchData('https://apimafy.zeabur.app/api/promociones', setPromotions);
+    fetchData('https://apimafy.zeabur.app/api/colores', setColores);
+    fetchData('https://apimafy.zeabur.app/api/articulos', setArticulos);
+    fetchData('https://apimafy.zeabur.app/api/categorias', setCategorias);
+    fetchData('https://apimafy.zeabur.app/api/estilos', setEst);
+    fetchData('https://apimafy.zeabur.app/api/marcas', setMarcas);
+    fetchData('https://apimafy.zeabur.app/api/disenos', setDisenos);
+    fetchData('https://apimafy.zeabur.app/api/materiales', setMateriales);
   }, []);
-
-
-
-
-  useEffect(() => {
-    const fetchBodega = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/bodegas');
-      const receivedBodegaData = response.data;
-      setBodegas(receivedBodegaData);
-    };
-    fetchBodega();
-  }, []);
-
-  useEffect(() => {
-    const fetchTallas = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/tallas');
-      setTallas(response.data);
-    };
-    fetchTallas();
-  }, []);
-
-
-  useEffect(() => {
-    const fetchPromotions = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/promociones');
-      setPromotions(response.data);
-    };
-
-    fetchPromotions();
-  }, []);
-
- 
   
+
 
   const handleAddToCart = (row) => {
     const { _id, Id_articulo, Id_categoria, Id_marca, Id_color, Id_estilo, Id_material, Id_talla, Id_diseño, Existencias, Precio_venta, Descuento, Descuento_maximo, Id_promocion } = row;
-
     const isItemInCart = selectedItems.some((item) => item._id === _id);
     if (isItemInCart) {
       toast.error('Este Articulo ya a sido seleccionado');
@@ -140,229 +108,34 @@ const VentasView = () => {
       Id_material,
       Id_talla,
       Id_diseño,
-      cantidad: 1, // You may adjust this based on your logic for the quantity
+      cantidad: 1, 
       precio: Precio_venta,
-      descuento: row.Daños ? Descuento_maximo : Descuento, // Use Descuento_maximo for damaged items
+      descuento: row.Daños ? Descuento_maximo : Descuento, 
       Existencias,
       Id_promocion,
-      subtotal: 0, // Initialize subtotal
+      subtotal: 0, 
     };
-
-    // Calculate subtotal based on quantity, price, and discount
     newItem.subtotal = newItem.cantidad * newItem.precio - newItem.descuento;
-
-    // If you want to ensure the subtotal is not negative
     newItem.subtotal = Math.max(newItem.subtotal, 0);
-
-
     setSelectedItems([...selectedItems, newItem]);
     setSelectedRow(row);
   };
 
 
-  const [requestStatus, setRequestStatus] = useState({ loading: false, success: false, error: null });
-
-  const limpiarTabla = () => {
-    setSelectedItems([]);
-
-    document.getElementById('fechaVenta').value = '';
-    document.getElementById('clienteVenta').value = '';
-
-    setTotal(0);
-    setTotalDiscount(0);
-    setPromotionDiscount(0);
-  };
-
-  const handleRealizarVenta = async () => {
-    const token = Cookies.get('token');
-    setRequestStatus({ loading: true, success: false, error: null });
-
-    try {
-
-      const fechaVenta = document.getElementById('fechaVenta').value;
-      const clienteVenta = document.getElementById('clienteVenta').value;
-
-
-      if (!fechaVenta || !clienteVenta) {
-        toast.error('Por favor, ingrese la fecha y el cliente.');
-        return;
-      }
-
-
-      const ventaData = {
-        cliente: clienteVenta,
-        fecha: fechaVenta,
-        descuento: totalDiscount + promotionDiscount, // Sumar los dos descuentos
-        subtotal: total - (totalDiscount + promotionDiscount), // Restar los dos descuentos del total
-        total: total,
-        estado: true,
-      };
-
-      // Mostrar el JSON que se enviará en la primera petición POST
-      console.log('JSON enviado en la primera petición de venta:', ventaData);
-
-
-      const responseVenta = await axios.post('https://apimafy.zeabur.app/api/ventas', ventaData, {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': token, 
-        },
-      });
-      
-
-      // Extraer el ID de la venta creada
-      const ventaId = responseVenta.data._id;
-      console.log('ID de la venta creada:', ventaId);
-
-      // Construir la data de los artículos asociados a la venta (en el formato especificado)
-      const articulosVentaData = {
-        id_ventas: ventaId,
-        articulos: selectedItems.map(({ Existencias, Id_articulo, Id_categoria, Id_color, Id_diseño, Id_estilo, Id_marca, Id_material, Id_promocion, Id_talla, ...rest }) => ({
-          ...rest,
-          id_articulo: Id_articulo,
-          id_categoria: Id_categoria,
-          id_color: Id_color,
-          id_diseño: Id_diseño,
-          id_estilo: Id_estilo,
-          id_marca: Id_marca,
-          id_material: Id_material,
-          id_promocion: Id_promocion,
-          id_talla: Id_talla,
-          cantidad: parseInt(rest.cantidad, 10),
-          subtotal: rest.subtotal,
-          descuento: rest.danos ? 0 : rest.descuento, // Ajustar según tu lógica de descuento
-          _id: rest._id, // Mantener el ID original
-        })),
-        total: total - (totalDiscount + promotionDiscount), // Restar los descuentos al total
-      };
-
-      // Mostrar el JSON que se enviará en la segunda petición POST
-      console.log('JSON enviado en la segunda petición de artículos:', articulosVentaData);
-
-      // Realizar la segunda petición POST a la URL correspondiente para los artículos
-      const responseArticulos = await axios.post('https://apimafy.zeabur.app/api/detalleventa', articulosVentaData, {
-       headers: {
-        'Content-Type': 'application/json',
-         'x-access-token': token, 
-                 },
-                  });
-
-      console.log('Segunda petición de artículos realizada con éxito:', responseArticulos.data);
-
-      setRequestStatus({ loading: false, success: true, error: null });
-      console.log('Venta realizada con éxito');
-    } catch (error) {
-      setRequestStatus({ loading: false, success: false, error: error.message });
-      console.error('Error realizando la venta:', error);
-    }
-
-    // ... (tu código existente)
-
-    for (const item of selectedItems) {
-      const updatedExistencias = item.Existencias - item.cantidad;
-      const stockUpdateData = {
-        Existencias: updatedExistencias,
-        estado: updatedExistencias === 0 ? false : true,
-      };
-
-      const stockUpdateUrl = `https://apimafy.zeabur.app/api/stock/${item._id}`;
-
-      try {
-        // Realiza la solicitud PUT para actualizar el stock
-        const responseStockUpdate = await axios.put(stockUpdateUrl, stockUpdateData, {
-          headers: {
-            'Content-Type': 'application/json',
-            'x-access-token': token, // Reemplaza 'tuTokenAquí' con el valor real del token
-          },
-        });
-        
-        limpiarTabla();
-        toast('Venta realizda')
-        console.log(`Stock actualizado para el artículo con _id ${item.Id_articulo}`);
-      } catch (error) {
-        console.error('Error actualizando el stock:', error);
-        // Maneja el error según sea necesario
-      }
-    }
-
-  };
-
-  useEffect(() => {
-    const fetchColores = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/colores');
-      setColores(response.data);
-    };
-    fetchColores();
-  }, []);
-
-  useEffect(() => {
-    const fetchArticulos = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/articulos');
-      setArticulos(response.data);
-    };
-    fetchArticulos();
-  }, []);
-
-  useEffect(() => {
-    const fetchCategorias = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/categorias');
-      setCategorias(response.data);
-    };
-    fetchCategorias();
-  }, []);
-
-  useEffect(() => {
-    const fetchEstilos = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/estilos');
-      setEst(response.data);
-    };
-    fetchEstilos();
-  }, []);
-
-  useEffect(() => {
-    const fetchMarcas = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/marcas');
-      setMarcas(response.data);
-    };
-    fetchMarcas();
-  }, []);
-
-  useEffect(() => {
-    const fetchDisenos = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/disenos');
-      setDisenos(response.data);
-    };
-    fetchDisenos();
-  }, []);
-
-  useEffect(() => {
-    const fetchMateriales = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/materiales');
-      setMateriales(response.data);
-    };
-    fetchMateriales();
-  }, []);
-
-
-  
-
   const getNombreArticulo = (idArticulo) => {
     const articulo = articulos.find((a) => a._id === idArticulo);
-    return articulo ? articulo.nombre : 'Desconocido';
+    return articulo ? articulo.nombre : 'S/B';
   };
 
   const getNombreBodega = (idBodega) => {
     const bodega = bodegas.find((a) => a._id === idBodega);
-    return bodega ? bodega.bodega : 'Desconocido';
+    return bodega ? bodega.bodega : 'S/B';
   };
-
-
 
   const handleEditOpen = (item) => {
     setEditingItem(item);
     setNewQuantity(item.cantidad);
   };
-
 
   const getDiscountById = (promoId) => {
     const promotion = promotions.find((p) => p._id === promoId);
@@ -374,7 +147,7 @@ const VentasView = () => {
     const newQuantityNumber = parseInt(newQuantity, 10);
 
     if (newQuantityNumber > editingItem.Existencias) {
-      toast.error('Stock insuficiente');
+      toast.error('S/B');
       return;
     }
 
@@ -386,13 +159,10 @@ const VentasView = () => {
     setEditingItem(null);
   };
 
-
   const handleDeleteItem = (itemId) => {
     const updatedItems = selectedItems.filter(item => item._id !== itemId);
     setSelectedItems(updatedItems);
   };
-
-
 
   const handleEditClose = () => {
     setEditingItem(null);
@@ -415,6 +185,99 @@ const VentasView = () => {
     return estilo ? estilo.estilo : 'Desconocido ';
   };
 
+  const [requestStatus, setRequestStatus] = useState({ loading: false, success: false, error: null });
+  const limpiarTabla = () => {
+    setSelectedItems([]);
+    document.getElementById('fechaVenta').value = '';
+    document.getElementById('clienteVenta').value = '';
+    setTotal(0);
+    setTotalDiscount(0);
+    setPromotionDiscount(0);
+  };
+
+  const handleRealizarVenta = async () => {
+    const token = Cookies.get('token');
+    setRequestStatus({ loading: true, success: false, error: null });
+    try {
+      const fechaVenta = document.getElementById('fechaVenta').value;
+      const clienteVenta = document.getElementById('clienteVenta').value;
+      if (!fechaVenta || !clienteVenta) {
+        toast.error('Por favor, ingrese la fecha y el cliente.');
+        return;
+      }
+      const ventaData = {
+        cliente: clienteVenta,
+        fecha: fechaVenta,
+        descuento: totalDiscount + promotionDiscount, 
+        subtotal: total - (totalDiscount + promotionDiscount),
+        total: total,
+        estado: true,
+      };
+
+      const responseVenta = await axios.post('https://apimafy.zeabur.app/api/ventas', ventaData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-access-token': token, 
+        },
+      });
+      const ventaId = responseVenta.data._id;
+      const articulosVentaData = {
+        id_ventas: ventaId,
+        articulos: selectedItems.map(({ Existencias, Id_articulo, Id_categoria, Id_color, Id_diseño, Id_estilo, Id_marca, Id_material, Id_promocion, Id_talla, ...rest }) => ({
+          ...rest,
+          id_articulo: Id_articulo,
+          id_categoria: Id_categoria,
+          id_color: Id_color,
+          id_diseño: Id_diseño,
+          id_estilo: Id_estilo,
+          id_marca: Id_marca,
+          id_material: Id_material,
+          id_promocion: Id_promocion,
+          id_talla: Id_talla,
+          cantidad: parseInt(rest.cantidad, 10),
+          subtotal: rest.subtotal,
+          descuento: rest.danos ? 0 : rest.descuento, 
+          _id: rest._id, 
+        })),
+        total: total - (totalDiscount + promotionDiscount), 
+      };
+
+      const responseArticulos = await axios.post('https://apimafy.zeabur.app/api/detalleventa', articulosVentaData, {
+       headers: {
+        'Content-Type': 'application/json',
+         'x-access-token': token, 
+                 },
+                  });
+      setRequestStatus({ loading: false, success: true, error: null });
+      console.log('Venta realizada con éxito');
+    } catch (error) {
+      setRequestStatus({ loading: false, success: false, error: error.message });
+      console.error('Error realizando la venta:', error);
+    }
+
+    for (const item of selectedItems) {
+      const updatedExistencias = item.Existencias - item.cantidad;
+      const stockUpdateData = {
+        Existencias: updatedExistencias,
+        estado: updatedExistencias === 0 ? false : true,
+      };
+
+      const stockUpdateUrl = `https://apimafy.zeabur.app/api/stock/${item._id}`;
+      try {
+        const responseStockUpdate = await axios.put(stockUpdateUrl, stockUpdateData, {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': token, 
+          },
+        });
+        limpiarTabla();
+        toast('Venta realizda')
+      } catch (error) {
+        console.error('Error actualizando el stock:', error);
+      }
+    }
+  };
+
   const filteredData = stockData
   .filter(
     (item) =>
@@ -428,8 +291,6 @@ const VentasView = () => {
       item.Descripcion.toLowerCase().includes(filterText.toLowerCase())
   )
   .filter((item) => item.Existencias > 0);
-
-  
   const getMarcaNombreById = (id) => {
     const marca = marcas.find((marca) => marca._id === id);
     return marca ? marca.marca : '';
@@ -495,8 +356,6 @@ const VentasView = () => {
       },
       sortable: true,
     },
-    { name: 'Descuento', cell: (row) => row.Descuento, sortable: true },
-    { name: 'Descuento_maximo', cell: (row) => row.Descuento_maximo, sortable: true },
     {
       name: 'Bodega',
       cell: (row) => {
@@ -513,8 +372,8 @@ const VentasView = () => {
     {
       name: 'Promoción',
       cell: (row) => {
-        const promocion = promotions.find((promocion) => promocion._id === row.Id_promocion);
-        return promocion ? promocion.promocion : 'Desconocida';
+      const promocion = promotions.find((promocion) => promocion._id === row.Id_promocion);
+      return promocion ? promocion.promocion : 'Desconocida';
       },
       sortable: true,
     },
@@ -533,14 +392,9 @@ const VentasView = () => {
       button: true,
     },
   ];
-  
-
 
   return (
-
     <Container fluid style={estilos.containerStyle}>
-      <Conversion></Conversion>
-
       <MyNavbar style={{ height: '100%', width: '100%' }}> </MyNavbar>
       <h2 className=" mt-4 center-text" style={estilos.titulo}>
         Registro de Ventas
@@ -565,11 +419,9 @@ const VentasView = () => {
           />
         </Form.Group>
       </Form>
-
       <Button style={estilos.search} variant="outline-secondary" onClick={handleShowModal} >
         Agregar Articulos
       </Button>
-
       <div style={{ marginTop: '25px', width: '95%', margin: '0 auto', overflowX: 'auto' }} >
         <table style={{ textAlign: 'center', marginTop: '10px' }} className="table table-bordered table-striped"  >
           <thead>
@@ -578,16 +430,10 @@ const VentasView = () => {
               <th>Categoría</th>
               <th>Marca</th>
               <th>Color</th>
-
-
               <th>Talla</th>
-
-
               <th>Cantidad</th>
               <th>Precio</th>
               <th>Subtotal</th>
-              <th>Descuento</th>
-              <th>Prom Desc</th>
               <th>Opciones</th>
             </tr>
           </thead>
@@ -595,19 +441,12 @@ const VentasView = () => {
             {selectedItems.map((item) => (
               <tr key={item._id}>
                 <td>{getNombreArticulo(item.Id_articulo)}</td>
-
                 <td>{getNombreCategoriaById(item.Id_categoria)}</td>
                 <td>{getMarcaNombreById(item.Id_marca)}</td>
                 <td>{getColorNameById(item.Id_color)}</td>
-
-
                 <td>{getNombreTalla(item.Id_talla)}</td>
-
-
                 <td>{item.cantidad}</td>
                 <td>{item.precio}</td>
-                <td>{item.subtotal.toFixed(2)}</td>
-                <td>{item.Daños ? 'Sin daños' : item.descuento}</td>
                 <td>{getDiscountById(item.Id_promocion)}</td>
                 <td>
                   <Button variant="primary" style={{ width: '30px', height: '30px', marginRight: '5px', fontSize: '17px', padding: '0' }} onClick={() => handleEditOpen(item)}>
@@ -620,19 +459,15 @@ const VentasView = () => {
               </tr>
             ))}
           </tbody>
-
         </table>
       </div>
 
       <div style={{ margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '400px', backgroundColor: 'white', padding: '10px', borderRadius: '5px', marginTop: '10px' }}>
-
-
         <div style={{ marginTop: '10px' }}>
           <h4>Total: C${total.toFixed(2)}</h4>
           <h5>Descuento Total: C${totalDiscount}</h5>
           <h5>Promoción Descuento Total: C${promotionDiscount}</h5>
         </div>
-
       </div>
 
       <Button variant="success" style={{ width: '150px', height: '50px', marginTop: '20px', marginLeft: '45%' }} onClick={handleRealizarVenta} >
@@ -645,8 +480,8 @@ const VentasView = () => {
         </Modal.Header>
         <Modal.Body>
         <DataTable
-  columns={columns}  // Assuming 'columns' is defined in your component
-  data={tableData}    // Assuming 'tableData' is defined in your component
+  columns={columns} 
+  data={tableData}  
   pagination
   responsive
   conditionalRowStyles={conditionalRowStyles}
@@ -663,7 +498,6 @@ const VentasView = () => {
     </div>
   }
 />
-
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" style={{ width: '100px', height: '40px' }} onClick={handleCloseModal}>
@@ -684,7 +518,6 @@ const VentasView = () => {
               value={newQuantity}
               onChange={(e) => setNewQuantity(e.target.value)}
               onKeyPress={(e) => {
-                // Permite solo números y teclas de control (por ejemplo, borrar)
                 const validKey = /[0-9]|[\b]/.test(e.key);
                 if (!validKey) {
                   e.preventDefault();
@@ -702,17 +535,12 @@ const VentasView = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-
-
-
       <ToastContainer />
     </Container>
   );
 };
 
 export default VentasView;
-
 
 const conditionalRowStyles = [
   {

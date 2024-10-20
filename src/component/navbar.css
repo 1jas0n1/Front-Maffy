@@ -10,9 +10,9 @@ li {
   text-decoration: none;
   color: white;
   display: flex;
-  justify-content: space-between; /* Cambiado de space-around a space-between */
+  justify-content: space-between; 
   align-items: center;
-  height: 10vh;
+  height: 12vh;
   background-color: #4a4a4a;
   width: 100%;
   margin-bottom: 20px;

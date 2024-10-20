@@ -95,7 +95,7 @@ const MyNavbar = () => {
     <Navbar style={{ marginLeft: '0 auto' }} bg="dark" expand="lg" variant="dark">
 
 <Nav.Link href="/index" to="/index" >
-<Navbar.Brand style={{ marginLeft: '0', fontSize: '30px', fontFamily: 'MV Boli' }} >Tammy<span style={{ color: '#E61B79', fontFamily: 'MV Boli' }}>Closet</span></Navbar.Brand>
+<Navbar.Brand style={{ marginLeft: '0', fontSize: '30px', fontFamily: 'MV Boli' }} >Tammys<span style={{ color: '#E61B79', fontFamily: 'MV Boli' }}>Closet</span></Navbar.Brand>
          </Nav.Link>
 
       <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle}>
