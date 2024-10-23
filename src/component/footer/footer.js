@@ -12,14 +12,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-center" style={{alignItems:'center'}} >
-        <div className='icon-central'>
-          <FaPhone />
-          <p style={{marginLeft:'10px'}} >+505 8888-8888</p>
-        </div>
-        <div style={{alignItems:'center'}} className='icon-central'>
-          <FaEnvelope />
-          <p style={{marginLeft:'10px'}} ><a href="mailto:mafystore@gmail.com">correo@gmail.com</a></p>
-        </div>
+
       </div>
       <div className="footer-right">
         <p className="footer-company-about" style={{color:'white',textAlign:'center'}} >

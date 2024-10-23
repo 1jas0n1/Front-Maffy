@@ -26,6 +26,10 @@ import UserInfo from "./views/ListUser.js";
 import MercanciaDañada from "./views/MercanciaDañada.js";
 import Reporteventas from "./views/Reportes.js";
 import ServiciosView from "./views/Servicios.js";
+import FacturacionServicioView from "./views/FacturacionServicio.js";
+import ReporteServiciosView from "./views/ReporteServicios.js";
+import ReporteComprasView from "./views/ReporteCompras.js";
+import ReporteVentasView from "./views/ReporteVentas";
 
 function App() {
   return (
@@ -55,8 +59,12 @@ function App() {
           <Route path='/ingresos-detalles' element={<DetalleIngresosView />} />
           <Route path='/list-user' element={<UserInfo />} />
           <Route path='/mercancia-dañada' element={<MercanciaDañada />} />
-          <Route path='/reportes' element={<Reporteventas></Reporteventas>}></Route>
+          <Route path='/reportes' element={<Reporteventas></Reporteventas>}/>
           <Route path='/servicios' element={<ServiciosView/>} />
+          <Route path='/FactServicios' element={<FacturacionServicioView/>} />
+          <Route path='/ReporteServicios' element={<ReporteServiciosView />} />
+          <Route path='/ReporteVentas' element={<ReporteVentasView/>} />
+          <Route path='/ReporteCompras' element={<ReporteComprasView/>} />
         </Routes>
       </Router>
    
