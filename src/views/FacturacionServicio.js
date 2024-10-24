@@ -19,20 +19,58 @@ const FacturacionServicioView = () => {
   const [carro, setCarro] = useState([]); 
 
 
+  const calcularIVA = () => {
+    const total = calcularTotal();
+    return total * 0.15; 
+  };
+
   const obtenerDatosJSON = () => {
+    const total = calcularTotal();
+    const iva = calcularIVA(total);
+    const totalFactura = (total + iva).toFixed(2);
+
     return {
       fecha: fecha,
-      cliente: cliente,
+      cliente: { nombre: cliente }, 
       servicios: carro.map(servicio => ({
-        nombre: servicio.nombre,
-        descripcion: servicio.descripcion,
+        servicio:servicio._id,
         precio: servicio.precio,
         cantidad: servicio.cantidad,
-        subtotal: (servicio.precio * servicio.cantidad).toFixed(2),
+        total: (servicio.precio * servicio.cantidad).toFixed(2),
       })),
-      total: calcularTotal().toFixed(2),
+      iva: iva.toFixed(2),
+      subtotal: total-iva,
+      totalFactura: total.toFixed(2),
     };
   };
+
+  const realizarVenta = async () => {
+    const factura = obtenerDatosJSON();
+    try {
+      const response = await fetch('https://apimafy.zeabur.app/api/facturaServicio', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(factura),
+      });
+  
+      if (response.ok) {
+        toast.success('Venta realizada con éxito');
+        setFecha('');         
+        setCliente('');       
+        setCarro([]); 
+      } else {
+        const errorData = await response.json(); 
+        toast.error(`Error al realizar la venta: ${errorData.message || 'Error desconocido'}`);
+      }
+    } catch (error) {
+
+      toast.error('Error al realizar la venta');
+      
+    }
+  };
+  
 
   useEffect(() => {
     console.log(obtenerDatosJSON());
@@ -59,7 +97,7 @@ const FacturacionServicioView = () => {
       selector: row => `C$${row.precio}`,
       sortable: true,
       cell: (row) => (
-        <span style={{ color: 'navy' }}>{`C$${row.precio}`}</span> // Cambiado a C$
+        <span style={{ color: 'navy' }}>{`C$${row.precio}`}</span> 
       ),
     },
     {
@@ -111,7 +149,7 @@ const FacturacionServicioView = () => {
       selector: row => `C$${row.precio}`,
       sortable: true,
       cell: (row) => (
-        <span style={{ color: 'navy' }}>{`C$${row.precio}`}</span> // Cambiado a C$
+        <span style={{ color: 'navy' }}>{`C$${row.precio}`}</span> 
       ),
     },
     {
@@ -194,6 +232,8 @@ const FacturacionServicioView = () => {
     toast.success(`Cliente: ${cliente}, Fecha: ${fecha}`);
   };
 
+  
+
   const handleModalOpen = () => {
     fetchServicios();
     setShowModal(true);
@@ -270,10 +310,11 @@ const FacturacionServicioView = () => {
       </div>
 
       <div className="d-flex justify-content-center mt-4">
-        <ButtonVender>
-          Vender
+        <ButtonVender onClick={realizarVenta}>
+
         </ButtonVender>
       </div>
+
       <div className="d-flex mt-4  justify-content-center"  >
       <Total total={total} />
     </div>
@@ -290,7 +331,7 @@ const FacturacionServicioView = () => {
             pagination
             highlightOnHover
             striped
-            noDataComponent="No hay servicios disponibles"
+            noDataComponent=" "
             customStyles={customStyles}
           />
         </Modal.Body>

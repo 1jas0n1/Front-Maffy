@@ -8,10 +8,7 @@ import Card from "react-bootstrap/Card";
 import axios from "axios";
 import MonthlySalesChart from "../component/barMeses";
 import BarChartComponent from "../component/barCharts";
-import { FaFileInvoiceDollar } from "react-icons/fa6";
 import { NavLink } from 'react-router-dom';
-import { FaSackDollar } from "react-icons/fa6";
-import { FaChartPie } from "react-icons/fa";
 import Loader from "../component/Loader"
 
 
@@ -180,7 +177,7 @@ const ReportesVentas = () => {
           <Card.Title>Reporte Compras</Card.Title>
           <FontAwesomeIcon icon={faCoins} size="10x" bounce style={{color: "#FFD43B",}} />
         </div>
-        <NavLink to="/ruta-del-reporte-ventas" style={{ textDecoration: 'none' }}>
+        <NavLink to="/ReporteCompras" style={{ textDecoration: 'none' }}>
           <Button variant="primary" style={{ marginTop: 'auto', width: '150px', height:'50px' }}>
             Generar Reporte
           </Button>
@@ -191,10 +188,10 @@ const ReportesVentas = () => {
       <Card style={{ width: "30%", height: "400px", textAlign: "center" }}>
       <Card.Body style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
         <div>
-          <Card.Title>Reporte Compras</Card.Title>
+          <Card.Title>Reporte Ventas</Card.Title>
           <FontAwesomeIcon icon={faMoneyCheckDollar} size="10x" bounce style={{color: "#fafafa",}} />
         </div>
-        <NavLink to="/ruta-del-reporte-ventas" style={{ textDecoration: 'none' }}>
+        <NavLink to="/ReporteVentas" style={{ textDecoration: 'none' }}>
           <Button variant="primary" style={{ marginTop: 'auto', width: '150px', height:'50px' }}>
             Generar Reporte
           </Button>
@@ -205,10 +202,10 @@ const ReportesVentas = () => {
       <Card style={{ width: "30%", height: "400px", textAlign: "center" }}>
       <Card.Body style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>
         <div>
-          <Card.Title>Reporte Ganancias</Card.Title>
+          <Card.Title>Reporte Servicios</Card.Title>
           <FontAwesomeIcon icon={faFileInvoiceDollar} bounce size="10x" style={{ color: "#74C0FC" }} />
         </div>
-        <NavLink to="/ruta-del-reporte-ventas" style={{ textDecoration: 'none' }}>
+        <NavLink to="/ReporteServicios" style={{ textDecoration: 'none' }}>
           <Button variant="primary" style={{ marginTop: 'auto', width: '150px', height:'50px' }}>
             Generar Reporte
           </Button>
