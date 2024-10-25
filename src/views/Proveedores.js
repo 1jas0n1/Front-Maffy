@@ -2,11 +2,11 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import * as Styles from '../css/styles_colores';
 import Footer from '../component/footer/footer';
-
 import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
+import ButtonM from '../component/BtnAgregar.js';
 
 const ProveedoresView = () => {
   const [cookieData, setCookieData] = useState({
@@ -68,10 +68,11 @@ const ProveedoresView = () => {
   );
   const subHeaderComponentMemo = useMemo(() => {
     return (
-      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px', marginTop:'10px' }}>
         <input
           type="text"
-          placeholder="Buscar por nombre"
+          className='text-center'
+          placeholder="Buscar..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
         />
@@ -246,13 +247,12 @@ const ProveedoresView = () => {
     },
   };
 
-
   return (
     <Styles.AppContainer>
       <Navbar />
-      <Styles.CreateButton variant="primary" onClick={handleShow}>
+      <ButtonM variant="primary" onClick={handleShow}>
         Crear
-      </Styles.CreateButton>
+      </ButtonM>
 
       <Styles.StyledDataTable 
         columns={columns}

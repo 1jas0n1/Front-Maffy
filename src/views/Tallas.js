@@ -3,11 +3,10 @@ import { Form, Button, Modal } from 'react-bootstrap';
 import * as Styles from '../css/styles_colores';
 import Footer from '../component/footer/footer';
 import Navbar from '../component/Navbar';
-import { FaTrash,FaEdit } from 'react-icons/fa';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
-
+import ButtonM from '../component/BtnAgregar.js';
 const TallasView = () => {
 
   const [tallas, setTallas] = useState([]);
@@ -96,19 +95,17 @@ const TallasView = () => {
     },
   };
 
-
-
-
   const filteredItems = tallas.filter(
     (item) => item.talla && item.talla.toLowerCase().includes(filterText.toLowerCase())
   );
 
   const subHeaderComponentMemo = useMemo(() => {
     return (
-      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px',marginTop:'10px' }}>
         <input
           type="text"
-          placeholder="Buscar por talla"
+          className="text-center"
+          placeholder="Buscar..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
         />
@@ -140,7 +137,6 @@ const TallasView = () => {
     }
     handleClose();
   };
-  
 
   const handleUpdateSubmit = async () => {
     try {
@@ -210,9 +206,9 @@ const TallasView = () => {
   return (
     <Styles.AppContainer>
       <Navbar />
-      <Styles.CreateButton variant="primary" onClick={handleShow}>
+      <ButtonM variant="primary" onClick={handleShow}>
         Crear
-      </Styles.CreateButton>
+      </ButtonM>
 
       <Styles.StyledDataTable
         columns={columns}

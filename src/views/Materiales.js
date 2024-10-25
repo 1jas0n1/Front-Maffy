@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import * as Styles from '../css/styles_colores';
 import Footer from '../component/footer/footer';
-
+import ButtonM from '../component/BtnAgregar.js';
 import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -81,7 +81,7 @@ const MaterialesView = () => {
       <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
         <input
           type="text"
-          placeholder="Buscar por material"
+          placeholder="Buscar..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
         />
@@ -181,15 +181,12 @@ const MaterialesView = () => {
     } catch (error) {
       console.error('Error en la solicitud de actualización:', error);
     }
-  
     handleClose();
   };
-  
 
   useEffect(() => {
     showData();
   }, []);
-
 
   const customStyles = {
     headCells: {
@@ -200,7 +197,6 @@ const MaterialesView = () => {
       },
     },
   };
-
 
   const columns = [
     {
@@ -240,9 +236,9 @@ const MaterialesView = () => {
   return (
     <Styles.AppContainer>
       <Navbar/>
-      <Styles.CreateButton variant="primary" onClick={handleShow}>
+      <ButtonM variant="primary" onClick={handleShow}>
         Crear
-      </Styles.CreateButton>
+      </ButtonM>
 
       <Styles.StyledDataTable
         columns={columns}
@@ -261,7 +257,6 @@ const MaterialesView = () => {
         </Modal.Header>
         <Modal.Body>
           <Form>
-
             <Form.Group controlId="formMaterial">
               <Form.Label>Material</Form.Label>
               <Form.Control
@@ -271,7 +266,6 @@ const MaterialesView = () => {
                 onChange={(e) => setNewMaterial({ ...newMaterial, material: e.target.value })}
               />
             </Form.Group>
-
             <Form.Group controlId="formDescripcion">
               <Form.Label>Descripción</Form.Label>
               <Form.Control
@@ -286,8 +280,7 @@ const MaterialesView = () => {
   <Form.Label>Estado</Form.Label>
   <Form.Control
     as="select"
-    placeholder="Seleccione el estado"
-  >
+    placeholder="Seleccione el estado">
     <option value="true">Activo</option>
     <option value="false">Inactivo</option>
   </Form.Control>
@@ -389,11 +382,8 @@ const MaterialesView = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
-      
       <Footer />
       <ToastContainer />
-      
     </Styles.AppContainer>
   );
 };

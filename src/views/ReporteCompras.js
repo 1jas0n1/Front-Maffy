@@ -8,13 +8,31 @@ const ReporteComprasView = () => {
   const [error, setError] = useState('');
 
   const handleFechaInicialChange = (e) => {
-    setFechaInicial(e.target.value);
+    const nuevaFechaInicial = e.target.value;
+    const fechaInicio = new Date(nuevaFechaInicial);
+    const fechaFin = new Date(fechaFinal);
+  
+    if (fechaFin < fechaInicio) {
+      setError('La fecha final no puede ser anterior a la fecha inicial.');
+    } else {
+      setError('');
+    }
+    setFechaInicial(nuevaFechaInicial);
   };
+  
 
   const handleFechaFinalChange = (e) => {
-    setFechaFinal(e.target.value);
+    const nuevaFechaFinal = e.target.value;
+    const fechaInicio = new Date(fechaInicial);
+    const fechaFin = new Date(nuevaFechaFinal);
+  
+    if (fechaFin < fechaInicio) {
+      setError('La fecha final no puede ser anterior a la fecha inicial.');
+    } else {
+      setError('');
+      setFechaFinal(nuevaFechaFinal);
+    }
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -29,14 +47,11 @@ const ReporteComprasView = () => {
     setError('');
 
     try {
-      // Realizar la petición GET para generar el reporte
       const response = await fetch(`https://apimafy.zeabur.app/api/Ingresos/reportes?startDate=${fechaInicial}&endDate=${fechaFinal}`);
 
       if (!response.ok) {
         throw new Error('Error al generar el reporte');
       }
-
-      // Crear un enlace temporal para descargar el archivo Excel
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import * as Styles from '../css/styles_colores'; 
 import Footer from '../component/footer/footer';
-
+import ButtonM from '../component/BtnAgregar.js';
 import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -123,9 +123,9 @@ const handleDeleteConfirmed = async () => {
   const subHeaderComponentMemo = useMemo(() => {
     return (
       <div style={{ display: 'flex', margin: '0 auto'}}>
-        <input style={{borderRadius:'5px',textAlign:'center'}}
+        <input style={{borderRadius:'5px',textAlign:'center',marginTop:'10px',marginBottom:'10px'}}
           type="text"
-          placeholder="Buscar por nombre"
+          placeholder="Buscar..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
         />
@@ -252,9 +252,9 @@ const handleUpdateSubmit = async () => {
   return (
     <Styles.AppContainer>
       <Navbar />
-      <Styles.CreateButton  onClick={handleShow}>
+      <ButtonM  onClick={handleShow}>
         Crear Nuevo
-      </Styles.CreateButton>
+      </ButtonM>
 
       <Styles.StyledDataTable
         columns={columns}

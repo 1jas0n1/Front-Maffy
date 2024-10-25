@@ -12,7 +12,7 @@ export const AppContainer = styled.div`
 export const StyledDataTable = styled(DataTable)`
   border: 2px solid #333;
   border-radius: 3px;
-  width: 80%;
+  width: 90%;
   margin-bottom: 5px;
 `;
 

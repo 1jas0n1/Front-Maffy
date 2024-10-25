@@ -6,10 +6,9 @@ import MyNavbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie'; 
-
+import ButtonM from '../component/BtnAgregar.js';
 
 const ColoresView = () => {
-
   
   const [colors, setColors] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -75,17 +74,17 @@ const ColoresView = () => {
 
   const subHeaderComponentMemo = useMemo(() => {
     return (
-      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px', marginTop:'10px' }}>
         <input  style={{borderRadius:'5px',textAlign:'center'}}
           type="text"
-          placeholder="Buscar "
+          className='text-center'
+          placeholder="Buscar..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
         />
       </div>
     );
   }, [filterText, resetPaginationToggle]);
-
 
   const handleDeleteConfirm = async () => {
     try {
@@ -97,7 +96,6 @@ const ColoresView = () => {
           'x-access-token': Cookies.get('token'),
         },
       });
-  
       if (response.ok) {
         console.log(`Color con ID ${deleteColorId} borrado exitosamente.`);
         toast.success('Color eliminado exitosamente');
@@ -238,9 +236,10 @@ const ColoresView = () => {
     
     <Styles.AppContainer>
      <MyNavbar />
-      <Styles.CreateButton variant="primary" onClick={handleShow}>
+
+      <ButtonM variant="primary" onClick={handleShow}>
         Crear
-      </Styles.CreateButton>
+      </ButtonM>
 
       <Styles.StyledDataTable
         columns={columns}
@@ -252,7 +251,6 @@ const ColoresView = () => {
         subHeaderComponent={subHeaderComponentMemo}
         persistTableHead
       />
-
       <Styles.StyledModal show={showCreateModal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Crear Color</Modal.Title>
@@ -269,14 +267,12 @@ const ColoresView = () => {
               />
             </Form.Group>
 
-
-            <Form.Group controlId="formEstado">
+  <Form.Group controlId="formEstado">
   <Form.Label>Estado</Form.Label>
   <Form.Control
     as="select"
     value={newColor.estado}
-    onChange={(e) => setNewColor({ ...newColor, estado: e.target.value })}
-  >
+    onChange={(e) => setNewColor({ ...newColor, estado: e.target.value })}>
     <option value="">Seleccionar estado</option>
     <option value="true">Activo</option>
     <option value="false">Inactivo</option>
@@ -300,7 +296,6 @@ const ColoresView = () => {
           <Button className="otros" variant="secondary" onClick={handleClose}>
             Cerrar
           </Button>
-          
         </Styles.ModalFooter>
       </Styles.StyledModal>
 

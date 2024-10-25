@@ -7,6 +7,7 @@ import Footer from '../component/footer/footer';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
+import ButtonM from '../component/BtnAgregar.js';
 
 const MarcasView = () => {
     const [cookieData, setCookieData] = useState({
@@ -69,10 +70,11 @@ const MarcasView = () => {
 
   const subHeaderComponentMemo = useMemo(() => {
     return (
-      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px',marginTop:'10px' }}>
         <input
           type="text"
-          placeholder="Buscar por marca"
+          placeholder="Buscar..."
+          className='text-center'
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
         />
@@ -240,9 +242,9 @@ const MarcasView = () => {
   return (
     <Styles.AppContainer>
       <Navbar />
-      <Styles.CreateButton variant="primary" onClick={handleShow}>
+      <ButtonM variant="primary" onClick={handleShow}>
         Crear
-      </Styles.CreateButton>
+      </ButtonM>
 
       <Styles.StyledDataTable
         columns={columns}

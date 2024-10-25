@@ -7,6 +7,7 @@ import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
+import ButtonM from '../component/BtnAgregar.js';
 
 const CategoriasView = () => {
   const [cookieData, setCookieData] = useState({
@@ -110,10 +111,11 @@ const CategoriasView = () => {
 
   const subHeaderComponentMemo = useMemo(() => {
     return (
-      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px',marginTop:'10px' }}>
         <input
           type="text"
-          placeholder="Buscar por categoría"
+          className="text-center"
+          placeholder="Buscar..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
         />
@@ -179,7 +181,6 @@ const CategoriasView = () => {
       } else if (response.status === 400) {
         toast.error(' Por favor complete todos los campos.');
       } else if (response.status === 401) {
-
         toast.error('No autorizado. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
         toast.error(' Acceso prohibido.');
@@ -244,9 +245,9 @@ const CategoriasView = () => {
   return (
     <Styles.AppContainer>
         <Navbar />
-      <Styles.CreateButton variant="primary" onClick={handleShow}>
+      <ButtonM variant="primary" onClick={handleShow}>
         Crear
-      </Styles.CreateButton>
+      </ButtonM>
 
       <Styles.StyledDataTable
         customStyles={customStyles}
@@ -276,7 +277,6 @@ const CategoriasView = () => {
                 }
               />
             </Form.Group>
-
             <Form.Group controlId="formEstado">
   <Form.Label>Estado</Form.Label>
   <Form.Control
@@ -289,8 +289,6 @@ const CategoriasView = () => {
     <option value="false">Inactivo</option>
   </Form.Control>
 </Form.Group>
-
-
             <Form.Group controlId="formDescripcion">
               <Form.Label>Descripción</Form.Label>
               <Form.Control
@@ -335,8 +333,6 @@ const CategoriasView = () => {
                 }
               />
             </Form.Group>
-
-
             <Form.Group controlId="formEstado">
   <Form.Label>Estado</Form.Label>
   <Form.Control
@@ -349,9 +345,6 @@ const CategoriasView = () => {
     <option value="false">Inactivo</option>
   </Form.Control>
 </Form.Group>
-
-
-
             <Form.Group controlId="formDescripcion">
               <Form.Label>Descripción</Form.Label>
               <Form.Control

@@ -1,11 +1,10 @@
-
 .cont {
     height: 100vh;
     margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: linear-gradient(to right top, #ffffff, #f6f1fb, #f1e3f5, #efd4eb, #f0c4de, #f1bcd5, #f2b3cb, #f2abc0, #f2a8bc, #f2a5b7, #f2a3b3, #f2a0ae);
+    background-color: #74c0fc;
 }
 
 
@@ -65,4 +64,7 @@ input {
     border-color:  2px solid black;
     box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.5);
 }
+
+
+
 

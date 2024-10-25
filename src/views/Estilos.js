@@ -6,6 +6,7 @@ import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
+import ButtonM from '../component/BtnAgregar.js';
 
 const EstilosView = () => {
 
@@ -64,9 +65,6 @@ const EstilosView = () => {
     }
   };
 
- 
-  
-
   const handleClear = () => {
     if (filterText) {
       setResetPaginationToggle(!resetPaginationToggle);
@@ -80,10 +78,10 @@ const EstilosView = () => {
 
   const subHeaderComponentMemo = useMemo(() => {
     return (
-      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px',marginTop:'10px' }}>
         <input
           type="text"
-          placeholder="Buscar por estilo"
+          placeholder="Buscar..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
         />
@@ -107,7 +105,6 @@ const EstilosView = () => {
     }
   };
 
-
   const handleCreate = async () => {
     try {
       const createUrl = 'https://apimafy.zeabur.app/api/estilos';
@@ -130,7 +127,6 @@ const EstilosView = () => {
     } catch (error) {
       toast.error('Error en la solicitud de creación');
     }
-  
     handleClose();
   };
   
@@ -188,9 +184,6 @@ const EstilosView = () => {
     }
     handleClose();
   };
-  
-
-
 
   useEffect(() => {
     showData();
@@ -245,9 +238,9 @@ const EstilosView = () => {
   return (
     <Styles.AppContainer>
     <Navbar />
-      <Styles.CreateButton variant="primary" onClick={handleShow}>
+      <ButtonM variant="primary" onClick={handleShow}>
         Crear
-      </Styles.CreateButton>
+      </ButtonM>
       <Styles.StyledDataTable
         columns={columns}
         customStyles={customStyles}
@@ -354,9 +347,7 @@ const EstilosView = () => {
                   setSelectedEstilo({
                     ...selectedEstilo,
                     descripcion: e.target.value,
-                  })
-                }
-              />
+                  })}/>
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -367,10 +358,8 @@ const EstilosView = () => {
           <Button className="otros" variant="secondary" onClick={handleClose}>
             Cerrar
           </Button>
-          
         </Styles.ModalFooter>
       </Styles.StyledModal>
-
       <Styles.StyledModal show={showDeleteConfirmation} onHide={closeDeleteConfirmationModal}>
   <Modal.Header closeButton>
     <Modal.Title>Confirmar Eliminación</Modal.Title>
@@ -387,7 +376,6 @@ const EstilosView = () => {
     </Button>
   </Styles.ModalFooter>
 </Styles.StyledModal>;
-
      <Footer />
      <ToastContainer></ToastContainer>
     </Styles.AppContainer>

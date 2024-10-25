@@ -6,10 +6,11 @@ import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
+import ButtonM from '../component/BtnAgregar.js';
 
 const ArticulosView = () => {
   const [cookieData, setCookieData] = useState({
-    miCookie: Cookies.get('miCookie') || null, 
+  miCookie: Cookies.get('miCookie') || null, 
   });
   const [articulos, setArticulos] = useState([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -57,7 +58,6 @@ const ArticulosView = () => {
       console.error('Error fetching data:', error);
     }
   };
-  
 
   const handleDelete = (articuloId) => {
     setDeleteItemId(articuloId);
@@ -68,7 +68,6 @@ const handleDeleteConfirmed = async () => {
   try {
     const deleteUrl = `https://apimafy.zeabur.app/api/articulos/${deleteItemId}`;
     const token = Cookies.get('token'); 
-
     const response = await fetch(deleteUrl, {
       method: 'DELETE',
       headers: {
@@ -76,7 +75,6 @@ const handleDeleteConfirmed = async () => {
         'x-access-token': token, 
       },
     });
-
     if (response.ok) {
       showArticulos();
       toast.success('Artículo eliminado correctamente');
@@ -113,10 +111,11 @@ const handleDeleteConfirmed = async () => {
 
   const subHeaderComponentMemo = useMemo(() => {
     return (
-      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px',marginTop:'10px' }}>
         <input
+          className="text-center"
           type="text"
-          placeholder="Buscar por nombre"
+          placeholder="Buscar..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
         />
@@ -186,7 +185,6 @@ const handleUpdateSubmit = async () => {
   handleClose();
 };
 
-
   useEffect(() => {
     showArticulos();
   }, []);
@@ -221,6 +219,7 @@ const handleUpdateSubmit = async () => {
       ),
     },
   ];
+
   const customStyles = {
     headCells: {
       style: {
@@ -234,9 +233,9 @@ const handleUpdateSubmit = async () => {
   return (
     <Styles.AppContainer>
       <Navbar />
-      <Styles.CreateButton variant="primary" onClick={handleShow}>
+      <ButtonM onClick={handleShow}>
         Crear 
-      </Styles.CreateButton>
+      </ButtonM>
 
       <Styles.StyledDataTable
         columns={columns}

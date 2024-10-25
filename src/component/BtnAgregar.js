@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const ButtonM = ({ onClick }) => {  // Acepta la propiedad onClick
+const ButtonM = ({ onClick }) => {  
   return (
     <StyledWrapper>
-      <button type="button" className="button" onClick={onClick}>  {/* Agrega onClick aquí */}
-        <span className="button__text">Añadir servicio</span>
+      <button type="button" className="button" onClick={onClick}>  
+        <span className="button__text">Añadir Nuevo</span>
         <span className="button__icon">
           <svg
             xmlns="http://www.w3.org/2000/svg"

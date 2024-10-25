@@ -6,6 +6,7 @@ import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookies from 'js-cookie';
+import ButtonM from '../component/BtnAgregar.js';
 
 const DisenosView = () => {
   const [cookieData, setCookieData] = useState({
@@ -73,10 +74,11 @@ const DisenosView = () => {
 
   const subHeaderComponentMemo = useMemo(() => {
     return (
-      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px',marginTop:'10px' }}>
         <input
           type="text"
-          placeholder="Buscar por diseño"
+          className='text-center'
+          placeholder="Buscar..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
         />
@@ -222,16 +224,27 @@ const DisenosView = () => {
     },
   ];
 
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
+
   return (
     <Styles.AppContainer>
        <Navbar />
-      <Styles.CreateButton variant="primary" onClick={handleShow}>
+      <ButtonM variant="primary" onClick={handleShow}>
         Crear
-      </Styles.CreateButton>
+      </ButtonM>
 
       <Styles.StyledDataTable
         columns={columns}
         data={filteredItems}
+        customStyles={customStyles}
         pagination
         paginationResetDefaultPage={resetPaginationToggle}
         subHeader
