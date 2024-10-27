@@ -46,7 +46,7 @@ const MarcasView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://apimafy.zeabur.app/api/marcas';
+  const url = 'https://apitammy-closset.fra1.zeabur.app/api/marcas';
 
   const showData = async () => {
     try {

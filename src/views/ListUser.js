@@ -18,7 +18,7 @@ const UserInfo = () => {
     const token = Cookies.get('token');
     const fetchData = async () => {
       try {
-        const response = await fetch('https://apimafy.zeabur.app/api/user/info', {
+        const response = await fetch('https://apitammy-closset.fra1.zeabur.app/api/user/info', {
           headers: {
             'Content-Type': 'application/json',
             'x-access-token': token,
@@ -80,7 +80,7 @@ const UserInfo = () => {
   const handleSaveChanges = async () => {
     try {
       const token = Cookies.get('token');
-      const url = `https://apimafy.zeabur.app/api/user/${editUser._id}`;
+      const url = `https://apitammy-closset.fra1.zeabur.app/api/user/${editUser._id}`;
   
       const userRoles = editUser.roles || [];
       const roleMappings = {

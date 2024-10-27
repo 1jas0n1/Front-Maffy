@@ -30,7 +30,7 @@ const DataTableComponent = () => {
 
 const updateFechaField = async (id_ventas) => {
   try {
-    const response = await axios.get(`https://apimafy.zeabur.app/api/ventas/${id_ventas}`);
+    const response = await axios.get(`https://apitammy-closset.fra1.zeabur.app/api/ventas/${id_ventas}`);
 
     const fechaDate = new Date(response.data.fecha);
     const formattedFecha = fechaDate.toLocaleDateString('es-ES', {
@@ -51,12 +51,12 @@ const updateFechaField = async (id_ventas) => {
 
 
 useEffect(() => {
-  axios.get('https://apimafy.zeabur.app/api/detalleventa')
+  axios.get('https://apitammy-closset.fra1.zeabur.app/api/detalleventa')
     .then(response => {
       setData(response.data);
 
       response.data.forEach(row => {
-        axios.get(`https://apimafy.zeabur.app/api/ventas/${row.id_ventas}`)
+        axios.get(`https://apitammy-closset.fra1.zeabur.app/api/ventas/${row.id_ventas}`)
           .then(clientResponse => {
             setClientNames(prevNames => ({
               ...prevNames,
@@ -79,15 +79,15 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const [tallasRes, coloresRes, articulosRes, categoriasRes, estilosRes, marcasRes, disenosRes, materialesRes, promocionesRes] = await Promise.all([
-        axios.get('https://apimafy.zeabur.app/api/tallas'),
-        axios.get('https://apimafy.zeabur.app/api/colores'),
-        axios.get('https://apimafy.zeabur.app/api/articulos'),
-        axios.get('https://apimafy.zeabur.app/api/categorias'),
-        axios.get('https://apimafy.zeabur.app/api/estilos'),
-        axios.get('https://apimafy.zeabur.app/api/marcas'),
-        axios.get('https://apimafy.zeabur.app/api/disenos'),
-        axios.get('https://apimafy.zeabur.app/api/materiales'),
-        axios.get('https://apimafy.zeabur.app/api/promociones')
+        axios.get('https://apitammy-closset.fra1.zeabur.app/api/tallas'),
+        axios.get('https://apitammy-closset.fra1.zeabur.app/api/colores'),
+        axios.get('https://apitammy-closset.fra1.zeabur.app/api/articulos'),
+        axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias'),
+        axios.get('https://apitammy-closset.fra1.zeabur.app/api/estilos'),
+        axios.get('https://apitammy-closset.fra1.zeabur.app/api/marcas'),
+        axios.get('https://apitammy-closset.fra1.zeabur.app/api/disenos'),
+        axios.get('https://apitammy-closset.fra1.zeabur.app/api/materiales'),
+        axios.get('https://apitammy-closset.fra1.zeabur.app/api/promociones')
       ]);
 
       setTallas(tallasRes.data);
@@ -111,7 +111,7 @@ useEffect(() => {
 
   const handlePrintButtonClick = (id) => {
     // Construct the print URL with the 'id' parameter
-    const printUrl = `https://apimafy.zeabur.app/api/detalleventa/${id}/print`;
+    const printUrl = `https://apitammy-closset.fra1.zeabur.app/api/detalleventa/${id}/print`;
 
 
     window.open(printUrl, '_blank');

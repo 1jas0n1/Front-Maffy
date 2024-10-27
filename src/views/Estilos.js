@@ -53,7 +53,7 @@ const EstilosView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://apimafy.zeabur.app/api/estilos';
+  const url = 'https://apitammy-closset.fra1.zeabur.app/api/estilos';
 
   const showData = async () => {
     try {
@@ -107,7 +107,7 @@ const EstilosView = () => {
 
   const handleCreate = async () => {
     try {
-      const createUrl = 'https://apimafy.zeabur.app/api/estilos';
+      const createUrl = 'https://apitammy-closset.fra1.zeabur.app/api/estilos';
       const token = Cookies.get('token');
       const response = await fetch(createUrl, {
         method: 'POST',
@@ -161,7 +161,7 @@ const EstilosView = () => {
   
   const handleUpdateSubmit = async () => {
     try {
-      const updateUrl = `https://apimafy.zeabur.app/api/estilos/${selectedEstilo._id}`;
+      const updateUrl = `https://apitammy-closset.fra1.zeabur.app/api/estilos/${selectedEstilo._id}`;
       const token = Cookies.get('token');
       const response = await fetch(updateUrl, {
         method: 'PUT',

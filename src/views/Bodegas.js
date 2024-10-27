@@ -37,7 +37,7 @@ const BodegasView = () => {
     setUpdatingBodega(null);
   };
 
-  const url = "https://apimafy.zeabur.app/api/bodegas";
+  const url = "https://apitammy-closset.fra1.zeabur.app/api/bodegas";
 
   const showData = async () => {
     try {
@@ -63,7 +63,7 @@ const BodegasView = () => {
     if (deletingBodegaId) {
       try {
         const token = Cookies.get('token');
-        const response = await fetch(`https://apimafy.zeabur.app/api/bodegas/${deletingBodegaId}`, {
+        const response = await fetch(`https://apitammy-closset.fra1.zeabur.app/api/bodegas/${deletingBodegaId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
@@ -175,7 +175,7 @@ const BodegasView = () => {
   
     try {
       const token = Cookies.get('token');
-      const response = await fetch(`https://apimafy.zeabur.app/api/bodegas/${updatingBodega._id}`, {
+      const response = await fetch(`https://apitammy-closset.fra1.zeabur.app/api/bodegas/${updatingBodega._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

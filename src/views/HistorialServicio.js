@@ -12,7 +12,7 @@ const HistorialServiciosView = () => {
 
   useEffect(() => {
     // Realiza la petición GET al cargar el componente
-    axios.get('https://apimafy.zeabur.app/api/FacturaServicio')
+    axios.get('https://apitammy-closset.fra1.zeabur.app/api/FacturaServicio')
       .then(response => {
         setFacturas(response.data);
         setLoading(false);

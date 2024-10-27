@@ -47,7 +47,7 @@ const CategoriasView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://apimafy.zeabur.app/api/categorias';
+  const url = 'https://apitammy-closset.fra1.zeabur.app/categorias';
 
   const showData = async () => {
     try {
@@ -66,7 +66,7 @@ const CategoriasView = () => {
 
   const handleConfirmDelete = async () => {
     try {
-      const deleteUrl = `https://apimafy.zeabur.app/api/categorias/${categoryToDelete}`;
+      const deleteUrl = `https://apitammy-closset.fra1.zeabur.app/categorias/${categoryToDelete}`;
       const token = Cookies.get('token'); 
   
       const response = await fetch(deleteUrl, {
@@ -126,7 +126,7 @@ const CategoriasView = () => {
  
   const handleCreate = async () => {
     try {
-      const createUrl = 'https://apimafy.zeabur.app/api/categorias';
+      const createUrl = 'https://apitammy-closset.fra1.zeabur.app/categorias';
       const token = Cookies.get('token');
       const response = await fetch(createUrl, {
         method: 'POST',
@@ -164,7 +164,7 @@ const CategoriasView = () => {
 
   const handleUpdateSubmit = async () => {
     try {
-      const updateUrl = `https://apimafy.zeabur.app/api/categorias/${selectedCategoria._id}`;
+      const updateUrl = `https://apitammy-closset.fra1.zeabur.app/categorias/${selectedCategoria._id}`;
       const token = Cookies.get('token');
       const response = await fetch(updateUrl, {
         method: 'PUT',

@@ -25,7 +25,7 @@ const HistorialIngresosView = () => {
 
   const updateFechaIngresoField = async (id_ingreso) => {
     try {
-      const response = await axios.get(`https://apimafy.zeabur.app/api/ingresos/${id_ingreso}`);
+      const response = await axios.get(`https://apitammy-closset.fra1.zeabur.app/api/ingresos/${id_ingreso}`);
       const fechaDate = new Date(response.data.fecha);
       const formattedFecha = fechaDate.toLocaleDateString('es-ES', {
         day: 'numeric',
@@ -56,15 +56,15 @@ const HistorialIngresosView = () => {
           coloresRes,
           tallasRes
         ] = await Promise.all([
-          axios.get('https://apimafy.zeabur.app/api/marcas'),
-          axios.get('https://apimafy.zeabur.app/api/materiales'),
-          axios.get('https://apimafy.zeabur.app/api/estilos'),
-          axios.get('https://apimafy.zeabur.app/api/disenos'),
-          axios.get('https://apimafy.zeabur.app/api/articulos'),
-          axios.get('https://apimafy.zeabur.app/api/categorias'),
-          axios.get('https://apimafy.zeabur.app/api/proveedores'),
-          axios.get('https://apimafy.zeabur.app/api/colores'),
-          axios.get('https://apimafy.zeabur.app/api/tallas')
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/marcas'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/materiales'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/estilos'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/disenos'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/articulos'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/proveedores'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/colores'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/tallas')
         ]);
   
         // Setear estados con los datos obtenidos
@@ -86,11 +86,11 @@ const HistorialIngresosView = () => {
   }, []);
   
   useEffect(() => {
-    fetch('https://apimafy.zeabur.app/api/detalleingreso')
+    fetch('https://apitammy-closset.fra1.zeabur.app/api/detalleingreso')
       .then(response => response.json())
       .then(async data => {
         const formattedData = await Promise.all(data.map(async item => {
-          const incomeResponse = await axios.get(`https://apimafy.zeabur.app/api/ingresos/${item.id_ingreso}`);
+          const incomeResponse = await axios.get(`https://apitammy-closset.fra1.zeabur.app/api/ingresos/${item.id_ingreso}`);
           const incomeData = incomeResponse.data;
           updateFechaIngresoField(item.id_ingreso);
           return {
@@ -112,7 +112,7 @@ const HistorialIngresosView = () => {
 
   const handlePrint = (row) => {
     const id = row._id;
-    const printUrl = `https://apimafy.zeabur.app/api/detalleingreso/${id}/print`;
+    const printUrl = `https://apitammy-closset.fra1.zeabur.app/api/detalleingreso/${id}/print`;
     const newTab = window.open(printUrl, '_blank');
     if (!newTab) {
       console.error('Error opening new tab for printing.');
@@ -187,7 +187,7 @@ const HistorialIngresosView = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('https://apimafy.zeabur.app/api/user/all');
+        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/user/all');
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);

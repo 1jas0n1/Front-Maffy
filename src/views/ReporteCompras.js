@@ -47,7 +47,7 @@ const ReporteComprasView = () => {
     setError('');
 
     try {
-      const response = await fetch(`https://apimafy.zeabur.app/api/Ingresos/reportes?startDate=${fechaInicial}&endDate=${fechaFinal}`);
+      const response = await fetch(`https://apitammy-closset.fra1.zeabur.app/api/Ingresos/reportes?startDate=${fechaInicial}&endDate=${fechaFinal}`);
 
       if (!response.ok) {
         throw new Error('Error al generar el reporte');

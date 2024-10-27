@@ -48,7 +48,7 @@ const FacturacionServicioView = () => {
   const realizarVenta = async () => {
     const factura = obtenerDatosJSON();
     try {
-      const response = await fetch('https://apimafy.zeabur.app/api/facturaServicio', {
+      const response = await fetch('https://apitammy-closset.fra1.zeabur.app/facturaServicio', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -188,7 +188,7 @@ const FacturacionServicioView = () => {
 
   const fetchServicios = async () => {
     try {
-      const response = await fetch('https://apimafy.zeabur.app/api/servicios');
+      const response = await fetch('https://apitammy-closset.fra1.zeabur.app/servicios');
       const data = await response.json();
       setServicios(data);
     } catch (error) {

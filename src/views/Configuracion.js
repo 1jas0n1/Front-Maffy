@@ -31,7 +31,7 @@ class ConfigView extends Component {
   }
 
   fetchData() {
-    axios.get('https://apimafy.zeabur.app/api/configuracion')
+    axios.get('https://apitammy-closset.fra1.zeabur.app/configuracion')
       .then(response => {
         const configData = response.data.data[0];
 
@@ -77,7 +77,7 @@ class ConfigView extends Component {
       tipo_de_cambio_dolar,
     };
 
-    axios.put(`https://apimafy.zeabur.app/api/configuracion/${id}`, newData)
+    axios.put(`https://apitammy-closset.fra1.zeabur.app/configuracion/${id}`, newData)
       .then(response => {
         console.log('Data updated successfully:', response.data);
         this.setState({ isEditing: false });

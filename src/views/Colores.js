@@ -43,7 +43,7 @@ const ColoresView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://apimafy.zeabur.app/api/colores';
+  const url = 'https://apitammy-closset.fra1.zeabur.app/api/colores';
 
   const showData = async () => {
     try {
@@ -88,7 +88,7 @@ const ColoresView = () => {
 
   const handleDeleteConfirm = async () => {
     try {
-      const deleteUrl = `https://apimafy.zeabur.app/api/colores/${deleteColorId}`;
+      const deleteUrl = `https://apitammy-closset.fra1.zeabur.app/api/colores/${deleteColorId}`;
       const response = await fetch(deleteUrl, {
         method: 'DELETE',
         headers: {
@@ -120,7 +120,7 @@ const ColoresView = () => {
 
   const handleUpdateSubmit = async () => {
     try {
-      const updateUrl = `https://apimafy.zeabur.app/api/colores/${selectedColor._id}`;
+      const updateUrl = `https://apitammy-closset.fra1.zeabur.app/api/colores/${selectedColor._id}`;
       const token = Cookies.get('token');
       const response = await fetch(updateUrl, {
         method: 'PUT',
@@ -153,7 +153,7 @@ const ColoresView = () => {
 
   const handleCreate = async () => {
     try {
-      const createUrl = 'https://apimafy.zeabur.app/api/colores';
+      const createUrl = 'https://apitammy-closset.fra1.zeabur.app/api/colores';
       const response = await fetch(createUrl, {
         method: 'POST',
         headers: {

@@ -254,7 +254,7 @@ const handleDamageSubmit = async () => {
     console.log('JSON being sent to server:', JSON.stringify(damageData, null, 2));
 
     // Send data to the specified URL using the POST method
-    const response = await fetch('https://apimafy.zeabur.app/api/mercancia/', {
+    const response = await fetch('https://apimafy.zeabur.app/https://apimafy.zeabur.app/api/mercancia/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -276,7 +276,7 @@ const handleDamageSubmit = async () => {
       setShowDamageModal(false);
 
       // Send data to update the stock with the calculated difference
-      const updateStockUrl = `https://apimafy.zeabur.app/api/stock/update/${damageData.id_stock}`;
+      const updateStockUrl = `https://apimafy.zeabur.app/https://apimafy.zeabur.app/api/stock/update/${damageData.id_stock}`;
       const updateStockResponse = await fetch(updateStockUrl, {
         method: 'PUT', // You may need to adjust the method based on your server's API
         headers: {
@@ -504,7 +504,7 @@ centre:true,
       return;
     }
 
-    const urlWithId = `https://apimafy.zeabur.app/api/stock/update/${selectedItem._id}`;
+    const urlWithId = `https://apimafy.zeabur.app/https://apimafy.zeabur.app/api/stock/update/${selectedItem._id}`;
 
     // Log the formatted JSON being sent
     console.log('JSON being sent:', JSON.stringify(selectedItem, null, 2));

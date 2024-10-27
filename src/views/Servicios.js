@@ -55,7 +55,7 @@ const ServiciosView = () => {
 
   const showServicios = async () => {
     try {
-      const ServiciosResponse = await fetch('https://apimafy.zeabur.app/api/servicios');
+      const ServiciosResponse = await fetch('https://apitammy-closset.fra1.zeabur.app/api/servicios');
       const ServiciosData = await ServiciosResponse.json();
       const ServiciosWithCategoria = ServiciosData.map((Servicio) => ({
         ...Servicio,
@@ -73,7 +73,7 @@ const ServiciosView = () => {
 
 const handleDeleteConfirmed = async () => {
   try {
-    const deleteUrl = `https://apimafy.zeabur.app/api/servicios/${deleteItemId}`;
+    const deleteUrl = `https://apitammy-closset.fra1.zeabur.app/api/servicios/${deleteItemId}`;
     const token = Cookies.get('token'); 
 
     const response = await fetch(deleteUrl, {
@@ -140,7 +140,7 @@ const handleDeleteConfirmed = async () => {
   
       console.log('miCookie:', miCookie);
   
-      const createUrl = 'https://apimafy.zeabur.app/api/servicios';
+      const createUrl = 'https://apitammy-closset.fra1.zeabur.app/api/servicios';
       const response = await fetch(createUrl, {
         method: 'POST',
         headers: {
@@ -170,7 +170,7 @@ const handleDeleteConfirmed = async () => {
 
 const handleUpdateSubmit = async () => {
   try {
-    const updateUrl = `https://apimafy.zeabur.app/api/Servicios/${selectedServicio._id}`;
+    const updateUrl = `https://apitammy-closset.fra1.zeabur.app/api/Servicios/${selectedServicio._id}`;
     const token = Cookies.get('token'); 
 
     const response = await fetch(updateUrl, {
