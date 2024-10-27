@@ -32,6 +32,7 @@ const FacturacionServicioView = () => {
     return {
       fecha: fecha,
       cliente: { nombre: cliente }, 
+      anulado:false,
       servicios: carro.map(servicio => ({
         servicio:servicio._id,
         precio: servicio.precio,

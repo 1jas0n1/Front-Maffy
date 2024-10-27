@@ -62,8 +62,6 @@ useEffect(() => {
               ...prevNames,
               [row.id_ventas]: clientResponse.data.cliente
             }));
-
-            // Call the updateFechaField function with the id_ventas
             updateFechaField(row.id_ventas);
           })
           .catch(clientError => {
@@ -77,79 +75,38 @@ useEffect(() => {
 }, []);
 
 
-  useEffect(() => {
-    const fetchTallas = async () => {
-        const response = await axios.get('https://apimafy.zeabur.app/api/tallas');
-        setTallas(response.data);
-    };
-    fetchTallas();
-  }, []);
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const [tallasRes, coloresRes, articulosRes, categoriasRes, estilosRes, marcasRes, disenosRes, materialesRes, promocionesRes] = await Promise.all([
+        axios.get('https://apimafy.zeabur.app/api/tallas'),
+        axios.get('https://apimafy.zeabur.app/api/colores'),
+        axios.get('https://apimafy.zeabur.app/api/articulos'),
+        axios.get('https://apimafy.zeabur.app/api/categorias'),
+        axios.get('https://apimafy.zeabur.app/api/estilos'),
+        axios.get('https://apimafy.zeabur.app/api/marcas'),
+        axios.get('https://apimafy.zeabur.app/api/disenos'),
+        axios.get('https://apimafy.zeabur.app/api/materiales'),
+        axios.get('https://apimafy.zeabur.app/api/promociones')
+      ]);
 
-  useEffect(() => {
-    const fetchColores = async () => {
-        const response = await axios.get('https://apimafy.zeabur.app/api/colores');
-        setColores(response.data);
-    };
-    fetchColores();
-  }, []);
+      setTallas(tallasRes.data);
+      setColores(coloresRes.data);
+      setArticulos(articulosRes.data);
+      setCategorias(categoriasRes.data);
+      setEst(estilosRes.data);
+      setMarcas(marcasRes.data);
+      setDisenos(disenosRes.data);
+      setMateriales(materialesRes.data);
+      setPromotions(promocionesRes.data);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  };
 
-  useEffect(() => {
-    const fetchArticulos = async () => {
-        const response = await axios.get('https://apimafy.zeabur.app/api/articulos');
-        setArticulos(response.data);
-    };
-    fetchArticulos();
-  }, []);
+  fetchData();
+}, []);
 
-  useEffect(() => {
-    const fetchCategorias = async () => {
-        const response = await axios.get('https://apimafy.zeabur.app/api/categorias');
-        setCategorias(response.data);
-    };
-    fetchCategorias();
-  }, []); 
-
-  useEffect(() => {
-    const fetchEstilos = async () => {
-        const response = await axios.get('https://apimafy.zeabur.app/api/estilos');
-        setEst(response.data);
-    };
-    fetchEstilos();
-  }, []);
-
-  useEffect(() => {
-    const fetchMarcas = async () => {
-        const response = await axios.get('https://apimafy.zeabur.app/api/marcas');
-        setMarcas(response.data);
-    };
-    fetchMarcas();
-  }, []);
-
-  useEffect(() => {
-    const fetchDisenos = async () => {
-        const response = await axios.get('https://apimafy.zeabur.app/api/disenos');
-        setDisenos(response.data);
-    };
-    fetchDisenos();
-  }, []);
-
-  useEffect(() => {
-    const fetchMateriales = async () => {
-        const response = await axios.get('https://apimafy.zeabur.app/api/materiales');
-        setMateriales(response.data);
-    };
-    fetchMateriales();
-  }, []);
-
-
-  useEffect(() => {
-    const fetchPromotions = async () => {
-        const response = await axios.get('https://apimafy.zeabur.app/api/promociones');
-        setPromotions(response.data);
-    };
-
-    fetchPromotions();
-  }, []);
 
 
   const handlePrintButtonClick = (id) => {
@@ -249,7 +206,7 @@ const getNombreArticulo = (idArticulo) => {
               color: 'white',
               marginLeft: '3px',
             }}
-            onClick={() => handlePrintButtonClick(row._id)} // Pass the row's _id to the function
+            onClick={() => handlePrintButtonClick(row._id)} 
           >
             <FaPrint />
           </button>
@@ -315,15 +272,26 @@ const getNombreArticulo = (idArticulo) => {
     { name: 'Descuento', sortable: true, cell: (row) => row.descuento },
   ];
   
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
 
   return (
     <div>
       <MyNavbar />
-      <div style={{ width: '90%', margin: 'auto', border: '2px solid black', borderRadius: '2px', marginTop: '5%', marginBottom: '5%', textAlign: 'center' }}>
+      <div style={{ width: '90%', margin: 'auto',  borderRadius: '2px', marginTop: '5%', marginBottom: '5%', textAlign: 'center' }}>
+        <h2 style={{color:'black'}}>Historial de Ventas</h2>
         <DataTable
           style={{fontSize:'55px'}}
-          title="Historial Ventas"
+         
           columns={columns}
+          customStyles={customStyles}
           data={filteredData}
           responsive
           pagination
@@ -334,7 +302,7 @@ const getNombreArticulo = (idArticulo) => {
               placeholder="Buscar ..."
               value={filterText}
               onChange={(e) => setFilterText(e.target.value)}
-              style={{ width: '250px', marginRight: '10px', borderRadius: '5px' }}
+              style={{ width: '250px', margin:'0 auto',borderRadius:'5px',marginTop:'10px',marginBottom:'10px' }}
             />
           }
           paginationResetDefaultPage={resetPaginationToggle}

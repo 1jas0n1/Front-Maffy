@@ -43,87 +43,48 @@ const HistorialIngresosView = () => {
   };
 
   useEffect(() => {
-    const fetchMarcas = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/marcas');
-      setMarcas(response.data);
-    };
-    fetchMarcas();
-  }, []);
-
-  useEffect(() => {
-    const fetchMateriales = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/materiales');
-      setMateriales(response.data);
-    };
-    fetchMateriales();
-  }, []);
-
-  useEffect(() => {
-    const fetchEstilos = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/estilos');
-      setEst(response.data);
-    };
-    fetchEstilos();
-  }, []);
-
-  useEffect(() => {
-    const fetchDisenos = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/disenos');
-      setDisenos(response.data);
-    };
-    fetchDisenos();
-  }, []);
-
-  useEffect(() => {
-    const fetchArticulos = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('https://apimafy.zeabur.app/api/articulos');
-        setArticulos(response.data);
+        const [
+          marcasRes,
+          materialesRes,
+          estilosRes,
+          disenosRes,
+          articulosRes,
+          categoriasRes,
+          proveedoresRes,
+          coloresRes,
+          tallasRes
+        ] = await Promise.all([
+          axios.get('https://apimafy.zeabur.app/api/marcas'),
+          axios.get('https://apimafy.zeabur.app/api/materiales'),
+          axios.get('https://apimafy.zeabur.app/api/estilos'),
+          axios.get('https://apimafy.zeabur.app/api/disenos'),
+          axios.get('https://apimafy.zeabur.app/api/articulos'),
+          axios.get('https://apimafy.zeabur.app/api/categorias'),
+          axios.get('https://apimafy.zeabur.app/api/proveedores'),
+          axios.get('https://apimafy.zeabur.app/api/colores'),
+          axios.get('https://apimafy.zeabur.app/api/tallas')
+        ]);
+  
+        // Setear estados con los datos obtenidos
+        setMarcas(marcasRes.data);
+        setMateriales(materialesRes.data);
+        setEst(estilosRes.data);
+        setDisenos(disenosRes.data);
+        setArticulos(articulosRes.data);
+        setCategorias(categoriasRes.data);
+        setProveedores(proveedoresRes.data);
+        setColores(coloresRes.data);
+        setTallas(tallasRes.data);
       } catch (error) {
-        console.error('Error fetching articles:', error);
+        console.error("Error fetching data:", error);
       }
     };
-    fetchArticulos();
+  
+    fetchData();
   }, []);
-
-  useEffect(() => {
-    const fetchCategorias = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/categorias');
-      setCategorias(response.data);
-    };
-    fetchCategorias();
-  }, []);
-
-  useEffect(() => {
-
-    const fetchProveedores = async () => {
-      try {
-        const response = await axios.get('https://apimafy.zeabur.app/api/proveedores');
-        setProveedores(response.data);
-      } catch (error) {
-        console.error('Error fetching suppliers:', error);
-      }
-    };
-    fetchProveedores();
-  }, []);
-
-
-  useEffect(() => {
-    const fetchColores = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/colores');
-      setColores(response.data);
-    };
-    fetchColores();
-  }, []);
-
-  useEffect(() => {
-    const fetchTallas = async () => {
-      const response = await axios.get('https://apimafy.zeabur.app/api/tallas');
-      setTallas(response.data);
-    };
-    fetchTallas();
-  }, []);
-
+  
   useEffect(() => {
     fetch('https://apimafy.zeabur.app/api/detalleingreso')
       .then(response => response.json())
@@ -240,7 +201,6 @@ const HistorialIngresosView = () => {
     return user ? user.username : 'Desconocido';
   };
   const columns = [
-    { name: 'Id', cell: (row) => row._id, sortable: true, },
     { name: 'Id Ingreso', cell: (row) => row.id_ingreso, sortable: true },
     { name: 'Usuario', cell: (row) => getUserNameById(row.id_usuario), sortable: true },
     { name: 'Proveedor', cell: (row) => getProveedorById(row.id_proveedor), sortable: true },
@@ -257,24 +217,38 @@ const HistorialIngresosView = () => {
     },
   ];
 
+
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
+
+
   return (
     <div>
       <MyNavbar />
-      <div style={{ width: '90%', margin: 'auto', borderRadius: '5px', border: '2px solid black' }}>
+      <div style={{ width: '95%', margin: 'auto' }}>
+        <h2 style={{color:'black'}} >Historial de Compras</h2>
         <DataTable
-          title="Historial de Ingresos"
+        
           columns={columns}
+          customStyles={customStyles}
           data={filteredData}
           pagination
           subHeader
           subHeaderComponent={
-            <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+            <div style={{ margin:'0 auto',marginTop:'10px',marginBottom:'10px'}}>
               <input
                 type="text"
                 placeholder="Buscar... "
                 value={filterText}
                 onChange={handleFilterChange}
-                style={{ width: '250px', marginRight: '10px', borderRadius: '5px' }}
+                style={{ margin:'0 auto', borderRadius: '5px' }}
               />
             </div>
           }
@@ -286,13 +260,14 @@ const HistorialIngresosView = () => {
         show={modalVisible}
         onHide={closeModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Detalle del Ingreso</Modal.Title>
+          <Modal.Title>Articulos</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedRecord && (
             <div>
               <DataTable
-                title="Artículos"
+              
+                customStyles={customStyles}
                 const columns={[
                   { name: 'Artículo', cell: (row) => getNombreArticulo(row.id_articulo), sortable: true },
                   { name: 'Categoria', cell: (row) => getNombreCategoriaById(row.id_categoria), sortable: true },

@@ -30,45 +30,50 @@ import FacturacionServicioView from "./views/FacturacionServicio.js";
 import ReporteServiciosView from "./views/ReporteServicios.js";
 import ReporteComprasView from "./views/ReporteCompras.js";
 import ReporteVentasView from "./views/ReporteVentas";
+import HistorialServiciosView from "./views/HistorialServicio.js"
+import NotFound from "./404.js";
 
 function App() {
   return (
-   
-      <Router >
-        <Routes>
-          <Route path='/' element={<LoginView />} />
-          <Route path='/index' element={<Home />} />
-          <Route path='/configuracion' element={<ConfigView />} />
-          <Route path='/colores' element={<ColoresView />} />
-          <Route path='/estilos' element={<EstilosView />} />
-          <Route path='/categorias' element={<CategoriasView />} />
-          <Route path='/bodegas' element={<BodegasView />} />
-          <Route path='/marcas' element={<MarcasView />} />
-          <Route path='/materiales' element={<MaterialesView />} />
-          <Route path='/tallas' element={<TallasView />} />
-          <Route path='/proveedores' element={<ProveedoresView />} />
-          <Route path='/disenos' element={<DisenosView />} />
-          <Route path='/promociones' element={<PromocionesView />} />
-          <Route path='/articulos' element={<ArticulosView />} />
-          <Route path='/ventas-art' element={<VentasView />} />
-          <Route path='/ingresos-art' element={<IngresosView />} />
-          <Route path='/create-user' element={<UsuariosView />} />
-          <Route path='/mercancia' element={<MercanciaView />} />
-          <Route path='/historial-ingreso' element={<HistorialIngresos />} />
-          <Route path='/historial-venta' element={<HistorialVentas />} />
-          <Route path='/ingresos-detalles' element={<DetalleIngresosView />} />
-          <Route path='/list-user' element={<UserInfo />} />
-          <Route path='/mercancia-dañada' element={<MercanciaDañada />} />
-          <Route path='/reportes' element={<Reporteventas></Reporteventas>}/>
-          <Route path='/servicios' element={<ServiciosView/>} />
-          <Route path='/FactServicios' element={<FacturacionServicioView/>} />
-          <Route path='/ReporteServicios' element={<ReporteServiciosView />} />
-          <Route path='/ReporteVentas' element={<ReporteVentasView/>} />
-          <Route path='/ReporteCompras' element={<ReporteComprasView/>} />
-        </Routes>
-      </Router>
-   
+    <Router>
+      <Routes>
+        <Route path='/' element={<LoginView />} />
+        <Route path='/index' element={<Home />} />
+        <Route path='/configuracion' element={<ConfigView />} />
+        <Route path='/colores' element={<ColoresView />} />
+        <Route path='/estilos' element={<EstilosView />} />
+        <Route path='/categorias' element={<CategoriasView />} />
+        <Route path='/bodegas' element={<BodegasView />} />
+        <Route path='/marcas' element={<MarcasView />} />
+        <Route path='/materiales' element={<MaterialesView />} />
+        <Route path='/tallas' element={<TallasView />} />
+        <Route path='/proveedores' element={<ProveedoresView />} />
+        <Route path='/disenos' element={<DisenosView />} />
+        <Route path='/promociones' element={<PromocionesView />} />
+        <Route path='/articulos' element={<ArticulosView />} />
+        <Route path='/ventas-art' element={<VentasView />} />
+        <Route path='/ingresos-art' element={<IngresosView />} />
+        <Route path='/create-user' element={<UsuariosView />} />
+        <Route path='/mercancia' element={<MercanciaView />} />
+        <Route path='/historial-ingreso' element={<HistorialIngresos />} />
+        <Route path='/historial-venta' element={<HistorialVentas />} />
+        <Route path='/ingresos-detalles' element={<DetalleIngresosView />} />
+        <Route path='/list-user' element={<UserInfo />} />
+        <Route path='/mercancia-dañada' element={<MercanciaDañada />} />
+        <Route path='/reportes' element={<Reporteventas />} />
+        <Route path='/servicios' element={<ServiciosView />} />
+        <Route path='/FactServicios' element={<FacturacionServicioView />} />
+        <Route path='/ReporteServicios' element={<ReporteServiciosView />} />
+        <Route path='/ReporteVentas' element={<ReporteVentasView />} />
+        <Route path='/ReporteCompras' element={<ReporteComprasView />} />
+        <Route path='/HistorialServicio' element={<HistorialServiciosView/>} />
+
+        {/* Ruta para vistas no encontradas */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   );
 }
+
 
 export default App;
