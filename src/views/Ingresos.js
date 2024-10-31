@@ -187,7 +187,6 @@ import Cookies from 'js-cookie';
     fetchMarcas();
   }, []);
 
-
   useEffect(() => {
     const fetchMateriales = async () => {
         const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/materiales');
@@ -215,13 +214,12 @@ import Cookies from 'js-cookie';
 
   const calculateIVA = (cantidad, precio, descuento) => {
     const precioConDescuento = precio * (1 - descuento / 100);
-    const ivaPercentage = 15; // Cambiar si el porcentaje de IVA es diferente
+    const ivaPercentage = 15; 
     const iva = (cantidad * precioConDescuento * ivaPercentage) / 100;
     return iva.toFixed(2);
   };
 
   const handleGuardar = () => {
-    // Validación de campos antes de guardar
     if (
       formulario.idArticulo === '' ||
       formulario.idTalla === '' ||
@@ -235,15 +233,11 @@ import Cookies from 'js-cookie';
       formulario.idCategoria === '' ||
       formulario.descuento === ''
     ) {
-      // Muestra la alerta si algún campo está vacío
       setShowAlert(true);
       handleLimpiar();
       return;
     }
 
-    // Resto del código para guardar el artículo...
-
-    // If editIndex is not -1, update the existing record
     if (editIndex !== -1) {
       setArticulosIngresados((prevArticulos) => {
         const updatedArticulos = [...prevArticulos];
@@ -251,11 +245,8 @@ import Cookies from 'js-cookie';
         return updatedArticulos;
       });
     } else {
-      // Append the new record to the array
       setArticulosIngresados((prevArticulos) => [...prevArticulos, formulario]);
     }
-
-    // Después de actualizar la lista de artículos ingresados, actualiza los totales
     const updatedArticulos = [...articulosIngresados, formulario];
 
     const subTotal = updatedArticulos.reduce((total, articulo) => {
@@ -276,11 +267,7 @@ import Cookies from 'js-cookie';
       return total + parseFloat(calculateIVA(articulo.cantidad, articulo.precioprov, articulo.descuento));
     }, 0);
     setIvaTotal(iva);
-
-    // Limpiar los campos después de agregar el artículo
     handleLimpiar();
-
-    // Cerrar el modal después de guardar correctamente
     setShowEditModal(false);
   };
 
@@ -316,7 +303,6 @@ import Cookies from 'js-cookie';
     return material ? material.material : 'Nombre no encontrado';
   };
 
-  // Función para obtener el nombre del diseño por ID
 const obtenerNombreDisenoPorId = (idDiseno) => {
   const disenoSeleccionado = disenos.find(diseno => diseno._id === idDiseno);
   return disenoSeleccionado ? disenoSeleccionado.diseno : 'Diseño no encontrado';
@@ -331,13 +317,11 @@ const getNombreCategoriaById = (categoriaId) => {
   return categoria ? categoria.categoria : '';
 };
 
-
 const handleFacturarIngreso = async () => {
   const id_user = Cookies.get('_id');
-  const token = Cookies.get('token');  // Obtén el token desde las cookies
+  const token = Cookies.get('token'); 
 
   try {
-      // Primera solicitud POST para crear el ingreso
       const ingresoData = {
           id_usuario: id_user,
           id_proveedor: formulario.idProveedor,
@@ -360,7 +344,6 @@ const handleFacturarIngreso = async () => {
 
       console.log('Ingreso creado correctamente:', responseIngreso);
 
-      // Segunda solicitud POST con datos de la tabla de artículos
       const articulosData = {
           id_ingreso: idIngreso,
           articulos: articulosIngresados.map((articulo) => ({
@@ -390,7 +373,6 @@ const handleFacturarIngreso = async () => {
       });
       console.log('Artículos facturados correctamente:', responseArticulos);
 
-      // Iterar a través de los artículos y actualizar el stock
       for (const articulo of articulosIngresados) {
           const stockData = {
               Id_articulo: articulo.idArticulo,
@@ -443,7 +425,6 @@ toast.success('Venta realizada Exitosamente');
 
 
   const handleLimpiar = () => {
-    // Clear the input fields
     setFormulario({
       idArticulo: '',
       idProveedor: '',
@@ -465,33 +446,37 @@ toast.success('Venta realizada Exitosamente');
 
     <Container fluid style={estilos.containerStyle}>
       <MyNavbar/>
-      <Form style={{ width: '95%', backgroundColor: 'white', marginTop: '10px', marginLeft: 'auto', marginRight: 'auto', borderRadius: '5px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Form.Group controlId="formFechaVenta" style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: '35px' }}>
-          <Form.Label style={{ marginBottom: '5px' }}>Fecha de Venta</Form.Label>
-          <Form.Control type="date" style={{ width: '70%', alignSelf: 'flex-start' }} />
-        </Form.Group>
-
-        <Form.Group controlId="formProveedor" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Form.Label style={{ marginBottom: '5px' }}>Proveedor</Form.Label>
-          <select
-            className="form-control"
-            style={{ width: '70%', alignSelf: 'flex-start', marginRight: '35px' }}
-            value={formulario.idProveedor}
-            onChange={(e) => setFormulario({ ...formulario, idProveedor: e.target.value })}
-          >
-            <option value="">Proveedores...</option>
-            {proveedores.map((proveedor) => (
-              <option key={proveedor._id} value={proveedor._id}>
-                {proveedor.nombre}
-              </option>
-            ))}
-          </select>
-        </Form.Group>
-      </Form>
-
-      <h2 className=" mt-4 center-text" style={estilos.titulo}>
-        Registro de Ingresos
+      <h2>
+      <img
+          src="https://fontmeme.com/permalink/241029/0188d6df889a2ef459c18c6759ddd714.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+        />
       </h2>
+      <Form style={{ width: '95%', backgroundColor: 'transparent', marginTop: '10px', marginLeft: 'auto', marginRight: 'auto', borderRadius: '5px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+  <Form.Group controlId="formFechaVenta" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '35px' }}>
+    <Form.Label style={{ textAlign: 'center', marginBottom: '5px',color:'white',fontsize:'35' }}>Fecha de Venta</Form.Label>
+    <Form.Control type="date" style={{ width: '60%', alignSelf: 'center',textAlign:'center', padding: '5px' }} />
+  </Form.Group>
+
+  <Form.Group controlId="formProveedor" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <Form.Label style={{ textAlign: 'center', marginBottom: '5px',color:'white',fontsize:'35' }}>Proveedor</Form.Label>
+    <select
+      className="form-control"
+      style={{ width: '60%', alignSelf: 'center', padding: '5px',textAlign:'center' }}
+      value={formulario.idProveedor}
+      onChange={(e) => setFormulario({ ...formulario, idProveedor: e.target.value })}
+    >
+      <option value="">Proveedores...</option>
+      {proveedores.map((proveedor) => (
+        <option key={proveedor._id} value={proveedor._id}>
+          {proveedor.nombre}
+        </option>
+      ))}
+    </select>
+  </Form.Group>
+</Form>
 
       <Form style={estilos.formStyle}>
         <fieldset className="form-row">
@@ -516,10 +501,6 @@ toast.success('Venta realizada Exitosamente');
                 ))}
               </select>
             </Col>
-
-
-
-           
 
             <Col md={2}>
               <label style={estilos.labelStyle3} htmlFor="id-talla">

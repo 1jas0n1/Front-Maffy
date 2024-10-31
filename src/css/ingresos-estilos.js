@@ -1,7 +1,7 @@
 const estilos = {
     containerStyle: {
       height: '100%', 
-      padding:'1px',
+      padding:'0',
       width: '100%',
       backgroundColor:'#219ebc',
       color: 'black',

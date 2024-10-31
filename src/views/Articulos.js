@@ -233,6 +233,14 @@ const handleUpdateSubmit = async () => {
   return (
     <Styles.AppContainer>
       <Navbar />
+      <h2>
+      <img
+          src="https://fontmeme.com/permalink/241028/295810a95a52ad985bcfe5af61590d65.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+        />
+      </h2>
       <ButtonM onClick={handleShow}>
         Crear 
       </ButtonM>

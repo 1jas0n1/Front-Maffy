@@ -47,7 +47,7 @@ const CategoriasView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://apitammy-closset.fra1.zeabur.app/categorias';
+  const url = 'https://apitammy-closset.fra1.zeabur.app/api/categorias';
 
   const showData = async () => {
     try {
@@ -126,7 +126,7 @@ const CategoriasView = () => {
  
   const handleCreate = async () => {
     try {
-      const createUrl = 'https://apitammy-closset.fra1.zeabur.app/categorias';
+      const createUrl = 'https://apitammy-closset.fra1.zeabur.app/api/categorias';
       const token = Cookies.get('token');
       const response = await fetch(createUrl, {
         method: 'POST',
@@ -164,7 +164,7 @@ const CategoriasView = () => {
 
   const handleUpdateSubmit = async () => {
     try {
-      const updateUrl = `https://apitammy-closset.fra1.zeabur.app/categorias/${selectedCategoria._id}`;
+      const updateUrl = `https://apitammy-closset.fra1.zeabur.app/api/categorias/${selectedCategoria._id}`;
       const token = Cookies.get('token');
       const response = await fetch(updateUrl, {
         method: 'PUT',
@@ -245,6 +245,16 @@ const CategoriasView = () => {
   return (
     <Styles.AppContainer>
         <Navbar />
+
+      <h2>
+      <img
+          src="https://fontmeme.com/permalink/241028/8262a0f428b0edbfbab2709cbb1ad3a0.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+        />
+      </h2>
+
       <ButtonM variant="primary" onClick={handleShow}>
         Crear
       </ButtonM>

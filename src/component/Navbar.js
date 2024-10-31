@@ -42,12 +42,11 @@ const MyNavbar = () => {
 
   const fetchRoles = async () => {
     try {
-      const response = await axios.get(`https://apimafy.zeabur.app/user/roles/${IdUser}`, {
+      const response = await axios.get(`https://apitammy-closset.fra1.zeabur.app/user/roles/${IdUser}`, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
       const sortedRoles = response.data.roles.sort((a, b) => {
         const order = { user: 1, moderator: 2, admin: 3 };
         return order[a.name] - order[b.name];
@@ -61,17 +60,15 @@ const MyNavbar = () => {
     }
   };
 
-
   const handleShowModal = () => {
     setShowModal(true);
     fetchRoles();
   };
 
-
   const handleLogout = async () => {
     try {
     localStorage.removeItem('token');
-        const response = await fetch('https://apimafy.zeabur.app/api/auth/logout', {
+        const response = await fetch('https://apitammy-closset.fra1.zeabur.app/api/auth/logout', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -97,20 +94,15 @@ const MyNavbar = () => {
 <Nav.Link href="/index" to="/index" >
 <Navbar.Brand style={{ marginLeft: '0', fontSize: '30px', fontFamily: 'MV Boli' }} >Tammys<span style={{ color: '#E61B79', fontFamily: 'MV Boli' }}>Closet</span></Navbar.Brand>
          </Nav.Link>
-
       <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={handleToggle}>
         {mobile ? <ImCross /> : <FaBars />}
       </Navbar.Toggle>
-      
-
       <Nav.Link style={{ marginRight: '45px',marginLeft:'5px',width:'15%',borderRadius:'3px' }} className="ml-auto" onClick={handleShowModal}>
             {correo} <button style={{ color: 'white' }}> <FaUserLock /></button> 
           </Nav.Link>
       <Nav>
         <Nav.Link onClick={handleLogout} style={{marginLeft:'5px' }} className="ml-auto">Cerrar Sesión <FaArrowRightToBracket /></Nav.Link>
       </Nav>
-
-
 
       <Modal show={showModal} onHide={handleCloseModal} size="md">
         <Modal.Header style={{ backgroundColor: '#4a4a4a', color: 'white' }} closeButton>
@@ -131,7 +123,6 @@ const MyNavbar = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
     </Navbar>
   );
 };

@@ -75,17 +75,17 @@ const VentasView = () => {
       const response = await axios.get(url);
       setData(response.data);
     };
-    fetchData('https://apimafy.zeabur.app/api/stock', setStockData);
-    fetchData('https://apimafy.zeabur.app/api/bodegas', setBodegas);
-    fetchData('https://apimafy.zeabur.app/api/tallas', setTallas);
-    fetchData('https://apimafy.zeabur.app/api/promociones', setPromotions);
-    fetchData('https://apimafy.zeabur.app/api/colores', setColores);
-    fetchData('https://apimafy.zeabur.app/api/articulos', setArticulos);
-    fetchData('https://apimafy.zeabur.app/api/categorias', setCategorias);
-    fetchData('https://apimafy.zeabur.app/api/estilos', setEst);
-    fetchData('https://apimafy.zeabur.app/api/marcas', setMarcas);
-    fetchData('https://apimafy.zeabur.app/api/disenos', setDisenos);
-    fetchData('https://apimafy.zeabur.app/api/materiales', setMateriales);
+    fetchData('https://apitammy-closset.fra1.zeabur.app/api/stock', setStockData);
+    fetchData('https://apitammy-closset.fra1.zeabur.app/api/bodegas', setBodegas);
+    fetchData('https://apitammy-closset.fra1.zeabur.app/api/tallas', setTallas);
+    fetchData('https://apitammy-closset.fra1.zeabur.app/api/promociones', setPromotions);
+    fetchData('https://apitammy-closset.fra1.zeabur.app/api/colores', setColores);
+    fetchData('https://apitammy-closset.fra1.zeabur.app/api/articulos', setArticulos);
+    fetchData('https://apitammy-closset.fra1.zeabur.app/api/categorias', setCategorias);
+    fetchData('https://apitammy-closset.fra1.zeabur.app/api/estilos', setEst);
+    fetchData('https://apitammy-closset.fra1.zeabur.app/api/marcas', setMarcas);
+    fetchData('https://apitammy-closset.fra1.zeabur.app/api/disenos', setDisenos);
+    fetchData('https://apitammy-closset.fra1.zeabur.app/api/materiales', setMateriales);
   }, []);
   
 
@@ -214,7 +214,7 @@ const VentasView = () => {
         estado: true,
       };
 
-      const responseVenta = await axios.post('https://apimafy.zeabur.app/api/ventas', ventaData, {
+      const responseVenta = await axios.post('https://apitammy-closset.fra1.zeabur.app/api/ventas', ventaData, {
         headers: {
           'Content-Type': 'application/json',
           'x-access-token': token, 
@@ -242,7 +242,7 @@ const VentasView = () => {
         total: total - (totalDiscount + promotionDiscount), 
       };
 
-      const responseArticulos = await axios.post('https://apimafy.zeabur.app/api/detalleventa', articulosVentaData, {
+      const responseArticulos = await axios.post('https://apitammy-closset.fra1.zeabur.app/api/detalleventa', articulosVentaData, {
        headers: {
         'Content-Type': 'application/json',
          'x-access-token': token, 
@@ -262,7 +262,7 @@ const VentasView = () => {
         estado: updatedExistencias === 0 ? false : true,
       };
 
-      const stockUpdateUrl = `https://apimafy.zeabur.app/api/stock/${item._id}`;
+      const stockUpdateUrl = `https://apitammy-closset.fra1.zeabur.app/api/stock/${item._id}`;
       try {
         const responseStockUpdate = await axios.put(stockUpdateUrl, stockUpdateData, {
           headers: {
@@ -296,9 +296,19 @@ const VentasView = () => {
     return marca ? marca.marca : '';
   };
 
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
+
   const tableData = filteredData;
   const columns = [
-    { name: '_id', cell: (row) => row._id, sortable: true },
+    { name: '_id', cell: (row) => row._id, sortable: true,width:'215px',center:'true' },
     {
       name: 'Articulo',
       cell: (row) => {
@@ -348,35 +358,13 @@ const VentasView = () => {
       },
       sortable: true,
     },
-    {
-      name: 'Diseño',
-      cell: (row) => {
-        const diseno = disenos.find((diseno) => diseno._id === row.Id_diseño);
-        return diseno ? diseno.diseno : 'Desconocido';
-      },
-      sortable: true,
-    },
-    {
-      name: 'Bodega',
-      cell: (row) => {
-        const bodega = bodegas.find((bodega) => bodega._id === row.Id_bodega);
-        return bodega ? bodega.bodega : 'Desconocida';
-      },
-      sortable: true,
-    },
+    {name: 'Diseño',cell: (row) => {const diseno = disenos.find((diseno) => diseno._id === row.Id_diseño);return diseno ? diseno.diseno : 'Desconocido';},sortable: true,},
+    { name: 'Bodega',cell: (row) => {const bodega = bodegas.find((bodega) => bodega._id === row.Id_bodega); return bodega ? bodega.bodega : 'Desc.';},sortable: true,},
     { name: 'Precio', cell: (row) => row.Precio_venta, sortable: true },
     { name: 'Existencias', cell: (row) => row.Existencias, sortable: true },
     { name: 'Estado', cell: (row) => estadoFormatter(row), sortable: true },
     { name: 'Daños', cell: (row) => danosFormatter(row), sortable: true },
     { name: 'Descripcion', cell: (row) => row.Descripcion, sortable: true },
-    {
-      name: 'Promoción',
-      cell: (row) => {
-      const promocion = promotions.find((promocion) => promocion._id === row.Id_promocion);
-      return promocion ? promocion.promocion : 'Desconocida';
-      },
-      sortable: true,
-    },
     {
       name: 'Opciones',
       cell: (row) => (
@@ -397,11 +385,16 @@ const VentasView = () => {
     <Container fluid style={estilos.containerStyle}>
       <MyNavbar style={{ height: '100%', width: '100%' }}> </MyNavbar>
       <h2 className=" mt-4 center-text" style={estilos.titulo}>
-        Registro de Ventas
+        <img
+          src="https://fontmeme.com/permalink/241029/fcf06085752b4e16dd86da3d365e5203.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+        />
       </h2>
-      <Form style={{ width: '95%', backgroundColor: 'white', marginTop: '10px', marginLeft: '3%', marginRight: 'auto', borderRadius: '5px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Form.Group style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: '55px' }}>
-          <Form.Label style={{ marginLeft: '40px' }}>Fecha de Venta</Form.Label>
+      <Form style={{ width: '95%', backgroundColor: 'transparent', marginTop: '10px', marginLeft: '3%', marginRight: 'auto', borderRadius: '5px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <Form.Group style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: '75px' }}>
+          <Form.Label style={{ marginLeft: '65px',color:'white' }}>Fecha de Venta</Form.Label>
           <Form.Control
             id="fechaVenta"
             type="date"
@@ -410,7 +403,7 @@ const VentasView = () => {
           />
         </Form.Group>
         <Form.Group style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Form.Label style={{ marginLeft: '50px' }}>Cliente</Form.Label>
+          <Form.Label style={{ marginLeft: '125px',color:'white' }}>Cliente</Form.Label>
           <Form.Control
             id="clienteVenta"
             type="text"
@@ -481,6 +474,7 @@ const VentasView = () => {
         <Modal.Body>
         <DataTable
   columns={columns} 
+  customStyles={customStyles}
   data={tableData}  
   pagination
   responsive

@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 import MyNavbar from '../component/Navbar';
 import Footer from '../component/footer/footer';
 import { useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 
 const DataTableComponent = () => {
   
@@ -45,7 +46,7 @@ const updateFechaField = async (id_ventas) => {
       )
     );
   } catch (error) {
-    console.error('Error updating fecha field:', error);
+    toast.error('Error updating fecha field:', error);
   }
 };
 
@@ -54,7 +55,6 @@ useEffect(() => {
   axios.get('https://apitammy-closset.fra1.zeabur.app/api/detalleventa')
     .then(response => {
       setData(response.data);
-
       response.data.forEach(row => {
         axios.get(`https://apitammy-closset.fra1.zeabur.app/api/ventas/${row.id_ventas}`)
           .then(clientResponse => {
@@ -65,12 +65,12 @@ useEffect(() => {
             updateFechaField(row.id_ventas);
           })
           .catch(clientError => {
-            console.error('Error al obtener el nombre del cliente:', clientError);
+            toast.error('Error al obtener el nombre del cliente:', clientError);
           });
       });
     })
     .catch(error => {
-      console.error('Error al obtener datos:', error);
+      toast.error('Error al obtener datos:', error);
     });
 }, []);
 
@@ -100,7 +100,7 @@ useEffect(() => {
       setMateriales(materialesRes.data);
       setPromotions(promocionesRes.data);
     } catch (error) {
-      console.error("Error fetching data: ", error);
+      toast.error("Error fetching data: ", error);
     }
   };
 
@@ -110,10 +110,7 @@ useEffect(() => {
 
 
   const handlePrintButtonClick = (id) => {
-    // Construct the print URL with the 'id' parameter
     const printUrl = `https://apitammy-closset.fra1.zeabur.app/api/detalleventa/${id}/print`;
-
-
     window.open(printUrl, '_blank');
   };
 
@@ -160,7 +157,6 @@ const getNombreArticulo = (idArticulo) => {
   };
 
 
-
   const openModal = (articles) => {
     setSelectedSaleArticles(articles);
     setModalOpen(true);
@@ -175,11 +171,7 @@ const getNombreArticulo = (idArticulo) => {
     { name: 'ID', sortable: true, cell: (row) => row._id },
     { name: 'ID Ventas', sortable: true, cell: (row) => row.id_ventas },
     { name: 'Total', sortable: true, cell: (row) => row.total },
-    {
-      name: 'Nombre del Cliente',
-      sortable: true,
-      cell: (row) => clientNames[row.id_ventas],
-    },
+    {name: 'Nombre del Cliente',sortable: true,cell: (row) => clientNames[row.id_ventas],},
     { name: 'Fecha', sortable: true, cell: (row) => row.fecha },
     {
       name: 'Acciones',
@@ -286,10 +278,16 @@ const getNombreArticulo = (idArticulo) => {
     <div>
       <MyNavbar />
       <div style={{ width: '90%', margin: 'auto',  borderRadius: '2px', marginTop: '5%', marginBottom: '5%', textAlign: 'center' }}>
-        <h2 style={{color:'black'}}>Historial de Ventas</h2>
+      <h2>
+      <img
+          src="https://fontmeme.com/permalink/241029/ce632150b00e76a2c3b11a0526cfdf02.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+        />
+      </h2>
         <DataTable
-          style={{fontSize:'55px'}}
-         
+          style={{fontSize:'55px'}} 
           columns={columns}
           customStyles={customStyles}
           data={filteredData}
@@ -310,13 +308,10 @@ const getNombreArticulo = (idArticulo) => {
           persistTableHead
         />
       </div>
-
       <Modal
-      
         isOpen={isModalOpen}
         onRequestClose={closeModal}
-        contentLabel="Detalles de Artículos"
-      >
+        contentLabel="Detalles de Artículos">
         <h2 style={{color:'black'}}>Detalles de Artículos</h2>
         <DataTable
           style={{border:'2px solid black'}}
@@ -327,7 +322,6 @@ const getNombreArticulo = (idArticulo) => {
         />
         <button style={{width:'100px',height:'40px',backgroundColor:'blue',color:'white',borderRadius:'5px'}} onClick={closeModal}>Cerrar</button>
       </Modal>
-
       <Footer />
     </div>
   );

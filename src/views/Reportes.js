@@ -168,8 +168,13 @@ const ReportesVentas = () => {
   return (
     <div>
       <MyNavbar />
-
-      <div className="d-flex justify-content-around" style={{ marginBottom: "20px" }}>
+      <h2>      <img
+          src="https://fontmeme.com/permalink/241028/a5362be47e3ff025fc03f637598a2415.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '80%', height: 'auto', maxWidth: '500px' }}
+        /></h2>
+      <div className="d-flex justify-content-around" style={{ marginBottom: "20px",marginTop:'10px' }}>
         
       <Card style={{ width: "30%", height: "400px", textAlign: "center" }}>
       <Card.Body style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", alignItems: "center" }}>

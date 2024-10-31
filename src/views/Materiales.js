@@ -78,7 +78,7 @@ const MaterialesView = () => {
 
   const subHeaderComponentMemo = useMemo(() => {
     return (
-      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px' }}>
+      <div style={{ display: 'flex', margin: '0 auto', marginBottom: '10px',marginTop:'10px' }}>
         <input
           type="text"
           placeholder="Buscar..."
@@ -236,6 +236,14 @@ const MaterialesView = () => {
   return (
     <Styles.AppContainer>
       <Navbar/>
+      <h2>
+      <img
+          src="https://fontmeme.com/permalink/241028/e6552f09ff62e950021a345e0a9a971a.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+        />
+      </h2>
       <ButtonM variant="primary" onClick={handleShow}>
         Crear
       </ButtonM>

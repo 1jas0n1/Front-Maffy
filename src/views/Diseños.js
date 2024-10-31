@@ -237,6 +237,15 @@ const DisenosView = () => {
   return (
     <Styles.AppContainer>
        <Navbar />
+    <h2>
+    <img
+          src="https://fontmeme.com/permalink/241028/ed1ed4a9ac83fa6d98d13e636769c28c.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+        />
+    </h2>
+
       <ButtonM variant="primary" onClick={handleShow}>
         Crear
       </ButtonM>

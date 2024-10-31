@@ -7,13 +7,13 @@ import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { TbShoppingBagX } from "react-icons/tb";
+
 import Cookies from 'js-cookie';
 const MercanciaView = () => {
   const [stock, setStock] = useState([]);
   const [existencias, setExistencias] = useState(0);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [filteredStock, setFilteredStock] = useState([]);
-
   const [filterText, setFilterText] = useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
   const [articulos, setArticulos] = useState([]);
@@ -79,70 +79,45 @@ const MercanciaView = () => {
     toast.success('Operation successful', { position: toast.POSITION.TOP_CENTER });
   };
 
-
-
   const handleUpdate = (itemId) => {
     const selected = stock.find((item) => item._id === itemId);
     setSelectedItem(selected);
     setShowUpdateModal(true);
   };
 
-
-
- const showData = async () => {
-  try {
-  const marcasResponse = await fetch('https://apimafy.zeabur.app/api/marcas/');
-  const marcasData = await marcasResponse.json();
-  setMarcas(marcasData);
-  
-  const categoriasResponse = await fetch('https://apimafy.zeabur.app/api/categorias/');
-  const categoriasData = await categoriasResponse.json();
-  setCategorias(categoriasData);
-
-  const articulosResponse = await fetch('https://apimafy.zeabur.app/api/articulos');
-  const articulosData = await articulosResponse.json();
-  setArticulos(articulosData);
-
-  const coloresResponse = await fetch('https://apimafy.zeabur.app/api/colores');
-  const coloresData = await coloresResponse.json();
-  setColores(coloresData);
-
-  const tallasResponse = await fetch('https://apimafy.zeabur.app/api/tallas/');
-  const tallasData = await tallasResponse.json();
-  setTallas(tallasData);
-
-  const materialesResponse = await fetch('https://apimafy.zeabur.app/api/materiales');
-  const materialesData = await materialesResponse.json();
-  setMateriales(materialesData);
-
-
-  const tiposDeEstiloResponse = await fetch('https://apimafy.zeabur.app/api/estilos/');
-  const tiposDeEstiloData = await tiposDeEstiloResponse.json();
-  setTiposDeEstilo(tiposDeEstiloData);
-
-  const disenosResponse = await fetch('https://apimafy.zeabur.app/api/disenos');
-  const disenosData = await disenosResponse.json();
-  setDisenos(disenosData);
-
-  const promocionesResponse = await fetch('https://apimafy.zeabur.app/api/promociones');
-  const promocionesData = await promocionesResponse.json();
-  setPromociones(promocionesData);
-    
-
-    const response = await fetch('https://apimafy.zeabur.app/api/stock/');
-    const data = await response.json();
-    setStock(data);
-    setFilteredStock(data);
-
-    const bodegasresponse = await fetch('https://apimafy.zeabur.app/api/bodegas');
-    const bodegasData = await bodegasresponse.json();
-    setBodegas(bodegasData);
-
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-};
-
+  const showData = async () => {
+    try {
+      const urls = [
+        'https://apitammy-closset.fra1.zeabur.app/api/marcas/',
+        'https://apitammy-closset.fra1.zeabur.app/api/categorias/',
+        'https://apitammy-closset.fra1.zeabur.app/api/articulos',
+        'https://apitammy-closset.fra1.zeabur.app/api/colores',
+        'https://apitammy-closset.fra1.zeabur.app/api/tallas/',
+        'https://apitammy-closset.fra1.zeabur.app/api/materiales',
+        'https://apitammy-closset.fra1.zeabur.app/api/estilos/',
+        'https://apitammy-closset.fra1.zeabur.app/api/disenos',
+        'https://apitammy-closset.fra1.zeabur.app/api/promociones',
+        'https://apitammy-closset.fra1.zeabur.app/api/stock/',
+        'https://apitammy-closset.fra1.zeabur.app/api/bodegas'
+      ];
+      const responses = await Promise.all(urls.map(url => fetch(url)));
+      const jsonData = await Promise.all(responses.map(response => response.json()));
+      setMarcas(jsonData[0]);
+      setCategorias(jsonData[1]);
+      setArticulos(jsonData[2]);
+      setColores(jsonData[3]);
+      setTallas(jsonData[4]);
+      setMateriales(jsonData[5]);
+      setTiposDeEstilo(jsonData[6]);
+      setDisenos(jsonData[7]);
+      setPromociones(jsonData[8]);
+      setStock(jsonData[9]);
+      setFilteredStock(jsonData[9]);
+      setBodegas(jsonData[10]);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
 useEffect(() => {
   const lowerCaseFilter = filterText.toLowerCase();
@@ -157,7 +132,6 @@ useEffect(() => {
     const diseno = disenos.find((diseno) => diseno._id === item.Id_diseño);
     const promocion = promociones.find((promocion) => promocion._id === item.Id_promocion);
     const bodega = bodegas.find((bodega) => bodega._id === item.Id_bodega);
-
     return (
       articulo && articulo.nombre.toLowerCase().includes(lowerCaseFilter) ||
       categoria && categoria.categoria.toLowerCase().includes(lowerCaseFilter) ||
@@ -175,7 +149,6 @@ useEffect(() => {
   setFilteredStock(filteredData);
 }, [filterText, stock, articulos,categorias, colores, marcas, tallas, tiposDeEstilo, materiales, disenos, promociones, bodegas]);
 
-
 const [showDamageModal, setShowDamageModal] = useState(false);
 const [damageData, setDamageData] = useState({
   id_stock: "",
@@ -189,9 +162,7 @@ const [damageData, setDamageData] = useState({
 });
 
 const moveItemDamage = (row) => {
-
   const userId = Cookies.get('_id');
-  // Extract necessary data from the selected row
   const {
     _id,
     Estado,
@@ -204,7 +175,6 @@ const moveItemDamage = (row) => {
     Id_ingreso,
   } = row;
 
-  
   setDamageData({
     id_stock: _id,
     id_articulo: Id_articulo,
@@ -222,8 +192,6 @@ const moveItemDamage = (row) => {
     existencias: row.Existencias, 
   });
   setExistencias(row.existencias);
-
-  // Show the modal
   setShowDamageModal(true);
 };
 
@@ -238,23 +206,15 @@ const handleDamageSubmit = async () => {
       toast.warning('Se está intentando pasar más cantidad que la existencia', { position: toast.POSITION.TOP_CENTER });
       return;
     }
-
-    // Ensure damageData.Fecha is a valid Date object
     if (!(damageData.Fecha instanceof Date)) {
       damageData.Fecha = new Date(damageData.Fecha);
     }
-
-    // Check if damageData.Fecha is a valid Date object after conversion
     if (isNaN(damageData.Fecha.getTime())) {
       toast.error('Fecha no válida', { position: toast.POSITION.TOP_CENTER });
       return;
     }
-
-    // Log the formatted JSON being sent to the server
     console.log('JSON being sent to server:', JSON.stringify(damageData, null, 2));
-
-    // Send data to the specified URL using the POST method
-    const response = await fetch('https://apimafy.zeabur.app/https://apimafy.zeabur.app/api/mercancia/', {
+    const response = await fetch('https://apitammy-closset.fra1.zeabur.app/api/mercancia/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -263,28 +223,18 @@ const handleDamageSubmit = async () => {
     });
 
     if (response.ok) {
-      // Calculate the difference between Existencias and Cantidad
       const DiferenciaExistencias = damageData.existencias - damageData.Cantidad;
-
-      // Show success toast
       toast.success('Damage information saved successfully', { position: toast.POSITION.TOP_CENTER });
-
-      // Log the difference to the console
       console.log('DiferenciaExistencias:', DiferenciaExistencias);
-
-      // Close the modal after successful submission
       setShowDamageModal(false);
-
-      // Send data to update the stock with the calculated difference
-      const updateStockUrl = `https://apimafy.zeabur.app/https://apimafy.zeabur.app/api/stock/update/${damageData.id_stock}`;
+      const updateStockUrl = `https://apitammy-closset.fra1.zeabur.app/api/stock/update/${damageData.id_stock}`;
       const updateStockResponse = await fetch(updateStockUrl, {
-        method: 'PUT', // You may need to adjust the method based on your server's API
+        method: 'PUT', 
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ _id: damageData.id_stock, DiferenciaExistencias }),
       });
-
       if (updateStockResponse.ok) {
         console.log('Stock updated successfully');
       } else {
@@ -298,15 +248,13 @@ const handleDamageSubmit = async () => {
   }
 };
 
-
-
-
   const columns = [
     {
       name: 'ID',
       selector: (row) => row._id,
       sortable: true,
       center: true,
+      width:'225px'
     },
  {
   name: 'Articulo',
@@ -353,10 +301,7 @@ const handleDamageSubmit = async () => {
   sortable: true,
   center: true,
 },
-
-
-
-   {
+  {
   name: 'Talla',
   selector: (row) => {
     const talla = tallas.find((talla) => talla._id === row.Id_talla);
@@ -374,7 +319,6 @@ const handleDamageSubmit = async () => {
   sortable: true,
   center: true,
 },
-
 {
   name: 'Material',
   selector: (row) => {
@@ -399,32 +343,31 @@ selector:(row) => row.Existencias,
 sortable:true,
 centre:true,
 },
-
-    {
-      name: 'Descuento',
-      selector: (row) => row.Descuento,
-      sortable: true,
-      center: true,
-    },
-    {
-      name: 'Descuento Máximo',
-      selector: (row) => row.Descuento_maximo,
-      sortable: true,
-      center: true,
-    },
-    {
-      name: 'Precio Prov',
-      selector: (row) => row.Precio_prov,
-      sortable: true,
-      center: true,
-    },
-    {
-      name: 'Precio Venta',
-      selector: (row) => row.Precio_venta.toFixed(2),
-      sortable: true,
-      center: true,
-    },
-    {
+{
+name: 'Descuento',
+selector: (row) => row.Descuento,
+sortable: true,
+center: true,
+},
+{
+name: 'Descuento Máximo',
+selector: (row) => row.Descuento_maximo,
+sortable: true,
+center: true,
+},
+{
+name: 'Precio Prov',
+selector: (row) => row.Precio_prov,
+sortable: true,
+center: true,
+},
+{
+name: 'Precio Venta',
+selector: (row) => row.Precio_venta.toFixed(2),
+sortable: true,
+center: true,
+},
+{
       name: 'Estado',
       selector: (row) => (row.Estado ? 'Activo' : 'Descontinuado'),
       sortable: true,
@@ -447,40 +390,68 @@ centre:true,
       selector: (row) => row.Id_ingreso,
       sortable: true,
       center: true,
+      width:'225px'
     },
     {
       name: 'Código de Barras',
       selector: (row) => row.Cod_barra,
       sortable: true,
       center: true,
-    },
+      width:'200px'
+    },  
     {
-      name: 'Promoción',
-      selector: (row) => {
-        const promocion = promociones.find((promocion) => promocion._id === row.Id_promocion);
-        return promocion ? promocion.promocion : '';
-      },
-      sortable: true,
-      center: true,
-    },    
-    {
+      width: '200px',
       name: 'Acciones',
-     
       cell: (row) => (
-        <div>
-          <Styles.ActionButton style={{padding:'0px'}} onClick={() => handleUpdate(row._id)} update>
+        <div style={{
+          display: 'flex', 
+          flexDirection: 'row', 
+          gap: '10px', // Añade espacio entre los botones si es necesario
+          justifyContent: 'center'
+        }}>
+          <Button  
+            style={{
+              textAlign: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '20px',
+              width: '40px',
+              height: '40px',
+              backgroundColor: 'green',
+              color: 'white',
+              borderRadius: '10px',
+            }}  
+            onClick={() => handleUpdate(row._id)} 
+            update
+          >
             <FaEdit />
-          </Styles.ActionButton>
-          <Styles.ActionButton
-        style={{ backgroundColor: 'blue', margin: '0 auto', padding: '0px' }}
-        onClick={() => moveItemDamage(row)}  // Pass the selected row to the function
-      >
-        <TbShoppingBagX />
-      </Styles.ActionButton>
+          </Button>
+          <Button
+            style={{
+              textAlign: 'center',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: '20px',
+              width: '40px',
+              height: '40px',
+              backgroundColor: 'red',
+              color: 'white',
+              borderRadius: '10px',
+            }}  
+            onClick={() => moveItemDamage(row)}  
+          >
+            <TbShoppingBagX />
+          </Button>
         </div>
       ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
       center: true,
     },
+    
   ];
   
   const subHeaderComponentMemo = useMemo(() => {
@@ -503,12 +474,8 @@ centre:true,
       console.error('No item selected for update');
       return;
     }
-
-    const urlWithId = `https://apimafy.zeabur.app/https://apimafy.zeabur.app/api/stock/update/${selectedItem._id}`;
-
-    // Log the formatted JSON being sent
+    const urlWithId = `https://apitammy-closset.fra1.zeabur.app/api/stock/update/${selectedItem._id}`;
     console.log('JSON being sent:', JSON.stringify(selectedItem, null, 2));
-
     const response = await fetch(urlWithId, {
       method: 'PUT',
       headers: {
@@ -516,7 +483,6 @@ centre:true,
       },
       body: JSON.stringify(selectedItem),
     });
-
     if (response.ok) {
       handleNotification();
       handleClose();
@@ -529,18 +495,33 @@ centre:true,
 };
 
 
-
   useEffect(() => {
     showData();
   }, []);
 
-  return (
-    <Styles.AppContainer>
-      <Navbar />
-     
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
 
-      <Styles.StyledDataTable
+  return (
+    <Styles.AppContainer  >
+      <Navbar />
+      <h2 >
+      <img
+          src="https://fontmeme.com/permalink/241028/bc5137c42720be8c737ae33af044c803.png"
+          alt="titulo de comic"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }} 
+        />
+      </h2>
+<Styles.StyledDataTable
   columns={columns}
+  customStyles={customStyles}
   data={filteredStock}
   pagination
   paginationResetDefaultPage={resetPaginationToggle}
@@ -549,15 +530,12 @@ centre:true,
   persistTableHead
 />
 
-
-
 <Styles.StyledModal show={showUpdateModal} onHide={handleClose}>
   <Modal.Header closeButton>
-    <Modal.Title>Update Item</Modal.Title>
+    <Modal.Title>Actualizar</Modal.Title>
   </Modal.Header>
   <Modal.Body>
     <Form>
-
 <Form.Group controlId="formDescuento">
   <Form.Label>Descuento</Form.Label>
   <Form.Control
@@ -686,8 +664,7 @@ centre:true,
         ...selectedItem,
         Id_promocion: e.target.value,
       })
-    }
-  >
+    }>
     <option value="">Selecciona una promoción</option>
     {promociones.map((promocion) => (
       <option key={promocion._id} value={promocion._id}>
@@ -696,7 +673,6 @@ centre:true,
     ))}
   </Form.Control>
 </Form.Group>
-
 
 <Form.Group controlId="formIdBodega">
   <Form.Label>Bodega</Form.Label>
@@ -719,9 +695,7 @@ centre:true,
   </Form.Control>
 </Form.Group>
 
-
-
-    </Form>
+</Form>
   </Modal.Body>
   <Styles.ModalFooter>
     <Button className="otros" variant="primary" onClick={handleUpdateSubmit}>
@@ -739,7 +713,7 @@ centre:true,
           <Modal.Title>Mover Mercancia Dañada</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-      
+
           <Form.Group controlId="formDaños">
             <Form.Label>Descripcion Daños </Form.Label>
             <Form.Control
@@ -749,7 +723,6 @@ centre:true,
               onChange={(e) => setDamageData({ ...damageData, Daños: e.target.value })}
             />
           </Form.Group>
-          
           <Form.Group controlId="formCantidad">
   <Form.Label>Cantidad</Form.Label>
   <Form.Control
@@ -763,8 +736,6 @@ centre:true,
       if (!isNumber.test(e.key)) {
         e.preventDefault();
       }
-
-   
       const enteredValue = parseInt(e.target.value + e.key, 10) || 0;
       if (enteredValue > existencias) {
         e.preventDefault();
@@ -775,7 +746,6 @@ centre:true,
   />
 </Form.Group>
 
-
           <Form.Group controlId="formDescripcion">
             <Form.Label>Descripcion Articulo</Form.Label>
             <Form.Control
@@ -785,7 +755,6 @@ centre:true,
               onChange={(e) => setDamageData({ ...damageData, Descripcion: e.target.value })}
             />
           </Form.Group>
-
           <Form.Group controlId="formFecha">
   <Form.Label>Fecha</Form.Label>
   <Form.Control
@@ -794,18 +763,16 @@ centre:true,
     onChange={(e) => setDamageData({ ...damageData, Fecha: new Date(e.target.value) })}
   />
 </Form.Group>
-
         </Modal.Body>
         <Styles.ModalFooter>
           <Button className="otros" variant="primary" onClick={handleDamageSubmit}>
-            Save Damage Information
+            Guardar Daños
           </Button>
           <Button className="otros" variant="secondary" onClick={() => setShowDamageModal(false)}>
-            Close
+            Cerrar
           </Button>
         </Styles.ModalFooter>
       </Styles.StyledModal>
-
 <Footer />
 <ToastContainer />
 </Styles.AppContainer>

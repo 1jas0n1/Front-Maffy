@@ -48,7 +48,7 @@ const FacturacionServicioView = () => {
   const realizarVenta = async () => {
     const factura = obtenerDatosJSON();
     try {
-      const response = await fetch('https://apitammy-closset.fra1.zeabur.app/facturaServicio', {
+      const response = await fetch('https://apitammy-closset.fra1.zeabur.app/api/facturaServicio', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,12 +66,9 @@ const FacturacionServicioView = () => {
         toast.error(`Error al realizar la venta: ${errorData.message || 'Error desconocido'}`);
       }
     } catch (error) {
-
       toast.error('Error al realizar la venta');
-      
     }
-  };
-  
+  };  
 
   useEffect(() => {
     console.log(obtenerDatosJSON());
@@ -188,7 +185,7 @@ const FacturacionServicioView = () => {
 
   const fetchServicios = async () => {
     try {
-      const response = await fetch('https://apitammy-closset.fra1.zeabur.app/servicios');
+      const response = await fetch('https://apitammy-closset.fra1.zeabur.app/api/Servicios');
       const data = await response.json();
       setServicios(data);
     } catch (error) {
@@ -198,7 +195,6 @@ const FacturacionServicioView = () => {
 
   const añadirAlCarro = (servicio) => {
     const servicioExistente = carro.some(item => item._id === servicio._id);
-  
     if (servicioExistente) {
       toast.error(`El servicio ${servicio.nombre} ya está en el carro`);
     } else {
@@ -233,7 +229,6 @@ const FacturacionServicioView = () => {
     toast.success(`Cliente: ${cliente}, Fecha: ${fecha}`);
   };
 
-  
 
   const handleModalOpen = () => {
     fetchServicios();
@@ -260,6 +255,12 @@ const FacturacionServicioView = () => {
       },
     },
   };
+  useEffect(() => {
+    if (showModal) {
+      fetchServicios();
+    }
+  }, [showModal]);
+  
 
   return (
     <div>
@@ -321,6 +322,7 @@ const FacturacionServicioView = () => {
     </div>
       <Footer />
       <ToastContainer />
+
       <Modal show={showModal} onHide={handleModalClose} size="lg" centered>
         <Modal.Header closeButton>
           <Modal.Title style={{textAlign:'center'}} >Servicios</Modal.Title>
@@ -339,6 +341,7 @@ const FacturacionServicioView = () => {
         <Modal.Footer>
         </Modal.Footer>
       </Modal>
+
     </div>
   );
 };

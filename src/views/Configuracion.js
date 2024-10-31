@@ -31,7 +31,7 @@ class ConfigView extends Component {
   }
 
   fetchData() {
-    axios.get('https://apitammy-closset.fra1.zeabur.app/configuracion')
+    axios.get('https://apitammy-closset.fra1.zeabur.app/api/configuracion')
       .then(response => {
         const configData = response.data.data[0];
 
@@ -77,7 +77,7 @@ class ConfigView extends Component {
       tipo_de_cambio_dolar,
     };
 
-    axios.put(`https://apitammy-closset.fra1.zeabur.app/configuracion/${id}`, newData)
+    axios.put(`https://apitammy-closset.fra1.zeabur.app/api/configuracion/${id}`, newData)
       .then(response => {
         console.log('Data updated successfully:', response.data);
         this.setState({ isEditing: false });
@@ -93,13 +93,18 @@ class ConfigView extends Component {
 
   render() {
     return (
-      <div className="config-container" style={{backgroundColor:'#4B0082'}}  >
+      <div className="config-container" style={{backgroundColor:'#219ebc'}}  >
         <Navbar />
-        <h1 className="config-title" style={{color:'white'}}>Configuracion</h1>
+        <h2> <img
+          src="https://fontmeme.com/permalink/241028/6d6e0deb66181f3a02843b0da91df39d.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px',margin:'0 auto' }}
+        /></h2>
         <div className="config-grid">
           <form className="config-form">
             <div className="config-column">
-              <label style={{fontSize:'35px',color:'white'}} htmlFor="nombre_negocio">Nombre del Negocio</label>
+              <label style={{fontSize:'35px',color:'black'}} htmlFor="nombre_negocio">Nombre del Negocio</label>
               <input 
                 type="text"
                 id="nombre_negocio"
@@ -111,7 +116,7 @@ class ConfigView extends Component {
                 onChange={this.handleChange}
               />
 
-              <label style={{fontSize:'35px',color:'white'}} className="campos" htmlFor="direccion">Dirección</label>
+              <label style={{fontSize:'35px',color:'black'}} className="campos" htmlFor="direccion">Dirección</label>
               <input
                 type="text"
                 id="direccion"
@@ -123,7 +128,7 @@ class ConfigView extends Component {
                 onChange={this.handleChange}
               />
 
-              <label style={{fontSize:'35px',color:'white',borderRadius:'5px'}} className="campos" htmlFor="correo_electronico">Correo Electrónico</label>
+              <label style={{fontSize:'35px',color:'black',borderRadius:'5px'}} className="campos" htmlFor="correo_electronico">Correo Electrónico</label>
               <input
                 type="text"
                 id="correo_electronico"
@@ -135,7 +140,7 @@ class ConfigView extends Component {
                 onChange={this.handleChange}
               />
 
-              <label style={{fontSize:'35px',color:'white'}} className="campos" htmlFor="telefono_1">Teléfono Claro</label>
+              <label style={{fontSize:'35px',color:'black'}} className="campos" htmlFor="telefono_1">Teléfono Claro</label>
               <input
                 type="text"
                 id="telefono_1"
@@ -149,7 +154,7 @@ class ConfigView extends Component {
             </div>
 
             <div className="config-column">
-              <label style={{fontSize:'35px',color:'white'}} className="campos" htmlFor="telefono_2">Teléfono Tigo</label>
+              <label style={{fontSize:'35px',color:'black'}} className="campos" htmlFor="telefono_2">Teléfono Tigo</label>
               <input
                 type="text"
                 id="telefono_2"
@@ -161,7 +166,7 @@ class ConfigView extends Component {
                 onChange={this.handleChange}
               />
 
-              <label style={{fontSize:'35px',color:'white'}} htmlFor="eslogan">Eslogan</label>
+              <label style={{fontSize:'35px',color:'black'}} htmlFor="eslogan">Eslogan</label>
               <input
                 type="text"
                 id="eslogan"
@@ -173,7 +178,7 @@ class ConfigView extends Component {
                 onChange={this.handleChange}
               />
 
-              <label style={{fontSize:'35px',color:'white'}} className='etiqueta' htmlFor="tipo_de_cambio_dolar">Tipo de Cambio </label>
+              <label style={{fontSize:'35px',color:'black'}} className='etiqueta' htmlFor="tipo_de_cambio_dolar">Tipo de Cambio </label>
               <input
                 type="text"
                 id="tipo_de_cambio_dolar"
@@ -187,10 +192,10 @@ class ConfigView extends Component {
             </div>
           </form>
         </div>
-        <button type="button" className="config-button" onClick={this.handleSaveClick} disabled={!this.state.isEditing}>
+        <button type="button" style={{backgroundColor:'green'}} className="config-button" onClick={this.handleSaveClick} disabled={!this.state.isEditing}>
           Guardar
         </button>
-        <button type="button" className="edit-button" onClick={this.handleEditClick} disabled={this.state.isEditing}>
+        <button type="button" style={{backgroundColor:'red'}} className="edit-button" onClick={this.handleEditClick} disabled={this.state.isEditing}>
           Editar
         </button>
         <Footer />

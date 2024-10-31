@@ -7,6 +7,7 @@ export const AppContainer = styled.div`
   flex-direction: column;
   align-items: center;
 
+
 `;
 
 export const StyledDataTable = styled(DataTable)`

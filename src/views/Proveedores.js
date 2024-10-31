@@ -250,6 +250,15 @@ const ProveedoresView = () => {
   return (
     <Styles.AppContainer>
       <Navbar />
+      <h2>
+      <img
+          src="https://fontmeme.com/permalink/241028/477f2a43a947973738a776c3a450df68.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+        />
+
+      </h2>
       <ButtonM variant="primary" onClick={handleShow}>
         Crear
       </ButtonM>

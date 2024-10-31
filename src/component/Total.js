@@ -7,7 +7,7 @@ const Card = ({ total }) => {
   const [esConvertido, setEsConvertido] = useState(false); // Controla si se muestra el valor convertido o no
 
   useEffect(() => {
-    fetch("https://apimafy.zeabur.app/api/configuracion")
+    fetch("https://apitammy-closset.fra1.zeabur.app/api/configuracion")
       .then((response) => response.json())
       .then((data) => {
         const cambio = data.data[0].tipo_de_cambio_dolar || 1; // Acceder al primer objeto del array "data"

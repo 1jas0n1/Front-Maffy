@@ -22,6 +22,7 @@ const HistorialIngresosView = () => {
   const [proveedores, setProveedores] = useState([]);
   const [users, setUsers] = useState([]);
   const [filterText, setFilterText] = useState('');
+  const [tipoCambio, setTipoCambio] = useState(null);
 
   const updateFechaIngresoField = async (id_ingreso) => {
     try {
@@ -41,6 +42,26 @@ const HistorialIngresosView = () => {
       console.error('Error updating fecha field for ingreso:', error);
     }
   };
+
+
+  useEffect(() => {
+    const fetchTipoCambio = async () => {
+      try {
+        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/configuracion');
+        const cambio = response.data.data[0].tipo_de_cambio_dolar;
+        setTipoCambio(cambio);
+      } catch (error) {
+        console.error("Error fetching tipo de cambio:", error);
+      }
+    };
+
+    fetchTipoCambio();
+  }, []);
+
+  const convertirACordobasADolares = (totalCordobas) => {
+    return tipoCambio ? (totalCordobas / tipoCambio).toFixed(2) : 'Cargando...';
+  };
+  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,7 +88,6 @@ const HistorialIngresosView = () => {
           axios.get('https://apitammy-closset.fra1.zeabur.app/api/tallas')
         ]);
   
-        // Setear estados con los datos obtenidos
         setMarcas(marcasRes.data);
         setMateriales(materialesRes.data);
         setEst(estilosRes.data);
@@ -77,6 +97,7 @@ const HistorialIngresosView = () => {
         setProveedores(proveedoresRes.data);
         setColores(coloresRes.data);
         setTallas(tallasRes.data);
+
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -200,11 +221,21 @@ const HistorialIngresosView = () => {
     const user = users.find((u) => u._id === userId);
     return user ? user.username : 'Desconocido';
   };
+
   const columns = [
-    { name: 'Id Ingreso', cell: (row) => row.id_ingreso, sortable: true },
+    { name: 'Id Ingreso', cell: (row) => row.id_ingreso, sortable: true, width: '215px' },
     { name: 'Usuario', cell: (row) => getUserNameById(row.id_usuario), sortable: true },
     { name: 'Proveedor', cell: (row) => getProveedorById(row.id_proveedor), sortable: true },
-    { name: 'Total C$', cell: (row) => parseFloat(row.total).toFixed(2), sortable: true },
+    { 
+      name: 'Total C$', 
+      cell: (row) => <span style={{ color: 'green' }}>{parseFloat(row.total).toFixed(2)}</span>, 
+      sortable: true 
+    },
+    { 
+      name: 'Total $', 
+      cell: (row) => <span style={{ color: 'green' }}>$ {convertirACordobasADolares(row.total)}</span>, 
+      sortable: true 
+    },
     { name: 'Fecha', cell: (row) => row.fecha },
     {
       name: 'Acciones',
@@ -216,7 +247,7 @@ const HistorialIngresosView = () => {
       ),
     },
   ];
-
+  
 
   const customStyles = {
     headCells: {
@@ -228,14 +259,12 @@ const HistorialIngresosView = () => {
     },
   };
 
-
   return (
     <div>
       <MyNavbar />
       <div style={{ width: '95%', margin: 'auto' }}>
         <h2 style={{color:'black'}} >Historial de Compras</h2>
         <DataTable
-        
           columns={columns}
           customStyles={customStyles}
           data={filteredData}
@@ -254,7 +283,6 @@ const HistorialIngresosView = () => {
           }
         />
       </div>
-
       <Modal
         size="xl"
         show={modalVisible}
@@ -270,17 +298,16 @@ const HistorialIngresosView = () => {
                 customStyles={customStyles}
                 const columns={[
                   { name: 'Artículo', cell: (row) => getNombreArticulo(row.id_articulo), sortable: true },
-                  { name: 'Categoria', cell: (row) => getNombreCategoriaById(row.id_categoria), sortable: true },
+                  { name: 'Categoria', cell: (row) => getNombreCategoriaById(row.id_categoria), sortable: true,width:'150px' },
                   { name: 'Marca', cell: (row) => getMarcaNombreById(row.id_marca), sortable: true },
                   { name: 'Material', cell: (row) => getMaterialNameById(row.id_material), sortable: true },
                   { name: 'Color', cell: (row) => getColorNameById(row.id_color), sortable: true },
                   { name: 'Diseño', cell: (row) => obtenerNombreDisenoPorId(row.id_diseño), sortable: true },
                   { name: 'Estilo', cell: (row) => mapEstiloIdToNombre(row.id_estilo), sortable: true },
                   { name: 'Tallas', cell: (row) => getNombreTalla(row.id_talla), sortable: true },
-                  { name: 'Promocion', cell: (row) => row.id_promocion ? row.id_promocion : 'N/D', sortable: true },
-                  { name: 'Bodega', cell: (row) => row.id_bodega ? row.id_bodega : 'N/D', sortable: true },
+                  { name: 'Bodega', cell: (row) => row.id_bodega ? row.id_bodega : 'N/D', sortable: true,width:'100px' },
                   { name: 'Cantidad', cell: (row) => row.cantidad, sortable: true },
-                  { name: 'Precio Proveedor', cell: (row) => row.precio_proveedor, sortable: true },
+                  { name: 'Precio Proveedor', cell: (row) => row.precio_proveedor, sortable: true,width:'150px' },
                   { name: 'Subtotal', cell: (row) => row.subtotal, sortable: true },
                 ]}
                 data={selectedRecord.articulos}

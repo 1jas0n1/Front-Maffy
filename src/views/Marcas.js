@@ -242,6 +242,15 @@ const MarcasView = () => {
   return (
     <Styles.AppContainer>
       <Navbar />
+      <h2>
+      <img
+          src="https://fontmeme.com/permalink/241028/3576f4d42dc1a25a16aaaedf4141c68b.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+        />
+      </h2>
+
       <ButtonM variant="primary" onClick={handleShow}>
         Crear
       </ButtonM>

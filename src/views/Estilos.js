@@ -238,6 +238,14 @@ const EstilosView = () => {
   return (
     <Styles.AppContainer>
     <Navbar />
+    <h2>
+        <img
+        src="https://fontmeme.com/permalink/241028/2cd2020cdb5124d2bec0ff8d48605a64.png"
+        alt="fuentes-de-comics"
+        border="0"
+        style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+      />
+    </h2>
       <ButtonM variant="primary" onClick={handleShow}>
         Crear
       </ButtonM>

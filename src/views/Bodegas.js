@@ -260,6 +260,16 @@ const BodegasView = () => {
   return (
     <Styles.AppContainer>
         <Navbar />
+
+    <h2>
+    <img
+          src="https://fontmeme.com/permalink/241028/003df00e707aac0a5d246e6b39aa5262.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+        />
+    </h2>
+
       <ButtonM variant="primary" onClick={handleShow}>
         Crear
       </ButtonM>

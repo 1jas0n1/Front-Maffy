@@ -206,6 +206,14 @@ const TallasView = () => {
   return (
     <Styles.AppContainer>
       <Navbar />
+      <h2>
+      <img
+          src="https://fontmeme.com/permalink/241028/2d50667efedb8c95a1fcf960d0d37c4c.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+        />
+      </h2>
       <ButtonM variant="primary" onClick={handleShow}>
         Crear
       </ButtonM>

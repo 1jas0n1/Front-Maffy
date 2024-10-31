@@ -236,7 +236,16 @@ const ColoresView = () => {
     
     <Styles.AppContainer>
      <MyNavbar />
-
+    <h2> 
+    <a href="https://fontmeme.com/es/fuentes-de-comics/">
+        <img
+          src="https://fontmeme.com/permalink/241028/7715c8f218909fef6b247cc2d10b250e.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+        />
+      </a>
+    </h2>
       <ButtonM variant="primary" onClick={handleShow}>
         Crear
       </ButtonM>

@@ -25,7 +25,7 @@ const MercanciaDañada = () => {
 
 
   useEffect(() => {
-    axios.get('https://apitammy-closset.fra1.zeabur.app/mercancia/')
+    axios.get('https://apitammy-closset.fra1.zeabur.app/api/mercancia/')
       .then(response => {
         setData(response.data);
       })
@@ -34,14 +34,14 @@ const MercanciaDañada = () => {
 
   useEffect(() => {
     const fetchTallas = async () => {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/tallas');
+      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/tallas');
       setTallas(response.data);
     };
     fetchTallas();
   }, []);
 
   useEffect(() => {
-    axios.get('https://apitammy-closset.fra1.zeabur.app/user/all')
+    axios.get('https://apitammy-closset.fra1.zeabur.app/api/user/all')
       .then(response => {
         setUserData(response.data);
       })
@@ -57,7 +57,7 @@ const MercanciaDañada = () => {
 
   useEffect(() => {
     const fetchColores = async () => {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/colores');
+      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/colores');
       setColores(response.data);
     };
     fetchColores();
@@ -65,7 +65,7 @@ const MercanciaDañada = () => {
 
   useEffect(() => {
     const fetchArticulos = async () => {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/articulos');
+      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/articulos');
       setArticulos(response.data);
     };
     fetchArticulos();
@@ -73,7 +73,7 @@ const MercanciaDañada = () => {
 
   useEffect(() => {
     const fetchCategorias = async () => {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/categorias');
+      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias');
       setCategorias(response.data);
     };
     fetchCategorias();
@@ -82,7 +82,7 @@ const MercanciaDañada = () => {
   
   useEffect(() => {
     const fetchMarcas = async () => {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/marcas');
+      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/marcas');
       setMarcas(response.data);
     };
     fetchMarcas();
@@ -90,7 +90,7 @@ const MercanciaDañada = () => {
 
   useEffect(() => {
     const fetchCategorias = async () => {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/categorias');
+      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias');
       setCategorias(response.data);
     };
     fetchCategorias();

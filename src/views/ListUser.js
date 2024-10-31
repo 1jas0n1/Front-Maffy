@@ -6,10 +6,13 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import Footer from '../component/footer/footer';
 import MyNavbar from '../component/Navbar';
 import Cookies from 'js-cookie';
+import Loader from '../component/Loader';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ButtonE from '../component/ButtonE';
 
 const UserInfo = () => {
+  const [loading, setLoading] = useState(true);
   const [usersData, setUsersData] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [editUser, setEditUser] = useState({ roles: [] });
@@ -25,18 +28,21 @@ const UserInfo = () => {
           },
         });
         const data = await response.json();
-
         const usersWithInitializedRoles = data.map(user => ({
           ...user,
           roles: user.roles || [],
         }));
 
-        setUsersData(usersWithInitializedRoles);
+        // Simulamos un retraso de 2 segundos antes de establecer los datos y cambiar el estado de carga
+        setTimeout(() => {
+          setUsersData(usersWithInitializedRoles);
+          setLoading(false); 
+        }, 2000);
       } catch (error) {
         console.error('Error fetching user data:', error);
+        setLoading(false); 
       }
     };
-
     fetchData();
   }, []);
 
@@ -85,7 +91,7 @@ const UserInfo = () => {
       const userRoles = editUser.roles || [];
       const roleMappings = {
         'Admin': '65a594f86a8fe64161553130',
-        'Moderador': '65a594f86a8fe6416155312f',
+        'Vendedor': '65a594f86a8fe6416155312f',
         'Usuario': '65a594f86a8fe6416155312e',
       };
   
@@ -99,7 +105,7 @@ const UserInfo = () => {
         password: editUser.password,
         roles: roleIds,
       };
-  
+
       const requestOptions = {
         method: 'PUT',
         headers: {
@@ -138,7 +144,7 @@ const UserInfo = () => {
   
 
   const renderRolesSwitches = () => {
-    const roles = ['Admin', 'Moderador', 'Usuario'];
+    const roles = ['Admin', 'Vendedor', 'Usuario'];
 
     return roles.map((role) => (
       <div key={role} className="mb-3">
@@ -156,15 +162,15 @@ const UserInfo = () => {
 
   const renderUsers = () => {
     if (!usersData) {
-      return <div>Loading...</div>;
+      return <Loader />; 
     }
-
+  
     return (
       <div>
-        <div className="row row-cols-1 row-cols-md-3">
+        <div className="row row-cols-1 row-cols-md-4" style={{margin:'0 auto',padding:'25px'}} > 
           {usersData.map((user, index) => (
-            <div key={user._id} style={{ padding: '5px', marginRight: '3px', width: '300px' }} className="col mb-4">
-              <div className="card">
+            <div key={user._id} style={{ padding: '5px',  width: '350px' }} className="col mb-4">
+              <div className="card" style={{backgroundColor:'#4a2148'}}>
                 <div className="card-body">
                   <h5 className="card-title" style={{ justifyContent: 'space-betwen', marginRight: '10px', padding: '10px', alignItems: 'center' }}>
                     <FontAwesomeIcon icon={faUser} className="mr-2" />
@@ -176,9 +182,9 @@ const UserInfo = () => {
                       Editar
                     </Button>
                   ) : (
-                    <Button variant="primary" style={{ width: '90px', height: '40px' }} onClick={() => handleEditClick(user)}>
+                    <ButtonE onClick={() => handleEditClick(user)}>
                       Editar
-                    </Button>
+                    </ButtonE>
                   )}
                 </div>
               </div>
@@ -188,12 +194,20 @@ const UserInfo = () => {
       </div>
     );
   };
+  
 
   return (
-    <div style={{ backgroundImage: 'linear-gradient(to right top, #80285a, #742a62, #652d69, #54306e, #3f3371, #323d7a, #204781, #005086, #006290, #007393, #008391, #04928b)' }}>
+    <div style={{ backgroundColor:'' }}>
       <MyNavbar></MyNavbar>
       <div className="container mt-6">
-        <h1 style={{ textAlign: 'center', color: 'white' }}>Administracion de Usuarios</h1>
+        <h1> 
+        <img
+          src="https://fontmeme.com/permalink/241028/d2b2427bb3a89dd4ef16ddf562852ac6.png"
+          alt="fuentes-de-comics"
+          border="0"
+          style={{ width: '85%', height: 'auto', maxWidth: '900px' }} 
+        />
+        </h1>
         {renderUsers()}
       </div>
 
