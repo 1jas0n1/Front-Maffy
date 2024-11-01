@@ -1,38 +1,76 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'; 
 import axios from 'axios';
 import DataTable from 'react-data-table-component';
 import MyNavbar from '../component/Navbar'; 
 import Footer from '../component/footer/footer'; 
 import { FcInfo } from "react-icons/fc";
 import { GiCancel } from "react-icons/gi";
+import { Modal, Button } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';  // Importa ToastContainer y toast
+import 'react-toastify/dist/ReactToastify.css';  // Importa los estilos de react-toastify
+
 const HistorialServiciosView = () => {
   const [facturas, setFacturas] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterText, setFilterText] = useState('');
-  const [tipoCambio, setTipoCambio] = useState(null); 
+  const [tipoCambio, setTipoCambio] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedInvoiceId, setSelectedInvoiceId] = useState(null);
+  const [newStatus, setNewStatus] = useState(false);
 
   useEffect(() => {
-    axios.get('https://apitammy-closset.fra1.zeabur.app/api/FacturaServicio')
-      .then(response => {
-        setFacturas(response.data);
+    Promise.all([
+      axios.get('https://apitammy-closset.fra1.zeabur.app/api/FacturaServicio'),
+      axios.get('https://apitammy-closset.fra1.zeabur.app/api/configuracion')
+    ])
+      .then(([facturasResponse, tipoCambioResponse]) => {
+        setFacturas(facturasResponse.data);
+        setTipoCambio(tipoCambioResponse.data.data[0].tipo_de_cambio_dolar);
         setLoading(false);
       })
       .catch(error => {
         console.error("Error al obtener los datos:", error);
         setLoading(false);
       });
-
-    axios.get('https://apitammy-closset.fra1.zeabur.app/api/configuracion')
-      .then(response => {
-        console.log("Tipo de cambio obtenido:", response.data.data[0].tipo_de_cambio_dolar); 
-        setTipoCambio(response.data.data[0].tipo_de_cambio_dolar); 
-      })
-      .catch(error => {
-        console.error("Error al obtener el tipo de cambio:", error);
-      });
   }, []);
 
+  const handleOpenModal = (id, currentStatus) => {
+    setSelectedInvoiceId(id);
+    setNewStatus(currentStatus);
+    setIsModalOpen(true);
+  };
+
+  const handleStatusUpdate = () => {
+    axios.put(`https://apitammy-closset.fra1.zeabur.app/api/FacturaServicio/factura/${selectedInvoiceId}`, { anulado: newStatus })
+      .then(response => {
+        setFacturas(prevFacturas =>
+          prevFacturas.map(factura => 
+            factura._id === selectedInvoiceId ? { ...factura, anulado: newStatus } : factura
+          )
+        );
+        setIsModalOpen(false);
+        toast.success('Estado de la factura actualizado con éxito');  // Toast de éxito
+      })
+      .catch(error => {
+        console.error("Error al actualizar el estado de la factura:", error);
+        toast.error('Error al actualizar el estado de la factura');  // Toast de error
+      });
+  };
+
+  const filteredData = facturas.filter(
+    factura =>
+      factura.cliente.nombre.toLowerCase().includes(filterText.toLowerCase()) ||
+      factura._id.includes(filterText)
+  );
+
   const columns = [
+    {
+      name: 'ID',
+      selector: row => row._id,
+      sortable: true,
+      center: true,
+      width: '215px'
+    },
     {
       name: 'Cliente',
       selector: row => <span style={{ color: 'black' }}>{row.cliente.nombre}</span>,
@@ -70,8 +108,9 @@ const HistorialServiciosView = () => {
       cell: row => (
         <div style={{ display: 'flex', gap: '5px' }}>
           <button
+            onClick={() => handleOpenModal(row._id, row.anulado)}
             style={{
-              textAlign:'center',
+              textAlign: 'center',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -81,15 +120,14 @@ const HistorialServiciosView = () => {
               backgroundColor: 'red',
               color: 'white',
               borderRadius: '10px',
-              margin:'0 auto'
+              margin: '0 auto'
             }}
-            disabled={row.anulado}
           >
-            <GiCancel  />
+            <GiCancel />
           </button>
           <button
             style={{
-              textAlign:'center',
+              textAlign: 'center',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -99,10 +137,10 @@ const HistorialServiciosView = () => {
               backgroundColor: 'blue',
               color: 'white',
               borderRadius: '10px',
-              margin:'0 auto'
-            }}>
-            <FcInfo  />
-  
+              margin: '0 auto'
+            }}
+          >
+            <FcInfo />
           </button>
         </div>
       ),
@@ -111,15 +149,7 @@ const HistorialServiciosView = () => {
       button: true,
     }
   ];
-  const conditionalRowStyles = [
-    {
-      when: row => row.anulado,
-      style: {
-        backgroundColor: 'red',
-        color: 'white',  
-      },
-    },
-  ];
+
   const customStyles = {
     headCells: {
       style: {
@@ -139,8 +169,7 @@ const HistorialServiciosView = () => {
           style={{ border: '2px solid black' }}
           columns={columns}
           customStyles={customStyles}
-          conditionalRowStyles={conditionalRowStyles}
-          data={facturas}
+          data={filteredData}
           responsive
           pagination
           subHeader
@@ -157,6 +186,33 @@ const HistorialServiciosView = () => {
         />
       </div>
       <Footer />
+
+      {/* Modal de Bootstrap */}
+      <Modal show={isModalOpen} onHide={() => setIsModalOpen(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Editar Estado de la Factura</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{margin:'0 auto'}} >
+          <label style={{margin:'0 auto'}}>
+            Estado
+            <select
+              value={newStatus}
+              onChange={(e) => setNewStatus(e.target.value === 'true')}
+              style={{ width: '100%', padding: '8px', marginTop: '8px' }}
+            >
+              <option value="false">No Anulado</option>
+              <option value="true">Anulado</option>
+            </select>
+          </label>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" style={{width:'100px',height:'50px'}} onClick={() => setIsModalOpen(false)}>Cancelar</Button>
+          <Button variant="primary" style={{width:'100px',height:'50px'}}  onClick={handleStatusUpdate}>Guardar</Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Contenedor de Toast */}
+      <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop={false} closeOnClick pauseOnFocusLoss draggable pauseOnHover />
     </div>
   );
 };

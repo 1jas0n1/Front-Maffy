@@ -263,7 +263,10 @@ const HistorialIngresosView = () => {
     <div>
       <MyNavbar />
       <div style={{ width: '95%', margin: 'auto' }}>
-        <h2 style={{color:'black'}} >Historial de Compras</h2>
+        <h2> 
+      <img src="https://fontmeme.com/permalink/241031/7450d34fbea9272addf3e5c7e468cf62.png" alt="fuentes-de-comics" border="0"
+            style={{ width: '85%', height: 'auto', maxWidth: '900px' }}></img>
+        </h2>
         <DataTable
           columns={columns}
           customStyles={customStyles}

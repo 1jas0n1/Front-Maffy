@@ -88,14 +88,14 @@ const handleDeleteConfirmed = async () => {
       showServicios();
       toast.success('Servicio eliminado correctamente');
     } else if (response.status === 403) {
-      toast.error('Permisos insuficientes para borrar el artículo');
+      toast.error('Permisos insuficientes para borrar el servicio');
     } else if (response.status === 401) {
-      toast.error('Error de autenticación al intentar eliminar el artículo');
+      toast.error('Error de autenticación al intentar eliminar el servicio');
     } else {
-      toast.error('Error al intentar eliminar el artículo');
+      toast.error('Error al intentar eliminar el servicio');
     }
   } catch (error) {
-    toast.error('Error al intentar eliminar el artículo');
+    toast.error('Error al intentar eliminar el servicio');
   } finally {
     closeDeleteConfirmationModal();
   }
@@ -134,12 +134,9 @@ const handleDeleteConfirmed = async () => {
   }, [filterText, resetPaginationToggle]);
   const handleCreate = async () => {
     try {
- 
       const miCookie = Cookies.get('miCookie');
       const token = Cookies.get('token');
-  
       console.log('miCookie:', miCookie);
-  
       const createUrl = 'https://apitammy-closset.fra1.zeabur.app/api/servicios';
       const response = await fetch(createUrl, {
         method: 'POST',
@@ -149,7 +146,6 @@ const handleDeleteConfirmed = async () => {
         },
         body: JSON.stringify(newServicio),
       });
-  
       if (response.status === 401) {
         toast.error('Error de autenticación. Por favor, inicie sesión nuevamente.');
       } else if (response.status === 403) {
@@ -338,7 +334,7 @@ const handleUpdateSubmit = async () => {
 
       <Styles.StyledModal show={showUpdateModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Actualizar Artículo</Modal.Title>
+          <Modal.Title>Actualizar Servicio</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -423,7 +419,7 @@ const handleUpdateSubmit = async () => {
           <Modal.Title>Confirmar Eliminación</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>¿Estás seguro de que deseas eliminar este artículo?</p>
+          <p>¿Estás seguro de que deseas eliminar este servicio?</p>
         </Modal.Body>
         <Styles.ModalFooter>
           <Button style={{ width: '100px', height: '50px' }} variant="danger" onClick={handleDeleteConfirmed}>

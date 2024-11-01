@@ -14,7 +14,6 @@ import Footer from '../footer/footer';
 const Menu = () => {
  
   return (
-    
   <div>    
     <MyNavbar></MyNavbar>
     <div className="container">
@@ -57,11 +56,6 @@ const Menu = () => {
     </ButtonGroup>
           </div>
         </div>
-
-
-
-
-
         <div className="col-md-3">
           <div className="card custom-card text-center ">
             <div className="card-icon"><BsBoxes /> </div>
@@ -75,14 +69,11 @@ const Menu = () => {
         <Dropdown.Menu style={{backgroundColor:'#4a4a4a',color:'white'}}>
           <Dropdown.Item style={{color:'white'}} href="/mercancia">Administrar Mercancia</Dropdown.Item>
           <Dropdown.Item style={{color:'white'}} href="/mercancia-dañada">Mercancia Defectuosa</Dropdown.Item>
-         
         </Dropdown.Menu>
       </Dropdown>
     </ButtonGroup>
           </div>
         </div>
-
-
         <div className="col-md-3">
           <div className="card custom-card text-center ">
             <div className="card-icon"> <MdOutlineSettings style={{fontSize:'60px',padding:'0'}} />
@@ -116,7 +107,7 @@ const Menu = () => {
           <Dropdown.Item style={{color:'white'}} href="/categorias">Categorías</Dropdown.Item>
           <Dropdown.Item style={{color:'white'}} href="/articulos">Articulos</Dropdown.Item>
           <Dropdown.Item style={{color:'white'}} href="/bodegas">Bodegas</Dropdown.Item>
-
+          <Dropdown.Item style={{color:'white'}} href="/servicios">Servicios</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     </ButtonGroup>
@@ -140,7 +131,6 @@ const Menu = () => {
     </ButtonGroup>
           </div>
         </div>
-     
         <div className="col-md-3">
           <div className="card custom-card text-center ">
             <div className="card-icon"> <IoStatsChartSharp  style={{fontSize:60,margin:0}}/>
@@ -152,28 +142,34 @@ const Menu = () => {
             </NavLink>
           </div>
         </div>
-      </div>
 
-      <div className="col-md-3">
-          <div className="card custom-card text-center ">
-            <div className="card-icon"> <HiOutlineClipboardDocumentList style={{fontSize:60,margin:0}} />
-          </div>
-            <div className="card-title">Servicios</div>
-            <div className="card-description"></div>
-            <NavLink to="/servicios" className="card-link btn btn-primary custom-btn">
-              Ir a Servicios <FontAwesomeIcon icon={faArrowRight} />
-            </NavLink>
-          </div>
-        </div>
-
-
-
-     
+        <div className="col-md-3">
+  <div className="card custom-card text-center">
+    <div className="card-icon"> 
+      <HiOutlineClipboardDocumentList style={{ fontSize: 60, margin: 0 }} />
     </div>
+    <div className="card-title">Servicios</div>
+    <div className="card-description"></div>
 
+    {/* Dropdown con opciones para Servicios */}
+    <ButtonGroup role="group" aria-label="Button group with nested dropdown">
+      <Dropdown as={ButtonGroup}>
+        <Dropdown.Toggle className="custom-btn" style={{ width: '225px', height: '30px', padding: '0' }}>
+          Opciones
+        </Dropdown.Toggle>
+        <Dropdown.Menu style={{ backgroundColor: '#4a4a4a', color: 'white' }}>
+          <Dropdown.Item style={{ color: 'white' }} href="/HistorialServicio">Historial Servicio</Dropdown.Item>
+          <Dropdown.Item style={{ color: 'white' }} href="/FactServicios">Facturar Servicio </Dropdown.Item>
 
+        </Dropdown.Menu>
+      </Dropdown>
+    </ButtonGroup>
+  </div>
+</div>
 
-   
+        
+      </div> 
+    </div>  
     <Footer></Footer>
     </div>
   );
