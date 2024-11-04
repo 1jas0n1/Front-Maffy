@@ -5,8 +5,8 @@ import { FaEye, FaPrint } from 'react-icons/fa';
 import Modal from 'react-modal';
 import MyNavbar from '../component/Navbar';
 import Footer from '../component/footer/footer';
-import { useParams } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+
+import {  toast } from 'react-toastify';
 
 const DataTableComponent = () => {
   
@@ -16,7 +16,6 @@ const DataTableComponent = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [filterText, setFilterText] = useState('');
   const [resetPaginationToggle, setResetPaginationToggle] = useState(false);
-
   const [categorias, setCategorias] = useState([]);
   const [articulos, setArticulos] = useState([]);
   const [colores, setColores] = useState([]);
@@ -26,8 +25,6 @@ const DataTableComponent = () => {
   const [materiales, setMateriales] = useState([]);
   const [disenos, setDisenos] = useState([]);
   const [promotions, setPromotions] = useState([]);
-
-
 
 const updateFechaField = async (id_ventas) => {
   try {
@@ -39,7 +36,6 @@ const updateFechaField = async (id_ventas) => {
       month: 'numeric',
       year: 'numeric',
     });
-
     setData((prevData) =>
       prevData.map((row) =>
         row.id_ventas === id_ventas ? { ...row, fecha: formattedFecha } : row
@@ -49,7 +45,6 @@ const updateFechaField = async (id_ventas) => {
     toast.error('Error updating fecha field:', error);
   }
 };
-
 
 useEffect(() => {
   axios.get('https://apitammy-closset.fra1.zeabur.app/api/detalleventa')
@@ -74,7 +69,6 @@ useEffect(() => {
     });
 }, []);
 
-
 useEffect(() => {
   const fetchData = async () => {
     try {
@@ -89,7 +83,6 @@ useEffect(() => {
         axios.get('https://apitammy-closset.fra1.zeabur.app/api/materiales'),
         axios.get('https://apitammy-closset.fra1.zeabur.app/api/promociones')
       ]);
-
       setTallas(tallasRes.data);
       setColores(coloresRes.data);
       setArticulos(articulosRes.data);
@@ -103,10 +96,8 @@ useEffect(() => {
       toast.error("Error fetching data: ", error);
     }
   };
-
   fetchData();
 }, []);
-
 
 
   const handlePrintButtonClick = (id) => {
@@ -114,13 +105,10 @@ useEffect(() => {
     window.open(printUrl, '_blank');
   };
 
-  
-
   const getMaterialNameById = (materialId) => {
     const material = materiales.find((m) => m._id === materialId);
     return material ? material.material : 'Nombre no encontrado';
   };
-
 
 const obtenerNombreDisenoPorId = (idDiseno) => {
   const disenoSeleccionado = disenos.find(diseno => diseno._id === idDiseno);
@@ -132,30 +120,30 @@ const getNombreArticulo = (idArticulo) => {
     return articulo ? articulo.nombre : 'Desconocido';
   }; 
 
-  
   const getNombreTalla = (idTalla) => {
     const tallaEncontrada = tallas.find((talla) => talla._id === idTalla);
     return tallaEncontrada ? tallaEncontrada.talla : 'Desconocida';
   };
+
   const getColorNameById = (colorId) => {
     const color = colores.find((c) => c._id === colorId);
     return color ? color.color : 'Desconocido';
   };
+
   const getNombreCategoriaById = (categoriaId) => {
     const categoria = categorias.find((c) => c._id === categoriaId);
     return categoria ? categoria.categoria : 'Desconocido';
   };
+
   const mapEstiloIdToNombre = (id) => {
     const estilo = est.find((e) => e._id === id);
     return estilo ? estilo.estilo : 'Desconocido ';
   };
 
-  
   const getMarcaNombreById = (id) => {
     const marca = marcas.find((marca) => marca._id === id);
     return marca ? marca.marca : '';
   };
-
 
   const openModal = (articles) => {
     setSelectedSaleArticles(articles);
@@ -169,7 +157,6 @@ const getNombreArticulo = (idArticulo) => {
 
   const columns = [
     { name: 'ID', sortable: true, cell: (row) => row._id },
-    { name: 'ID Ventas', sortable: true, cell: (row) => row.id_ventas },
     { name: 'Total', sortable: true, cell: (row) => row.total },
     {name: 'Nombre del Cliente',sortable: true,cell: (row) => clientNames[row.id_ventas],},
     { name: 'Fecha', sortable: true, cell: (row) => row.fecha },
@@ -304,7 +291,6 @@ const getNombreArticulo = (idArticulo) => {
             />
           }
           paginationResetDefaultPage={resetPaginationToggle}
-       
           persistTableHead
         />
       </div>

@@ -54,7 +54,6 @@ const HistorialIngresosView = () => {
         console.error("Error fetching tipo de cambio:", error);
       }
     };
-
     fetchTipoCambio();
   }, []);
 
@@ -97,7 +96,6 @@ const HistorialIngresosView = () => {
         setProveedores(proveedoresRes.data);
         setColores(coloresRes.data);
         setTallas(tallasRes.data);
-
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -248,7 +246,6 @@ const HistorialIngresosView = () => {
     },
   ];
   
-
   const customStyles = {
     headCells: {
       style: {

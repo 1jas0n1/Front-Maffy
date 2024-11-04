@@ -1,5 +1,4 @@
-import React, { useState, useEffect,useMemo } from 'react';
-
+import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Row, Col, Modal, Alert } from 'react-bootstrap';
 import estilos from '../css/ingresos-estilos';
 import '../css/detalle-ingresos.css';
@@ -9,7 +8,11 @@ import MyNavbar from '../component/Navbar';
 import { toast } from 'react-toastify';
 import { ToastContainer } from 'react-toastify';
 import Cookies from 'js-cookie';
-
+import AddButton from '../component/AddButton';
+import DeleteButton from'../component/DeleteButton';
+import Drop from '../component/Drop';
+import SellButton from '../component/SellButton'
+import TotalsCard from '../component/Ticket';
 
   const IngresosView = () => {
   const [articulos, setArticulos] = useState([]);
@@ -25,12 +28,10 @@ import Cookies from 'js-cookie';
   const [subTotalTotal, setSubTotalTotal] = useState(0);
   const [descuentosTotal, setDescuentosTotal] = useState(0);
   const [ivaTotal, setIvaTotal] = useState(0);
-  const [total, setTotal] = useState(0);
   const [editIndex, setEditIndex] = useState(-1);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [showSaleModal, setShowSaleModal] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
- 
+
   const [formulario, setFormulario] = useState({
     idArticulo: '',
     idProveedor: '',
@@ -48,49 +49,44 @@ import Cookies from 'js-cookie';
   });
 
   useEffect(() => {
-
-    const fetchArticulos = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/articulos');
-        setArticulos(response.data);
+        const [
+          articulosResponse,
+          categoriasResponse,
+          proveedoresResponse,
+          coloresResponse,
+          marcasResponse,
+          tallasResponse,
+          materialesResponse,
+          estilosResponse,
+          disenosResponse
+        ] = await Promise.all([
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/articulos'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/proveedores'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/colores'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/marcas'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/tallas'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/materiales'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/estilos'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/disenos')
+        ]);  
+        setArticulos(articulosResponse.data);
+        setCategorias(categoriasResponse.data);
+        setProveedores(proveedoresResponse.data);
+        setColores(coloresResponse.data);
+        setMarcas(marcasResponse.data);
+        setTallas(tallasResponse.data);
+        setMateriales(materialesResponse.data);
+        setEst(estilosResponse.data);
+        setDisenos(disenosResponse.data);
       } catch (error) {
-        console.error('Error fetching articles:', error);
+        console.error('Error fetching data:', error);
       }
     };
-
-    fetchArticulos();
+    fetchData();
   }, []);
-
-  useEffect(() => {
-    const fetchCategorias = async () => {
-        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias');
-        setCategorias(response.data);
-    };
-    fetchCategorias();
-  }, []); 
-
-  useEffect(() => {
-
-    const fetchProveedores = async () => {
-      try {
-        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/proveedores');
-        setProveedores(response.data);
-      } catch (error) {
-        console.error('Error fetching suppliers:', error);
-      }
-    };
-
-    fetchProveedores();
-  }, []);
-
-  useEffect(() => {
-    const fetchColores = async () => {
-        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/colores');
-        setColores(response.data);
-    };
-    fetchColores();
-  }, []);
-
 
   useEffect(() => {
     const subTotal = articulosIngresados.reduce((total, articulo) => {
@@ -110,16 +106,6 @@ import Cookies from 'js-cookie';
     }, 0);
     setIvaTotal(iva);
   }, [articulosIngresados]);
-
-  useEffect(() => {
-   
-    const fetchTallas = async () => {
-        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/tallas');
-        setTallas(response.data);  
-    };
-
-    fetchTallas();
-  }, []);
 
   const handleInputChange = (e) => {
     const { id, value } = e.target;
@@ -151,11 +137,9 @@ import Cookies from 'js-cookie';
   };
 
   const handleEliminarArticulo = (index) => {
-
     const nuevosArticulos = [...articulosIngresados];
     nuevosArticulos.splice(index, 1);
     setArticulosIngresados(nuevosArticulos);
-
  
     const subTotal = nuevosArticulos.reduce((total, articulo) => {
       return (
@@ -175,42 +159,8 @@ import Cookies from 'js-cookie';
       return total + parseFloat(calculateIVA(articulo.cantidad, articulo.precioprov, articulo.descuento));
     }, 0);
     setIvaTotal(iva);
-
     handleLimpiar();
   };
-
-  useEffect(() => {
-    const fetchMarcas = async () => {
-        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/marcas');
-        setMarcas(response.data);
-    };
-    fetchMarcas();
-  }, []);
-
-  useEffect(() => {
-    const fetchMateriales = async () => {
-        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/materiales');
-        setMateriales(response.data);
-    };
-
-    fetchMateriales();
-  }, []);
-
-  useEffect(() => {
-    const fetchEstilos = async () => {
-        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/estilos');
-        setEst(response.data);
-    };
-    fetchEstilos();
-  }, []);
-
-  useEffect(() => {
-    const fetchDisenos = async () => {
-        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/disenos');
-        setDisenos(response.data);
-    };
-    fetchDisenos();
-  }, []);
 
   const calculateIVA = (cantidad, precio, descuento) => {
     const precioConDescuento = precio * (1 - descuento / 100);
@@ -271,7 +221,6 @@ import Cookies from 'js-cookie';
     setShowEditModal(false);
   };
 
-
   const getNombreArticulo = (idArticulo) => {
     const articulo = articulos.find((a) => a._id === idArticulo);
     return articulo ? articulo.nombre : '';
@@ -331,9 +280,7 @@ const handleFacturarIngreso = async () => {
           subtotal: subTotalTotal,
           total: subTotalTotal - descuentosTotal + ivaTotal,
       };
-
       console.log('Datos del ingreso a enviar:', ingresoData);
-
       const responseIngreso = await axios.post('https://apitammy-closset.fra1.zeabur.app/api/ingresos', ingresoData, {
           headers: {
               'Content-Type': 'application/json',
@@ -341,9 +288,7 @@ const handleFacturarIngreso = async () => {
           },
       });
       const idIngreso = responseIngreso.data._id;
-
       console.log('Ingreso creado correctamente:', responseIngreso);
-
       const articulosData = {
           id_ingreso: idIngreso,
           articulos: articulosIngresados.map((articulo) => ({
@@ -363,7 +308,6 @@ const handleFacturarIngreso = async () => {
           })),
           total: subTotalTotal - descuentosTotal + ivaTotal,
       };
-
       console.log('Datos de los artículos a enviar:', articulosData);
       const responseArticulos = await axios.post('https://apitammy-closset.fra1.zeabur.app/api/detalleingreso', articulosData, {
           headers: {
@@ -406,12 +350,7 @@ const handleFacturarIngreso = async () => {
           });
           console.log('Stock creado correctamente:', responseStock);
       }
-
-
-console.log('Ingreso, artículos y stock creados correctamente. Venta realizada Exitosamente');
 toast.success('Venta realizada Exitosamente');
-
-
   } catch (error) {
       if (error.response && error.response.status === 409) {
           console.error('Error 409: Conflicto al crear el documento en la colección "Stock".');
@@ -420,9 +359,6 @@ toast.success('Venta realizada Exitosamente');
       }
   }
 };
-
-
-
 
   const handleLimpiar = () => {
     setFormulario({
@@ -444,7 +380,7 @@ toast.success('Venta realizada Exitosamente');
 
   return (
 
-    <Container fluid style={estilos.containerStyle}>
+    <Container fluid style={{height: '100%',padding:'0',width: '100%'}}>
       <MyNavbar/>
       <h2>
       <img
@@ -456,12 +392,12 @@ toast.success('Venta realizada Exitosamente');
       </h2>
       <Form style={{ width: '95%', backgroundColor: 'transparent', marginTop: '10px', marginLeft: 'auto', marginRight: 'auto', borderRadius: '5px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
   <Form.Group controlId="formFechaVenta" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', marginLeft: '35px' }}>
-    <Form.Label style={{ textAlign: 'center', marginBottom: '5px',color:'white',fontsize:'35' }}>Fecha de Venta</Form.Label>
+    <Form.Label style={{ textAlign: 'center', marginBottom: '5px',color:'black',fontsize:'35' }}>Fecha de Venta</Form.Label>
     <Form.Control type="date" style={{ width: '60%', alignSelf: 'center',textAlign:'center', padding: '5px' }} />
   </Form.Group>
 
   <Form.Group controlId="formProveedor" style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-    <Form.Label style={{ textAlign: 'center', marginBottom: '5px',color:'white',fontsize:'35' }}>Proveedor</Form.Label>
+    <Form.Label style={{ textAlign: 'center', marginBottom: '5px',color:'black',fontsize:'35' }}>Proveedor</Form.Label>
     <select
       className="form-control"
       style={{ width: '60%', alignSelf: 'center', padding: '5px',textAlign:'center' }}
@@ -477,7 +413,6 @@ toast.success('Venta realizada Exitosamente');
     </select>
   </Form.Group>
 </Form>
-
       <Form style={estilos.formStyle}>
         <fieldset className="form-row">
           <Row>
@@ -485,126 +420,82 @@ toast.success('Venta realizada Exitosamente');
               <label style={estilos.labelStyle} htmlFor="id-articulo">
                 Articulo
               </label>
-              <select
-                id="id-articulo"
-                className="form-control"
-                value={formulario.idArticulo}
-                onChange={(e) => setFormulario({ ...formulario, idArticulo: e.target.value })}
-                required
-                style={estilos.inputStyle}
-              >
-                <option value="">Artículos...</option>
-                {articulos.map((articulo) => (
-                  <option key={articulo._id} value={articulo._id}>
-                    {articulo.nombre}
-                  </option>
-                ))}
-              </select>
+              <Drop
+      id="id-articulo"
+      options={[{ value: '', label: 'Artículos...' }, ...articulos.map((articulo) => ({ value: articulo._id, label: articulo.nombre }))]}
+      value={formulario.idArticulo}
+      onChange={(newValue) => setFormulario({ ...formulario, idArticulo: newValue })}
+      placeholder="Artículos..."
+    />
             </Col>
 
             <Col md={2}>
               <label style={estilos.labelStyle3} htmlFor="id-talla">
                 Talla
               </label>
-              <select
-                id="id-talla"
-                className="form-control"
-                value={formulario.idTalla}
-                onChange={(e) => setFormulario({ ...formulario, idTalla: e.target.value })}
-                required
-                style={estilos.inputStyle}
-              >
-                <option value="">Tallas...</option>
-                {tallas.map((talla) => (
-                  <option key={talla._id} value={talla._id}>
-                    {talla.talla}
-                  </option>
-                ))}
-              </select>
+              <Drop
+      id="id-talla"
+      options={[{ value: '', label: 'Tallas...' }, ...tallas.map((talla) => ({ value: talla._id, label: talla.talla }))]}
+      value={formulario.idTalla}
+      onChange={(newValue) => setFormulario({ ...formulario, idTalla: newValue })}
+      placeholder="Tallas..."
+    />
             </Col>
 
             <Col md={2}>
               <label style={estilos.labelStyle3} htmlFor="id-color">
                 Color
               </label>
-              <select
-                id="id-color"
-                className="form-control"
-                value={formulario.idColor}
-                onChange={(e) => setFormulario({ ...formulario, idColor: e.target.value })}
-                required
-                style={estilos.inputStyle}
-              >
-                <option value="">Colores...</option>
-                {colores.map((color) => (
-                  <option key={color._id} value={color._id}>
-                    {color.color}
-                  </option>
-                ))}
-              </select>
+              <Drop
+      id="id-color"
+      options={[{ value: '', label: 'Colores...' }, ...colores.map((color) => ({ value: color._id, label: color.color }))]}
+      value={formulario.idColor}
+      onChange={(newValue) => setFormulario({ ...formulario, idColor: newValue })}
+      placeholder="Colores..."
+    />
             </Col>
 
             <Col md={2}>
               <label style={estilos.labelStyle3} htmlFor="id-marca">
                 Marca
               </label>
-              <select
-                id="id-marca"
-                className="form-control"
-                value={formulario.idMarca}
-                onChange={(e) => setFormulario({ ...formulario, idMarca: e.target.value })}
-                required
-                style={estilos.inputStyle}
-              >
-                <option value="">Marcas...</option>
-                {marcas.map((marca) => (
-                  <option key={marca._id} value={marca._id}>
-                    {marca.marca}
-                  </option>
-                ))}
-              </select>
+              <Drop
+      id="id-marca"
+      options={[{ value: '', label: 'Marcas...' }, ...marcas.map((marca) => ({ value: marca._id, label: marca.marca }))]}
+      value={formulario.idMarca}
+      onChange={(newValue) => setFormulario({ ...formulario, idMarca: newValue })}
+      placeholder="Marcas..."
+    />
             </Col>
 
             <Col md={2}>
               <label style={estilos.labelStyle} htmlFor="id-material">
                 Material
               </label>
-              <select
-                id="id-material"
-                className="form-control"
-                value={formulario.idMaterial}
-                onChange={(e) => setFormulario({ ...formulario, idMaterial: e.target.value })}
-                required
-                style={estilos.inputStyle}
-              >
-                <option value="">Materiales...</option>
-                {materiales.map((material) => (
-                  <option key={material._id} value={material._id}>
-                    {material.material}
-                  </option>
-                ))}
-              </select>
+              <Drop
+      id="id-material"
+      options={[{ value: '', label: 'Materiales...' }, ...materiales.map((material) => ({ value: material._id, label: material.material }))]}
+      value={formulario.idMaterial}
+      onChange={(newValue) => setFormulario({ ...formulario, idMaterial: newValue })}
+      placeholder="Materiales..."
+    />
             </Col>
 
             <Col md={2}>
               <label style={estilos.labelStyle} htmlFor="id-estilo">
                 Estilo
               </label>
-              <select
-                id="id-estilo"
-                className="form-control"
-                value={formulario.idEstilo}
-                onChange={(e) => setFormulario({ ...formulario, idEstilo: e.target.value })}
-                required
-                style={estilos.inputStyle}
-              >
-                <option value="">Estilos...</option>
-                {est.map((estilo) => (
-                  <option key={estilo._id} value={estilo._id}>
-                    {estilo.estilo}
-                  </option>
-                ))}
-              </select>
+              <Drop
+  id="id-estilo"
+  options={[
+    { value: '', label: 'Estilos...' }, 
+    ...est.map((estilo) => ({ value: estilo._id, label: estilo.estilo }))
+  ]}
+  value={formulario.idEstilo}
+  onChange={(newValue) => setFormulario({ ...formulario, idEstilo: newValue })}
+  placeholder="Estilos..."
+/>
+
             </Col>
           </Row>
 
@@ -615,42 +506,26 @@ toast.success('Venta realizada Exitosamente');
               <label style={estilos.labelStyle} htmlFor="id-diseno">
                 Diseño
               </label>
-              <select
-                id="id-diseno"
-                className="form-control"
-                value={formulario.idDiseño}
-                onChange={(e) => setFormulario({ ...formulario, idDiseño: e.target.value })}
-                required
-                style={estilos.inputStyle}
-              >
-                <option value="">Diseños ...</option>
-                {disenos.map((diseno) => (
-                  <option key={diseno._id} value={diseno._id}>
-                    {diseno.diseno}
-                  </option>
-                ))}
-              </select>
+              <Drop
+      id="id-diseno"
+      options={[{ value: '', label: 'Diseños...' }, ...disenos.map((diseno) => ({ value: diseno._id, label: diseno.diseno }))]}
+      value={formulario.idDiseño}
+      onChange={(newValue) => setFormulario({ ...formulario, idDiseño: newValue })}
+      placeholder="Diseños..."
+    />
             </Col>
 
             <Col md={2}>
               <label style={estilos.labelStyle} htmlFor="id-categoria">
                 Categoria
               </label>
-              <select
-                id="id-categoria"
-                className="form-control"
-                value={formulario.idCategoria}
-                onChange={(e) => setFormulario({ ...formulario, idCategoria: e.target.value })}
-                required
-                style={estilos.inputStyle}
-              >
-                <option value="">Categoria...</option>
-                {categorias.map((categoria) => (
-                  <option key={categoria._id} value={categoria._id}>
-                    {categoria.categoria}
-                  </option>
-                ))}
-              </select>
+              <Drop
+      id="id-categoria"
+      options={[{ value: '', label: 'Categoría...' }, ...categorias.map((categoria) => ({ value: categoria._id, label: categoria.categoria }))]}
+      value={formulario.idCategoria}
+      onChange={(newValue) => setFormulario({ ...formulario, idCategoria: newValue })}
+      placeholder="Categoría..."
+    />
             </Col>
 
             <Col md={2}>
@@ -667,7 +542,6 @@ toast.success('Venta realizada Exitosamente');
                 style={estilos.inputStyle}
               />
             </Col>
-
             <Col md={2}>
               <label htmlFor="Precio Proveedor" style={estilos.labelStyle4}>
                 Precio-Prov
@@ -684,39 +558,40 @@ toast.success('Venta realizada Exitosamente');
             </Col>
 
             <Col md={2}>
-              <label htmlFor="descuento" style={estilos.labelStyle}>
-                Descuento X Unidad
-              </label>
-              <input
-                type="number"
-                id="descuento"
-                className="form-control"
-                value={formulario.descuento}
-                onChange={handleInputChange}
-                required
-                style={estilos.inputStyle}
-              />
-            </Col>
+  <label htmlFor="descuento" style={estilos.labelStyle}>
+    Descuento X Unidad
+  </label>
+  <input
+    type="number"
+    id="descuento"
+    className="form-control"
+    value={formulario.descuento}
+    onChange={(e) => {
+      const value = e.target.value;
+
+      if (value === '' || (Number(value) >= 0 && !isNaN(value))) {
+        handleInputChange(e); 
+      }
+    }}
+    min="0" 
+    required
+    style={estilos.inputStyle}
+  />
+</Col>
+
           </Row>
           <hr style={{ margin: '10px 0', border: '1px solid #ccc' }} />
 
           <Row>
-            <Button
-              variant="primary"
-              style={estilos.buttonSave}
-              size="lg"
+            <AddButton
               onClick={handleGuardar}
-            >
-              Agregar Articulo
-            </Button>
-            <Button
-              variant="danger"
-              style={estilos.buttonSave}
-              size="lg"
+           / >
+
+            <DeleteButton
               onClick={handleLimpiar}
             >
-              Limpiar
-            </Button>
+
+            </DeleteButton>
           </Row>
         </fieldset>
       </Form>
@@ -727,88 +602,95 @@ toast.success('Venta realizada Exitosamente');
         </Alert>
       )}
 
-      {articulosIngresados.length > 0 && (
-        <div style={{ marginTop: '10px', width: '90%', marginLeft: '5%', overflowX: 'auto' }}>
-          <h3 style={{ color: 'white', textAlign: 'center' }} >Artículos Ingresados</h3>
-          <table style={{ textAlign: 'center' }} className="table table-bordered table-striped"  >
-            <thead  >
-              <tr style={{ backgroundColor: '#00FFBD' }} >
-                <th>Articulo</th>
-                <th>Categoría</th>
-                <th>Talla</th>
-                <th>Color</th>
-                <th>Marca</th>
-                <th>Material</th>
-                <th>Diseño</th>
-                <th>Estilo</th>
-                <th>Cantidad</th>
-                <th>Precio-prov</th>
-                <th>Descuento</th>
-                <th>IVA</th>
-                <th>Subtotal</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {articulosIngresados.map((articulo, index) => (
-                <tr key={index}>
-                  <td>{getNombreArticulo(articulo.idArticulo)}</td>
-                  <td>{getNombreCategoriaById(articulo.idCategoria)}</td>
-                  <td>{getNombreTalla(articulo.idTalla)}</td>
-                  <td>{getColorNameById(articulo.idColor)}</td>
-                  <td>{getMarcaNombreById(articulo.idMarca)}</td>
-                  <td>{getMaterialNameById(articulo.idMaterial)}</td>
-                  <td>{obtenerNombreDisenoPorId(articulo.idDiseño)}</td>
-                  <td>{mapEstiloIdToNombre(articulo.idEstilo)}</td>
-                  <td>{articulo.cantidad}</td>
-                  <td>{articulo.precioprov}</td>
-                  <td>{articulo.descuento}</td>
-                  <td>{calculateIVA(articulo.cantidad, articulo.precioprov, articulo.descuento)}</td>
-                  <td>{((articulo.cantidad * articulo.precioprov * (1 - articulo.descuento / 100)) + parseFloat(calculateIVA(articulo.cantidad, articulo.precioprov, articulo.descuento))).toFixed(2)}</td>
-                  <td>
-                    <Button
-                      style={{ width: '75px', height: '35px', marginRight: '5px' }}
-                      variant="info"
-                      size="sm"
-                      onClick={() => handleEditarArticulo(index)}
-                    >
-                      Editar
-                    </Button>
-                    <Button style={{ width: '75px', height: '35px' }}
-                      variant="danger"
-                      size="sm"
-                      onClick={() => handleEliminarArticulo(index)}
-                    >
-                      Eliminar
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+{showAlert && (
+  <Alert
+    variant="danger"
+    style={{ width: '50%', margin: '0 auto', marginTop: '10px' }}
+    onClose={() => setShowAlert(false)}
+    dismissible
+  >
+    Por favor, completa todos los campos antes de agregar el artículo.
+  </Alert>
+)}
 
-          <div style={{ color: 'white' }}>
-            <strong>Total: C${subTotalTotal.toFixed(2)}</strong>
-          </div>
-          <div style={{ color: 'white' }}>
-            <strong>Descuentos Total: C${descuentosTotal.toFixed(2)}</strong>
-          </div>
-          <div style={{ color: 'white' }}>
-            <strong>IVA Total: C${ivaTotal.toFixed(2)}</strong>
-          </div>
-          <div style={{ color: 'white' }}>
-            <strong>Subtotal: C${(subTotalTotal - descuentosTotal + ivaTotal).toFixed(2)}</strong>
-          </div>
-        </div>
-      )}
+{articulosIngresados.length > 0 && (
+  <div style={{ marginTop: '10px', width: '95%', margin: '0 auto', overflowX: 'auto' }}>
+    <h3 style={{ color: 'white', textAlign: 'center' }}>Artículos Ingresados</h3>
+    <table style={{ textAlign: 'center' }} className="table table-bordered table-striped">
+      <thead>
+        <tr style={{ backgroundColor: '#00FFBD' }}>
+          <th>Articulo</th>
+          <th>Categoría</th>
+          <th>Talla</th>
+          <th>Color</th>
+          <th>Marca</th>
+          <th>Material</th>
+          <th>Diseño</th>
+          <th>Estilo</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Descuento</th>
+          <th>IVA</th>
+          <th>Subtotal</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {articulosIngresados.map((articulo, index) => (
+          <tr key={index}>
+            <td>{getNombreArticulo(articulo.idArticulo)}</td>
+            <td>{getNombreCategoriaById(articulo.idCategoria)}</td>
+            <td>{getNombreTalla(articulo.idTalla)}</td>
+            <td>{getColorNameById(articulo.idColor)}</td>
+            <td>{getMarcaNombreById(articulo.idMarca)}</td>
+            <td>{getMaterialNameById(articulo.idMaterial)}</td>
+            <td>{obtenerNombreDisenoPorId(articulo.idDiseño)}</td>
+            <td>{mapEstiloIdToNombre(articulo.idEstilo)}</td>
+            <td>{articulo.cantidad}</td>
+            <td>{articulo.precioprov}</td>
+            <td>{articulo.descuento}</td>
+            <td>{calculateIVA(articulo.cantidad, articulo.precioprov, articulo.descuento)}</td>
+            <td>{((articulo.cantidad * articulo.precioprov * (1 - articulo.descuento / 100)) + parseFloat(calculateIVA(articulo.cantidad, articulo.precioprov, articulo.descuento))).toFixed(2)}</td>
+            <td>
+              <Button
+                style={{ width: '75px', height: '35px', marginRight: '5px' }}
+                variant="info"
+                size="sm"
+                onClick={() => handleEditarArticulo(index)}
+              >
+                Editar
+              </Button>
+              <Button
+                style={{ width: '75px', height: '35px' }}
+                variant="danger"
+                size="sm"
+                onClick={() => handleEliminarArticulo(index)}
+              >
+                Eliminar
+              </Button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
 
-      <Button
+    <TotalsCard 
+  subTotalTotal={subTotalTotal} 
+  descuentosTotal={descuentosTotal} 
+  ivaTotal={ivaTotal} 
+/>
+
+
+
+  </div>
+
+)}
+
+      <SellButton
         variant="success"
-        style={{ width: '150px', height: '50px', marginTop: '20px', marginLeft: '45%' }}
-        onClick={handleFacturarIngreso}
-      >
+        onClick={handleFacturarIngreso}>
         Facturar Ingreso
-      </Button>
+      </SellButton>
       <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
         <Modal.Header style={{ backgroundColor: '#4a4a4a', color: 'white' }} closeButton>
           <Modal.Title>Editar Artículo</Modal.Title>
@@ -827,7 +709,6 @@ toast.success('Venta realizada Exitosamente');
                   />
                 </Form.Group>
               </Col>
-
               <Col md={6}>
                 <Form.Group controlId="formDescuento">
                   <Form.Label>Descuento %</Form.Label>
@@ -869,7 +750,6 @@ toast.success('Venta realizada Exitosamente');
       <Footer />
       <ToastContainer/>
     </Container>
-
   );
 };
 

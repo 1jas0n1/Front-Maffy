@@ -6,6 +6,7 @@ const ReporteServiciosView = () => {
   const [fechaInicial, setFechaInicial] = useState('');
   const [fechaFinal, setFechaFinal] = useState('');
   const [error, setError] = useState('');
+  
   const handleFechaInicialChange = (e) => {
     const nuevaFechaInicial = e.target.value;
     const fechaInicio = new Date(nuevaFechaInicial);
@@ -18,7 +19,6 @@ const ReporteServiciosView = () => {
     }
     setFechaInicial(nuevaFechaInicial);
   };
-  
 
   const handleFechaFinalChange = (e) => {
     const nuevaFechaFinal = e.target.value;
@@ -33,24 +33,54 @@ const ReporteServiciosView = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (fechaFinal < fechaInicial) {
       setError('La fecha final no puede ser anterior a la fecha inicial.');
       return;
     }
+
     setError('');
-    console.log('Fecha inicial:', fechaInicial);
-    console.log('Fecha final:', fechaFinal);
+
+    // Realiza la petición para generar el archivo Excel
+    try {
+      const response = await fetch(`https://apitammy-closset.fra1.zeabur.app/api/facturaServicio/reporte?startDate=${fechaInicial}&endDate=${fechaFinal}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al generar el reporte');
+      }
+
+      const blob = await response.blob(); 
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a'); 
+      link.href = url;
+      link.download = `Facturas_${fechaInicial}_to_${fechaFinal}.xlsx`; 
+      link.click(); 
+      window.URL.revokeObjectURL(url); 
+
+    } catch (error) {
+      console.error('Error al descargar el archivo:', error);
+      setError('Hubo un problema al descargar el archivo. Intenta nuevamente.');
+    }
   };
 
   return (
     <div>
       <Navbar />
-
-      <div className="container my-5" style={{ fontFamily: 'MV Boli' }}> {/* Añadir MV Boli a todo el contenedor */}
-        <h2 className="text-center mb-4" style={{ color: 'black' }}>Reporte de Servicios</h2>
+      <div className="container my-5"> 
+        <h2>
+          <img 
+            src="https://fontmeme.com/permalink/241102/3975458e60ab28e1268701782716ce1a.png" 
+            alt="Comic Text" 
+            style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+          />
+        </h2>
         <div className="card mx-auto" style={{ maxWidth: '400px' }}>
           <div className="card-body">
             <form onSubmit={handleSubmit} className="text-center">
@@ -80,7 +110,8 @@ const ReporteServiciosView = () => {
               <button 
                 type="submit" 
                 className="btn btn-primary" 
-                style={{ width: '200px', height: '60px' }}>
+                style={{ width: '200px', height: '60px' }}
+                >
                 Generar Reporte
               </button>
             </form>

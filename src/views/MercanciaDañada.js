@@ -16,7 +16,21 @@ const MercanciaDañada = () => {
   const [marcas, setMarcas] = useState([]);
   const [userData, setUserData] = useState([]);
 
+  const customStyles = {
+    headCells: {
+      style: {
+        backgroundColor: '#4A2148',
+        color: '#fff',
+        fontWeight: 'bold',
+      },
+    },
+  };
 
+  
+  const getUsernameById = (userId) => {
+    const user = userData.find(user => user._id === userId);
+    return user ? user.username : 'Desconocido';
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -25,75 +39,37 @@ const MercanciaDañada = () => {
 
 
   useEffect(() => {
-    axios.get('https://apitammy-closset.fra1.zeabur.app/api/mercancia/')
-      .then(response => {
-        setData(response.data);
-      })
-  }, []);
+    const fetchData = async () => {
+      try {
+        const [
+          mercanciaResponse,
+          tallasResponse,
+          userResponse,
+          coloresResponse,
+          articulosResponse,
+          categoriasResponse,
+          marcasResponse,
+        ] = await Promise.all([
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/mercancia/'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/tallas'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/user/all'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/colores'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/articulos'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias'),
+          axios.get('https://apitammy-closset.fra1.zeabur.app/api/marcas'),
+        ]);
 
-
-  useEffect(() => {
-    const fetchTallas = async () => {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/tallas');
-      setTallas(response.data);
+        setData(mercanciaResponse.data);
+        setTallas(tallasResponse.data);
+        setUserData(userResponse.data);
+        setColores(coloresResponse.data);
+        setArticulos(articulosResponse.data);
+        setCategorias(categoriasResponse.data);
+        setMarcas(marcasResponse.data);
+      } catch (error) {
+      }
     };
-    fetchTallas();
-  }, []);
-
-  useEffect(() => {
-    axios.get('https://apitammy-closset.fra1.zeabur.app/api/user/all')
-      .then(response => {
-        setUserData(response.data);
-      })
-  }, []);
-
-
-  const getUsernameById = (userId) => {
-    const user = userData.find(user => user._id === userId);
-    return user ? user.username : 'Desconocido';
-  };
-
-
-
-  useEffect(() => {
-    const fetchColores = async () => {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/colores');
-      setColores(response.data);
-    };
-    fetchColores();
-  }, []);
-
-  useEffect(() => {
-    const fetchArticulos = async () => {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/articulos');
-      setArticulos(response.data);
-    };
-    fetchArticulos();
-  }, []);
-
-  useEffect(() => {
-    const fetchCategorias = async () => {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias');
-      setCategorias(response.data);
-    };
-    fetchCategorias();
-  }, []);
-
-  
-  useEffect(() => {
-    const fetchMarcas = async () => {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/marcas');
-      setMarcas(response.data);
-    };
-    fetchMarcas();
-  }, []);
-
-  useEffect(() => {
-    const fetchCategorias = async () => {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias');
-      setCategorias(response.data);
-    };
-    fetchCategorias();
+    fetchData();
   }, []);
 
   const columns = [
@@ -164,11 +140,18 @@ const MercanciaDañada = () => {
   return (
     <div>
       <MyNavbar />
-      <div style={{width:'90%',margin:'0 auto',border:'2px solid black',borderRadius:'3px',textAlign:'center'}}>
+      <h2>
+      <img 
+        src="https://fontmeme.com/permalink/241104/ffeaaae4f42cc6e7c4a93e04797285e1.png" 
+        alt="Comic Font"
+        style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+      />
+      </h2>
+      <div style={{width:'95%',margin:'0 auto',borderRadius:'3px',textAlign:'center'}}>
         <DataTable
         style={{textAlign: 'center'}}
-          title="Mercancía Dañada"
           columns={columns}
+          customStyles={customStyles}
           data={data}
         />
       </div>
