@@ -11,6 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { MdDeleteForever } from "react-icons/md";
 import MyNavbar from '../component/Navbar';
 import Cookies from 'js-cookie';
+import ButtonM from '../component/BtnAgregar2';
+import SellButton from '../component/SellButton'
 
 const VentasView = () => {
   const [filterText, setFilterText] = useState('');
@@ -394,7 +396,7 @@ const VentasView = () => {
       </h2>
       <Form style={{ width: '95%', backgroundColor: 'transparent', marginTop: '10px', marginLeft: '3%', marginRight: 'auto', borderRadius: '5px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <Form.Group style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: '75px' }}>
-          <Form.Label style={{ marginLeft: '65px',color:'white' }}>Fecha de Venta</Form.Label>
+          <Form.Label style={{ marginLeft: '65px',color:'black' }}>Fecha de Venta</Form.Label>
           <Form.Control
             id="fechaVenta"
             type="date"
@@ -403,59 +405,67 @@ const VentasView = () => {
           />
         </Form.Group>
         <Form.Group style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          <Form.Label style={{ marginLeft: '125px',color:'white' }}>Cliente</Form.Label>
+          <Form.Label style={{ marginLeft: '275px',color:'black' }}>Cliente</Form.Label>
           <Form.Control
             id="clienteVenta"
             type="text"
-            style={estilos.inputStyle2}
+            style={{ color:'black',
+            width: '50%',
+            marginBottom:'10px',
+            padding: '5px',
+            marginLeft:'150px'}}
             className="form-control"
           />
         </Form.Group>
       </Form>
-      <Button style={estilos.search} variant="outline-secondary" onClick={handleShowModal} >
-        Agregar Articulos
-      </Button>
-      <div style={{ marginTop: '25px', width: '95%', margin: '0 auto', overflowX: 'auto' }} >
-        <table style={{ textAlign: 'center', marginTop: '10px' }} className="table table-bordered table-striped"  >
-          <thead>
-            <tr>
-              <th>Artículo</th>
-              <th>Categoría</th>
-              <th>Marca</th>
-              <th>Color</th>
-              <th>Talla</th>
-              <th>Cantidad</th>
-              <th>Precio</th>
-              <th>Subtotal</th>
-              <th>Opciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {selectedItems.map((item) => (
-              <tr key={item._id}>
-                <td>{getNombreArticulo(item.Id_articulo)}</td>
-                <td>{getNombreCategoriaById(item.Id_categoria)}</td>
-                <td>{getMarcaNombreById(item.Id_marca)}</td>
-                <td>{getColorNameById(item.Id_color)}</td>
-                <td>{getNombreTalla(item.Id_talla)}</td>
-                <td>{item.cantidad}</td>
-                <td>{item.precio}</td>
-                <td>{getDiscountById(item.Id_promocion)}</td>
-                <td>
-                  <Button variant="primary" style={{ width: '30px', height: '30px', marginRight: '5px', fontSize: '17px', padding: '0' }} onClick={() => handleEditOpen(item)}>
-                    <FaPencilAlt />
-                  </Button>
-                  <Button variant="danger" style={{ width: '30px', height: '30px', fontSize: '20px', padding: '0' }} onClick={() => handleDeleteItem(item._id)}>
-                    <MdDeleteForever style={{ marginBottom: '5px' }} />
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
 
-      <div style={{ margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '400px', backgroundColor: 'white', padding: '10px', borderRadius: '5px', marginTop: '10px' }}>
+      <div style={{ marginTop: '25px', width: '95%', margin: '0 auto', overflowX: 'auto' }}>
+
+      <ButtonM style={{marginLeft:'750px'}} onClick={handleShowModal}  />
+
+  <table style={{ textAlign: 'center', marginTop: '10px' }} className="table table-bordered table-striped">
+    {selectedItems.length > 0 && (
+      <thead>
+        <tr>
+          <th>Artículo</th>
+          <th>Categoría</th>
+          <th>Marca</th>
+          <th>Color</th>
+          <th>Talla</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+          <th>Subtotal</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+    )}
+    <tbody>
+      {selectedItems.map((item) => (
+        <tr key={item._id}>
+          <td>{getNombreArticulo(item.Id_articulo)}</td>
+          <td>{getNombreCategoriaById(item.Id_categoria)}</td>
+          <td>{getMarcaNombreById(item.Id_marca)}</td>
+          <td>{getColorNameById(item.Id_color)}</td>
+          <td>{getNombreTalla(item.Id_talla)}</td>
+          <td>{item.cantidad}</td>
+          <td>{item.precio}</td>
+          <td>{getDiscountById(item.Id_promocion)}</td>
+          <td>
+            <Button variant="primary" style={{ width: '30px', height: '30px', marginRight: '5px', fontSize: '17px', padding: '0' }} onClick={() => handleEditOpen(item)}>
+              <FaPencilAlt />
+            </Button>
+            <Button variant="danger" style={{ width: '30px', height: '30px', fontSize: '20px', padding: '0' }} onClick={() => handleDeleteItem(item._id)}>
+              <MdDeleteForever style={{ marginBottom: '5px' }} />
+            </Button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+  {selectedItems.length === 0 && <p> </p>}
+</div>
+
+      <div style={{ margin: '0 auto', display: 'flex', flexDirection: 'column',marginBottom:'25px', alignItems: 'center', maxWidth: '400px', backgroundColor: 'white', padding: '10px', borderRadius: '5px', marginTop: '10px' }}>
         <div style={{ marginTop: '10px' }}>
           <h4>Total: C${total.toFixed(2)}</h4>
           <h5>Descuento Total: C${totalDiscount}</h5>
@@ -463,9 +473,9 @@ const VentasView = () => {
         </div>
       </div>
 
-      <Button variant="success" style={{ width: '150px', height: '50px', marginTop: '20px', marginLeft: '45%' }} onClick={handleRealizarVenta} >
-        Realizar Venta
-      </Button>
+      <SellButton variant="success" style={{ width: '150px', height: '50px', marginTop: '20px', marginLeft: '45%' }} onClick={handleRealizarVenta} >
+
+      </SellButton>
       <Footer />
       <Modal show={showModal} onHide={handleCloseModal} size="xl">
         <Modal.Header closeButton>

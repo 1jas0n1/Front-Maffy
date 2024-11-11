@@ -163,7 +163,13 @@ const HistorialServiciosView = () => {
   return (
     <div>
       <MyNavbar />
-      <h2 style={{ color: 'black', marginTop: '10px', marginBottom: '10px' }}>Historial de Servicios</h2>
+      <h2>
+      <img 
+        src="https://fontmeme.com/permalink/241104/a86dd920b0e34c4a4f27664148782a4f.png" 
+        alt="Comic Font"
+        style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+      />
+      </h2>
       <div style={{ width: '95%', margin: '0 auto' }}>
         <DataTable
           style={{ border: '2px solid black' }}

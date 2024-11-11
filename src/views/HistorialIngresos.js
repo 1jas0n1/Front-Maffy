@@ -111,12 +111,14 @@ const HistorialIngresosView = () => {
         const formattedData = await Promise.all(data.map(async item => {
           const incomeResponse = await axios.get(`https://apitammy-closset.fra1.zeabur.app/api/ingresos/${item.id_ingreso}`);
           const incomeData = incomeResponse.data;
+          console.log(incomeData);
           updateFechaIngresoField(item.id_ingreso);
+          
           return {
             _id: item._id,
             id_ingreso: item.id_ingreso,
-            id_usuario: incomeData.id_usuario,
-            id_proveedor: incomeData.id_proveedor,
+            id_usuario: item.id_usuario, 
+            id_proveedor: item.id_proveedor,
             total: item.total,
             articulos: item.articulos,
             fecha: '',
@@ -127,7 +129,7 @@ const HistorialIngresosView = () => {
       .catch(error => {
         console.error('Error fetching data:', error);
       });
-  }, []);
+  }, []);  
 
   const handlePrint = (row) => {
     const id = row._id;

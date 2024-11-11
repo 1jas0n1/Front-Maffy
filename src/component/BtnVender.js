@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-// Acepta onClick como prop para ejecutarla en el botón
 const ButtonVender = ({ onClick }) => {
   return (
     <StyledWrapper>

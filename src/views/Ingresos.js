@@ -315,7 +315,6 @@ const handleFacturarIngreso = async () => {
               'x-access-token': token,
           },
       });
-      console.log('Artículos facturados correctamente:', responseArticulos);
 
       for (const articulo of articulosIngresados) {
           const stockData = {
@@ -480,7 +479,6 @@ toast.success('Venta realizada Exitosamente');
       placeholder="Materiales..."
     />
             </Col>
-
             <Col md={2}>
               <label style={estilos.labelStyle} htmlFor="id-estilo">
                 Estilo
@@ -495,12 +493,9 @@ toast.success('Venta realizada Exitosamente');
   onChange={(newValue) => setFormulario({ ...formulario, idEstilo: newValue })}
   placeholder="Estilos..."
 />
-
             </Col>
           </Row>
-
           <hr style={{ margin: '10px 0', border: '1px solid #ccc' }} />
-
           <Row>
             <Col md={2}>
               <label style={estilos.labelStyle} htmlFor="id-diseno">
@@ -556,7 +551,6 @@ toast.success('Venta realizada Exitosamente');
                 style={estilos.inputStyle}
               />
             </Col>
-
             <Col md={2}>
   <label htmlFor="descuento" style={estilos.labelStyle}>
     Descuento X Unidad
@@ -568,7 +562,6 @@ toast.success('Venta realizada Exitosamente');
     value={formulario.descuento}
     onChange={(e) => {
       const value = e.target.value;
-
       if (value === '' || (Number(value) >= 0 && !isNaN(value))) {
         handleInputChange(e); 
       }
@@ -581,16 +574,13 @@ toast.success('Venta realizada Exitosamente');
 
           </Row>
           <hr style={{ margin: '10px 0', border: '1px solid #ccc' }} />
-
           <Row>
             <AddButton
               onClick={handleGuardar}
            / >
-
             <DeleteButton
               onClick={handleLimpiar}
             >
-
             </DeleteButton>
           </Row>
         </fieldset>
@@ -679,11 +669,7 @@ toast.success('Venta realizada Exitosamente');
   descuentosTotal={descuentosTotal} 
   ivaTotal={ivaTotal} 
 />
-
-
-
   </div>
-
 )}
 
       <SellButton
