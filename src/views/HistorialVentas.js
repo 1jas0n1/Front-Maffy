@@ -5,11 +5,9 @@ import { FaEye, FaPrint } from 'react-icons/fa';
 import Modal from 'react-modal';
 import MyNavbar from '../component/Navbar';
 import Footer from '../component/footer/footer';
-
 import {  toast } from 'react-toastify';
 
 const DataTableComponent = () => {
-  
   const [data, setData] = useState([]);
   const [clientNames, setClientNames] = useState({});
   const [selectedSaleArticles, setSelectedSaleArticles] = useState([]);
@@ -25,6 +23,7 @@ const DataTableComponent = () => {
   const [materiales, setMateriales] = useState([]);
   const [disenos, setDisenos] = useState([]);
   const [promotions, setPromotions] = useState([]);
+  const [tipoCambioDolar, setTipoCambioDolar] = useState(0);
 
 const updateFechaField = async (id_ventas) => {
   try {
@@ -100,6 +99,14 @@ useEffect(() => {
 }, []);
 
 
+useEffect(() => {
+  const fetchTipoCambio = async () => {
+    const tipoCambio = await getTipoCambio();
+    setTipoCambioDolar(tipoCambio);
+  };
+  fetchTipoCambio();
+}, []);
+
   const handlePrintButtonClick = (id) => {
     const printUrl = `https://apitammy-closset.fra1.zeabur.app/api/detalleventa/${id}/print`;
     window.open(printUrl, '_blank');
@@ -155,10 +162,44 @@ const getNombreArticulo = (idArticulo) => {
     setModalOpen(false);
   };
 
+
+  const getTipoCambio = async () => {
+    try {
+      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/configuracion');
+      const tipoCambioDolar = response.data.data[0].tipo_de_cambio_dolar;
+      return tipoCambioDolar;
+      console.log(tipoCambioDolar);
+    } catch (error) {
+      toast.error("Error al obtener tipo de cambio: ", error);
+      return null;
+    }
+  };
+  
+
   const columns = [
     { name: 'ID', sortable: true, cell: (row) => row._id },
-    { name: 'Total', sortable: true, cell: (row) => row.total },
-    {name: 'Nombre del Cliente',sortable: true,cell: (row) => clientNames[row.id_ventas],},
+    {
+      name: 'Total C$',
+      sortable: true,
+      cell: (row) => (
+        <div style={{ color: 'green' }}>
+          C$ {row.total}
+        </div>
+      ),
+    },
+    {
+      name: 'Total $',
+      sortable: true,
+      cell: (row) => {
+        const totalDolares = tipoCambioDolar ? (row.total / tipoCambioDolar).toFixed(2) : 'Cargando...';
+        return (
+          <div style={{ color: 'green' }}>
+            ${totalDolares}
+          </div>
+        );
+      },
+    },
+    { name: 'Nombre del Cliente', sortable: true, cell: (row) => clientNames[row.id_ventas] },
     { name: 'Fecha', sortable: true, cell: (row) => row.fecha },
     {
       name: 'Acciones',
@@ -312,5 +353,4 @@ const getNombreArticulo = (idArticulo) => {
     </div>
   );
 };
-
 export default DataTableComponent;

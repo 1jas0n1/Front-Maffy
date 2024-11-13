@@ -76,7 +76,7 @@ const MercanciaView = () => {
   };
 
   const handleNotification = () => {
-    toast.success('Operation successful', { position: toast.POSITION.TOP_CENTER });
+    toast.success('Operation successful');
   };
 
   const handleUpdate = (itemId) => {
@@ -115,7 +115,7 @@ const MercanciaView = () => {
       setFilteredStock(jsonData[9]);
       setBodegas(jsonData[10]);
     } catch (error) {
-      console.error('Error fetching data:', error);
+
     }
   };
 
@@ -199,18 +199,18 @@ const handleDamageSubmit = async () => {
   const token = Cookies.get('token');
   try {
     if (!damageData.Daños || damageData.Cantidad <= 0 || !damageData.Descripcion || !damageData.Fecha) {
-      toast.warning('Completa los datos del Modal.', { position: toast.POSITION.TOP_CENTER });
+      toast.warning('Completa los datos del Modal.');
       return;
     }
     if (damageData.Cantidad > damageData.existencias) {
-      toast.warning('Se está intentando pasar más cantidad que la existencia', { position: toast.POSITION.TOP_CENTER });
+      toast.warning('Se está intentando pasar más cantidad que la existencia');
       return;
     }
     if (!(damageData.Fecha instanceof Date)) {
       damageData.Fecha = new Date(damageData.Fecha);
     }
     if (isNaN(damageData.Fecha.getTime())) {
-      toast.error('Fecha no válida', { position: toast.POSITION.TOP_CENTER });
+      toast.error('Fecha no válida');
       return;
     }
     console.log('JSON being sent to server:', JSON.stringify(damageData, null, 2));
@@ -224,8 +224,8 @@ const handleDamageSubmit = async () => {
 
     if (response.ok) {
       const DiferenciaExistencias = damageData.existencias - damageData.Cantidad;
-      toast.success('Damage information saved successfully', { position: toast.POSITION.TOP_CENTER });
-      console.log('DiferenciaExistencias:', DiferenciaExistencias);
+      toast.success('Mercancia dañada registrada.');
+   
       setShowDamageModal(false);
       const updateStockUrl = `https://apitammy-closset.fra1.zeabur.app/api/stock/update/${damageData.id_stock}`;
       const updateStockResponse = await fetch(updateStockUrl, {
@@ -236,15 +236,15 @@ const handleDamageSubmit = async () => {
         body: JSON.stringify({ _id: damageData.id_stock, DiferenciaExistencias }),
       });
       if (updateStockResponse.ok) {
-        console.log('Stock updated successfully');
+ 
       } else {
-        console.error('Error updating stock:', updateStockResponse.statusText);
+    
       }
     } else {
-      console.error('Error saving damage information:', response.statusText);
+   
     }
   } catch (error) {
-    console.error('Error saving damage information:', error);
+
   }
 };
 
@@ -406,7 +406,7 @@ center: true,
         <div style={{
           display: 'flex', 
           flexDirection: 'row', 
-          gap: '10px', // Añade espacio entre los botones si es necesario
+          gap: '10px', 
           justifyContent: 'center'
         }}>
           <Button  
@@ -471,7 +471,7 @@ center: true,
  const handleUpdateSubmit = async () => {
   try {
     if (!selectedItem || !selectedItem._id) {
-      console.error('No item selected for update');
+
       return;
     }
     const urlWithId = `https://apitammy-closset.fra1.zeabur.app/api/stock/update/${selectedItem._id}`;
@@ -487,10 +487,10 @@ center: true,
       handleNotification();
       handleClose();
     } else {
-      console.error('Error updating item:', response.statusText);
+
     }
   } catch (error) {
-    console.error('Error updating item:', error);
+
   }
 };
 
@@ -654,25 +654,7 @@ center: true,
   />
 </Form.Group>
 
-<Form.Group controlId="formIdPromocion">
-  <Form.Label>Promoción</Form.Label>
-  <Form.Control
-    as="select"
-    value={selectedItem ? selectedItem.Id_promocion : ''}
-    onChange={(e) =>
-      setSelectedItem({
-        ...selectedItem,
-        Id_promocion: e.target.value,
-      })
-    }>
-    <option value="">Selecciona una promoción</option>
-    {promociones.map((promocion) => (
-      <option key={promocion._id} value={promocion._id}>
-        {promocion.promocion}
-      </option>
-    ))}
-  </Form.Control>
-</Form.Group>
+
 
 <Form.Group controlId="formIdBodega">
   <Form.Label>Bodega</Form.Label>
@@ -739,8 +721,7 @@ center: true,
       const enteredValue = parseInt(e.target.value + e.key, 10) || 0;
       if (enteredValue > existencias) {
         e.preventDefault();
-       
-        toast.warning('Stock insuficiente', { position: toast.POSITION.TOP_CENTER });
+        toast.warning('Stock insuficiente');
       }
     }}
   />

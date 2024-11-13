@@ -73,7 +73,7 @@ const MercanciaDañada = () => {
   }, []);
 
   const columns = [
-    { name: '_id', selector: '_id', sortable: true,   center: true, },
+    { name: '_id', selector: (row) => row._id, sortable: true, center: true },
     {
       name: 'Articulo',
       selector: (row) => {
@@ -85,56 +85,69 @@ const MercanciaDañada = () => {
     },
     {
       name: 'Usuario',
-      selector: 'id_usuario',
+      selector: (row) => row.id_usuario,
       sortable: true,
       center: true,
       cell: (row) => getUsernameById(row.id_usuario),
-
     },
-
-    { name: 'Fecha', selector: 'Fecha', sortable: true, center: true,
-      cell: (row) => formatDate(row.Fecha) },
-      {
-        name: 'Categoría',
-        selector: (row) => {
-          const categoria = categorias.find((c) => c._id === row.id_categoria);
-          return categoria ? categoria.categoria : 'Desconocida';
-        },
-        sortable: true,
-        center: true,
-      },
-    { name: 'Marca',
-    selector: (row) => {
-      const marca = marcas.find((marca) => marca._id === row.id_marca);
-      return marca ? marca.marca : 'Desconocida';
-    },
-    sortable: true,
-    center: true, },
-    {     name: 'Talla',
-    selector: (row) => {
-      const talla = tallas.find((talla) => talla._id === row.id_talla);
-      return talla ? talla.talla : 'Desconocida';
-    },
-    sortable: true,
-    center: true, },
-    {   name: 'Color',
-    selector: (row) => {
-      const color = colores.find((color) => color._id === row.id_color);
-      return color ? color.color : 'Desconocido';
-    },
-    sortable: true,
-    center: true,},
-    { name: 'id_ingreso', selector: 'id_ingreso', sortable: true,   center: true, },
-    { name: 'Cantidad', selector: 'Cantidad', sortable: true,   center: true, },
     {
-      name: 'Daños',
-      selector: 'Daños',
+      name: 'Fecha',
+      selector: (row) => row.Fecha,
       sortable: true,
       center: true,
-
+      cell: (row) => formatDate(row.Fecha),
     },
-    { name: 'Estado', selector: 'Estado', sortable: true,   center: true,      cell: row => row.Daños ? 'Activo' : 'Inactivo', },
-    { name: 'Descripcion', selector: 'Descripcion', sortable: true,   center: true, },
+    {
+      name: 'Categoría',
+      selector: (row) => {
+        const categoria = categorias.find((c) => c._id === row.id_categoria);
+        return categoria ? categoria.categoria : 'Desconocida';
+      },
+      sortable: true,
+      center: true,
+    },
+    {
+      name: 'Marca',
+      selector: (row) => {
+        const marca = marcas.find((marca) => marca._id === row.id_marca);
+        return marca ? marca.marca : 'Desconocida';
+      },
+      sortable: true,
+      center: true,
+    },
+    {
+      name: 'Talla',
+      selector: (row) => {
+        const talla = tallas.find((talla) => talla._id === row.id_talla);
+        return talla ? talla.talla : 'Desconocida';
+      },
+      sortable: true,
+      center: true,
+    },
+    {
+      name: 'Color',
+      selector: (row) => {
+        const color = colores.find((color) => color._id === row.id_color);
+        return color ? color.color : 'Desconocido';
+      },
+      sortable: true,
+      center: true,
+    },
+    { name: 'id_ingreso', selector: (row) => row.id_ingreso, sortable: true, center: true },
+    { name: 'Cantidad', selector: (row) => row.Cantidad, sortable: true, center: true },
+    {
+      name: 'Daños',
+      selector: (row) => row.Daños,
+      sortable: true,
+      center: true,
+    },
+    {
+      name: 'Estado',
+      selector: (row) => row.Daños ? 'Activo' : 'Inactivo',
+      sortable: true,
+      center: true,
+    },
+    { name: 'Descripcion', selector: (row) => row.Descripcion, sortable: true, center: true },
   ];
 
   return (

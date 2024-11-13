@@ -349,7 +349,7 @@ const handleFacturarIngreso = async () => {
           });
           console.log('Stock creado correctamente:', responseStock);
       }
-toast.success('Venta realizada Exitosamente');
+          toast.success('Venta realizada Exitosamente');
   } catch (error) {
       if (error.response && error.response.status === 409) {
           console.error('Error 409: Conflicto al crear el documento en la colección "Stock".');
@@ -587,21 +587,10 @@ toast.success('Venta realizada Exitosamente');
       </Form>
 
       {showAlert && (
-        <Alert variant="danger" style={{ width: '50%', margin: '0 auto', marginTop: '10px' }} onClose={() => setShowAlert(false)} dismissible>
+        <Alert variant="danger" style={{ width: '50%', margin: '0 auto', marginTop: '25px',marginBottom:'25px' }} onClose={() => setShowAlert(false)} dismissible>
           Por favor, completa todos los campos antes de agregar el artículo.
         </Alert>
       )}
-
-{showAlert && (
-  <Alert
-    variant="danger"
-    style={{ width: '50%', margin: '0 auto', marginTop: '10px' }}
-    onClose={() => setShowAlert(false)}
-    dismissible
-  >
-    Por favor, completa todos los campos antes de agregar el artículo.
-  </Alert>
-)}
 
 {articulosIngresados.length > 0 && (
   <div style={{ marginTop: '10px', width: '95%', margin: '0 auto', overflowX: 'auto' }}>
@@ -671,7 +660,6 @@ toast.success('Venta realizada Exitosamente');
 />
   </div>
 )}
-
       <SellButton
         variant="success"
         onClick={handleFacturarIngreso}>

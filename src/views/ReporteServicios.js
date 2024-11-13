@@ -6,7 +6,6 @@ const ReporteServiciosView = () => {
   const [fechaInicial, setFechaInicial] = useState('');
   const [fechaFinal, setFechaFinal] = useState('');
   const [error, setError] = useState('');
-  
   const handleFechaInicialChange = (e) => {
     const nuevaFechaInicial = e.target.value;
     const fechaInicio = new Date(nuevaFechaInicial);
@@ -40,10 +39,8 @@ const ReporteServiciosView = () => {
       setError('La fecha final no puede ser anterior a la fecha inicial.');
       return;
     }
-
     setError('');
 
-    // Realiza la petición para generar el archivo Excel
     try {
       const response = await fetch(`https://apitammy-closset.fra1.zeabur.app/api/facturaServicio/reporte?startDate=${fechaInicial}&endDate=${fechaFinal}`, {
         method: 'GET',
@@ -106,7 +103,8 @@ const ReporteServiciosView = () => {
                   required
                 />
               </div>
-              {error && <div className="alert alert-danger">{error}</div>}
+              {error && <div className="alert alert-danger">{error}
+              </div>}
               <button 
                 type="submit" 
                 className="btn btn-primary" 

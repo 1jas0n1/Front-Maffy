@@ -70,8 +70,14 @@ const ReporteVentasView = () => {
     <div>
       <Navbar />
 
-      <div className="container my-5" style={{ fontFamily: 'MV Boli' }}>
-        <h2 className="text-center mb-4" style={{ color: 'black' }}>Reporte de Ventas</h2>
+      <div className="container my-5" >
+        <h2 className="text-center mb-4" >
+        <img
+        src="https://fontmeme.com/permalink/241113/51e703c6b6c3a7f0cd72b96f3f94c501.png"
+        alt="Fuente de Cómics"
+        style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+      />
+        </h2>
         <div className="card mx-auto" style={{ maxWidth: '400px' }}>
           <div className="card-body">
             <form onSubmit={handleSubmit} className="text-center">

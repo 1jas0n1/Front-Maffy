@@ -70,8 +70,14 @@ const ReporteComprasView = () => {
     <div>
       <Navbar />
 
-      <div className="container my-5" style={{ fontFamily: 'MV Boli' }}>
-        <h2 className="text-center mb-4" style={{ color: 'black' }}>Reporte de Compras</h2>
+      <div className="container my-5">
+        <h2>
+        <img
+        src="https://fontmeme.com/permalink/241113/7384b4071d33e266b3ef9d12c30a2ed6.png"
+        alt="Fuente de Cómics"
+        style={{ width: '85%', height: 'auto', maxWidth: '900px' }}
+      />
+        </h2>
 
         <div className="card mx-auto" style={{ maxWidth: '400px' }}>
           <div className="card-body">
