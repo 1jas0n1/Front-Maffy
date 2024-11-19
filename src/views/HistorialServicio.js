@@ -20,8 +20,8 @@ const HistorialServiciosView = () => {
 
   useEffect(() => {
     Promise.all([
-      axios.get('https://apitammy-closset.fra1.zeabur.app/api/FacturaServicio'),
-      axios.get('https://apitammy-closset.fra1.zeabur.app/api/configuracion')
+      axios.get('https://api-tammys.onrender.com/api/FacturaServicio'),
+      axios.get('https://api-tammys.onrender.com/api/configuracion')
     ])
       .then(([facturasResponse, tipoCambioResponse]) => {
         setFacturas(facturasResponse.data);
@@ -41,7 +41,7 @@ const HistorialServiciosView = () => {
   };
 
   const handleStatusUpdate = () => {
-    axios.put(`https://apitammy-closset.fra1.zeabur.app/api/FacturaServicio/factura/${selectedInvoiceId}`, { anulado: newStatus })
+    axios.put(`https://api-tammys.onrender.com/api/FacturaServicio/factura/${selectedInvoiceId}`, { anulado: newStatus })
       .then(response => {
         setFacturas(prevFacturas =>
           prevFacturas.map(factura => 

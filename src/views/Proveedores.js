@@ -46,7 +46,7 @@ const ProveedoresView = () => {
 
   const handleShow = () => setShowCreateModal(true);
 
-  const url = 'https://apitammy-closset.fra1.zeabur.app/api/proveedores';
+  const url = 'https://api-tammys.onrender.com/api/proveedores';
 
   const showData = async () => {
     try {

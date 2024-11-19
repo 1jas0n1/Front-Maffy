@@ -50,13 +50,13 @@ const MercanciaDañada = () => {
           categoriasResponse,
           marcasResponse,
         ] = await Promise.all([
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/mercancia/'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/tallas'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/user/all'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/colores'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/articulos'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/marcas'),
+          axios.get('https://api-tammys.onrender.com/api/mercancia/'),
+          axios.get('https://api-tammys.onrender.com/api/tallas'),
+          axios.get('https://api-tammys.onrender.com/api/user/all'),
+          axios.get('https://api-tammys.onrender.com/api/colores'),
+          axios.get('https://api-tammys.onrender.com/api/articulos'),
+          axios.get('https://api-tammys.onrender.com/api/categorias'),
+          axios.get('https://api-tammys.onrender.com/api/marcas'),
         ]);
 
         setData(mercanciaResponse.data);

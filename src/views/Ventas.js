@@ -77,17 +77,17 @@ const VentasView = () => {
       const response = await axios.get(url);
       setData(response.data);
     };
-    fetchData('https://apitammy-closset.fra1.zeabur.app/api/stock', setStockData);
-    fetchData('https://apitammy-closset.fra1.zeabur.app/api/bodegas', setBodegas);
-    fetchData('https://apitammy-closset.fra1.zeabur.app/api/tallas', setTallas);
-    fetchData('https://apitammy-closset.fra1.zeabur.app/api/promociones', setPromotions);
-    fetchData('https://apitammy-closset.fra1.zeabur.app/api/colores', setColores);
-    fetchData('https://apitammy-closset.fra1.zeabur.app/api/articulos', setArticulos);
-    fetchData('https://apitammy-closset.fra1.zeabur.app/api/categorias', setCategorias);
-    fetchData('https://apitammy-closset.fra1.zeabur.app/api/estilos', setEst);
-    fetchData('https://apitammy-closset.fra1.zeabur.app/api/marcas', setMarcas);
-    fetchData('https://apitammy-closset.fra1.zeabur.app/api/disenos', setDisenos);
-    fetchData('https://apitammy-closset.fra1.zeabur.app/api/materiales', setMateriales);
+    fetchData('https://api-tammys.onrender.com/api/stock', setStockData);
+    fetchData('https://api-tammys.onrender.com/api/bodegas', setBodegas);
+    fetchData('https://api-tammys.onrender.com/api/tallas', setTallas);
+    fetchData('https://api-tammys.onrender.com/api/promociones', setPromotions);
+    fetchData('https://api-tammys.onrender.com/api/colores', setColores);
+    fetchData('https://api-tammys.onrender.com/api/articulos', setArticulos);
+    fetchData('https://api-tammys.onrender.com/api/categorias', setCategorias);
+    fetchData('https://api-tammys.onrender.com/api/estilos', setEst);
+    fetchData('https://api-tammys.onrender.com/api/marcas', setMarcas);
+    fetchData('https://api-tammys.onrender.com/api/disenos', setDisenos);
+    fetchData('https://api-tammys.onrender.com/api/materiales', setMateriales);
   }, []);
   
 
@@ -216,7 +216,7 @@ const VentasView = () => {
         estado: true,
       };
 
-      const responseVenta = await axios.post('https://apitammy-closset.fra1.zeabur.app/api/ventas', ventaData, {
+      const responseVenta = await axios.post('https://api-tammys.onrender.com/api/ventas', ventaData, {
         headers: {
           'Content-Type': 'application/json',
           'x-access-token': token, 
@@ -244,7 +244,7 @@ const VentasView = () => {
         total: total - (totalDiscount + promotionDiscount), 
       };
 
-      const responseArticulos = await axios.post('https://apitammy-closset.fra1.zeabur.app/api/detalleventa', articulosVentaData, {
+      const responseArticulos = await axios.post('https://api-tammys.onrender.com/api/detalleventa', articulosVentaData, {
        headers: {
         'Content-Type': 'application/json',
          'x-access-token': token, 
@@ -264,7 +264,7 @@ const VentasView = () => {
         estado: updatedExistencias === 0 ? false : true,
       };
 
-      const stockUpdateUrl = `https://apitammy-closset.fra1.zeabur.app/api/stock/${item._id}`;
+      const stockUpdateUrl = `https://api-tammys.onrender.com/api/stock/${item._id}`;
       try {
         const responseStockUpdate = await axios.put(stockUpdateUrl, stockUpdateData, {
           headers: {

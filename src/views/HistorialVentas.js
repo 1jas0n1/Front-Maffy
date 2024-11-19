@@ -27,7 +27,7 @@ const DataTableComponent = () => {
 
 const updateFechaField = async (id_ventas) => {
   try {
-    const response = await axios.get(`https://apitammy-closset.fra1.zeabur.app/api/ventas/${id_ventas}`);
+    const response = await axios.get(`https://api-tammys.onrender.com/api/ventas/${id_ventas}`);
 
     const fechaDate = new Date(response.data.fecha);
     const formattedFecha = fechaDate.toLocaleDateString('es-ES', {
@@ -46,11 +46,11 @@ const updateFechaField = async (id_ventas) => {
 };
 
 useEffect(() => {
-  axios.get('https://apitammy-closset.fra1.zeabur.app/api/detalleventa')
+  axios.get('https://api-tammys.onrender.com/api/detalleventa')
     .then(response => {
       setData(response.data);
       response.data.forEach(row => {
-        axios.get(`https://apitammy-closset.fra1.zeabur.app/api/ventas/${row.id_ventas}`)
+        axios.get(`https://api-tammys.onrender.com/api/ventas/${row.id_ventas}`)
           .then(clientResponse => {
             setClientNames(prevNames => ({
               ...prevNames,
@@ -72,15 +72,15 @@ useEffect(() => {
   const fetchData = async () => {
     try {
       const [tallasRes, coloresRes, articulosRes, categoriasRes, estilosRes, marcasRes, disenosRes, materialesRes, promocionesRes] = await Promise.all([
-        axios.get('https://apitammy-closset.fra1.zeabur.app/api/tallas'),
-        axios.get('https://apitammy-closset.fra1.zeabur.app/api/colores'),
-        axios.get('https://apitammy-closset.fra1.zeabur.app/api/articulos'),
-        axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias'),
-        axios.get('https://apitammy-closset.fra1.zeabur.app/api/estilos'),
-        axios.get('https://apitammy-closset.fra1.zeabur.app/api/marcas'),
-        axios.get('https://apitammy-closset.fra1.zeabur.app/api/disenos'),
-        axios.get('https://apitammy-closset.fra1.zeabur.app/api/materiales'),
-        axios.get('https://apitammy-closset.fra1.zeabur.app/api/promociones')
+        axios.get('https://api-tammys.onrender.com/api/tallas'),
+        axios.get('https://api-tammys.onrender.com/api/colores'),
+        axios.get('https://api-tammys.onrender.com/api/articulos'),
+        axios.get('https://api-tammys.onrender.com/api/categorias'),
+        axios.get('https://api-tammys.onrender.com/api/estilos'),
+        axios.get('https://api-tammys.onrender.com/api/marcas'),
+        axios.get('https://api-tammys.onrender.com/api/disenos'),
+        axios.get('https://api-tammys.onrender.com/api/materiales'),
+        axios.get('https://api-tammys.onrender.com/api/promociones')
       ]);
       setTallas(tallasRes.data);
       setColores(coloresRes.data);
@@ -108,7 +108,7 @@ useEffect(() => {
 }, []);
 
   const handlePrintButtonClick = (id) => {
-    const printUrl = `https://apitammy-closset.fra1.zeabur.app/api/detalleventa/${id}/print`;
+    const printUrl = `https://api-tammys.onrender.com/api/detalleventa/${id}/print`;
     window.open(printUrl, '_blank');
   };
 
@@ -165,7 +165,7 @@ const getNombreArticulo = (idArticulo) => {
 
   const getTipoCambio = async () => {
     try {
-      const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/configuracion');
+      const response = await axios.get('https://api-tammys.onrender.com/api/configuracion');
       const tipoCambioDolar = response.data.data[0].tipo_de_cambio_dolar;
       return tipoCambioDolar;
       console.log(tipoCambioDolar);

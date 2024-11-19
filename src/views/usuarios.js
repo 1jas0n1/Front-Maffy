@@ -38,7 +38,7 @@ const UsuariosView = () => {
     };
   
     try {
-      const response = await fetch('https://apitammy-closset.fra1.zeabur.app/api/auth/signup', {
+      const response = await fetch('https://api-tammys.onrender.com/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

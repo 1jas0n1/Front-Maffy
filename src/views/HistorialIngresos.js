@@ -26,7 +26,7 @@ const HistorialIngresosView = () => {
 
   const updateFechaIngresoField = async (id_ingreso) => {
     try {
-      const response = await axios.get(`https://apitammy-closset.fra1.zeabur.app/api/ingresos/${id_ingreso}`);
+      const response = await axios.get(`https://api-tammys.onrender.com/api/ingresos/${id_ingreso}`);
       const fechaDate = new Date(response.data.fecha);
       const formattedFecha = fechaDate.toLocaleDateString('es-ES', {
         day: 'numeric',
@@ -47,7 +47,7 @@ const HistorialIngresosView = () => {
   useEffect(() => {
     const fetchTipoCambio = async () => {
       try {
-        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/configuracion');
+        const response = await axios.get('https://api-tammys.onrender.com/api/configuracion');
         const cambio = response.data.data[0].tipo_de_cambio_dolar;
         setTipoCambio(cambio);
       } catch (error) {
@@ -76,15 +76,15 @@ const HistorialIngresosView = () => {
           coloresRes,
           tallasRes
         ] = await Promise.all([
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/marcas'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/materiales'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/estilos'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/disenos'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/articulos'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/proveedores'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/colores'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/tallas')
+          axios.get('https://api-tammys.onrender.com/api/marcas'),
+          axios.get('https://api-tammys.onrender.com/api/materiales'),
+          axios.get('https://api-tammys.onrender.com/api/estilos'),
+          axios.get('https://api-tammys.onrender.com/api/disenos'),
+          axios.get('https://api-tammys.onrender.com/api/articulos'),
+          axios.get('https://api-tammys.onrender.com/api/categorias'),
+          axios.get('https://api-tammys.onrender.com/api/proveedores'),
+          axios.get('https://api-tammys.onrender.com/api/colores'),
+          axios.get('https://api-tammys.onrender.com/api/tallas')
         ]);
   
         setMarcas(marcasRes.data);
@@ -105,11 +105,11 @@ const HistorialIngresosView = () => {
   }, []);
   
   useEffect(() => {
-    fetch('https://apitammy-closset.fra1.zeabur.app/api/detalleingreso')
+    fetch('https://api-tammys.onrender.com/api/detalleingreso')
       .then(response => response.json())
       .then(async data => {
         const formattedData = await Promise.all(data.map(async item => {
-          const incomeResponse = await axios.get(`https://apitammy-closset.fra1.zeabur.app/api/ingresos/${item.id_ingreso}`);
+          const incomeResponse = await axios.get(`https://api-tammys.onrender.com/api/ingresos/${item.id_ingreso}`);
           const incomeData = incomeResponse.data;
           console.log(incomeData);
           updateFechaIngresoField(item.id_ingreso);
@@ -133,7 +133,7 @@ const HistorialIngresosView = () => {
 
   const handlePrint = (row) => {
     const id = row._id;
-    const printUrl = `https://apitammy-closset.fra1.zeabur.app/api/detalleingreso/${id}/print`;
+    const printUrl = `https://api-tammys.onrender.com/api/detalleingreso/${id}/print`;
     const newTab = window.open(printUrl, '_blank');
     if (!newTab) {
       console.error('Error opening new tab for printing.');
@@ -208,7 +208,7 @@ const HistorialIngresosView = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('https://apitammy-closset.fra1.zeabur.app/api/user/all');
+        const response = await axios.get('https://api-tammys.onrender.com/api/user/all');
         setUsers(response.data);
       } catch (error) {
         console.error('Error fetching user data:', error);

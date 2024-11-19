@@ -42,7 +42,7 @@ const ReporteServiciosView = () => {
     setError('');
 
     try {
-      const response = await fetch(`https://apitammy-closset.fra1.zeabur.app/api/facturaServicio/reporte?startDate=${fechaInicial}&endDate=${fechaFinal}`, {
+      const response = await fetch(`https://api-tammys.onrender.com/api/facturaServicio/reporte?startDate=${fechaInicial}&endDate=${fechaFinal}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

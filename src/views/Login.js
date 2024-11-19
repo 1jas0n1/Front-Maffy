@@ -27,7 +27,7 @@ const LoginView = () => {
     }
 
     try {
-      const response = await fetch('https://apitammy-closset.fra1.zeabur.app/api/auth/signin', {
+      const response = await fetch('https://api-tammys.onrender.com/api/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

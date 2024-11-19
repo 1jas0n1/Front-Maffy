@@ -47,7 +47,7 @@ const MaterialesView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://apitammy-closset.fra1.zeabur.app/materiales';
+  const url = 'https://api-tammys.onrender.com/api/materiales';
 
   const showData = async () => {
     try {

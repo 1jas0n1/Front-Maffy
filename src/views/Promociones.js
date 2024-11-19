@@ -54,7 +54,7 @@ const PromocionesView = () => {
   };
   const handleShow = () => setShowCreateModal(true);
 
-  const url = 'https://apimafy.zeabur.app/api/promociones';
+  const url = 'https://api-tammys.onrender.com/api/promociones';
 
   const showData = async () => {
     try {

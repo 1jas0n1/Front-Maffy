@@ -43,7 +43,7 @@ const TallasView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://apimafy.zeabur.app/api/tallas';
+  const url = 'https://api-tammys.onrender.com/api/tallas';
 
   const showData = async () => {
     try {

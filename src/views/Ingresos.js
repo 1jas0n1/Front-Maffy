@@ -62,15 +62,15 @@ import TotalsCard from '../component/Ticket';
           estilosResponse,
           disenosResponse
         ] = await Promise.all([
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/articulos'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/categorias'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/proveedores'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/colores'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/marcas'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/tallas'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/materiales'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/estilos'),
-          axios.get('https://apitammy-closset.fra1.zeabur.app/api/disenos')
+          axios.get('https://api-tammys.onrender.com/api/articulos'),
+          axios.get('https://api-tammys.onrender.com/api/categorias'),
+          axios.get('https://api-tammys.onrender.com/api/proveedores'),
+          axios.get('https://api-tammys.onrender.com/api/colores'),
+          axios.get('https://api-tammys.onrender.com/api/marcas'),
+          axios.get('https://api-tammys.onrender.com/api/tallas'),
+          axios.get('https://api-tammys.onrender.com/api/materiales'),
+          axios.get('https://api-tammys.onrender.com/api/estilos'),
+          axios.get('https://api-tammys.onrender.com/api/disenos')
         ]);  
         setArticulos(articulosResponse.data);
         setCategorias(categoriasResponse.data);
@@ -281,7 +281,7 @@ const handleFacturarIngreso = async () => {
           total: subTotalTotal - descuentosTotal + ivaTotal,
       };
       console.log('Datos del ingreso a enviar:', ingresoData);
-      const responseIngreso = await axios.post('https://apitammy-closset.fra1.zeabur.app/api/ingresos', ingresoData, {
+      const responseIngreso = await axios.post('https://api-tammys.onrender.com/api/ingresos', ingresoData, {
           headers: {
               'Content-Type': 'application/json',
               'x-access-token': token,
@@ -309,7 +309,7 @@ const handleFacturarIngreso = async () => {
           total: subTotalTotal - descuentosTotal + ivaTotal,
       };
       console.log('Datos de los artículos a enviar:', articulosData);
-      const responseArticulos = await axios.post('https://apitammy-closset.fra1.zeabur.app/api/detalleingreso', articulosData, {
+      const responseArticulos = await axios.post('https://api-tammys.onrender.com/api/detalleingreso', articulosData, {
           headers: {
               'Content-Type': 'application/json',
               'x-access-token': token,
@@ -341,7 +341,7 @@ const handleFacturarIngreso = async () => {
               Existencias: articulo.cantidad,
           };
           console.log('Datos del stock a enviar:', stockData);
-          const responseStock = await axios.post('https://apitammy-closset.fra1.zeabur.app/api/stock', stockData, {
+          const responseStock = await axios.post('https://api-tammys.onrender.com/api/stock', stockData, {
               headers: {
                   'Content-Type': 'application/json',
                   'x-access-token': token,
@@ -350,14 +350,10 @@ const handleFacturarIngreso = async () => {
           console.log('Stock creado correctamente:', responseStock);
       }
 
-      // Notificar éxito
       toast.success('Venta realizada Exitosamente');
-
-      // Limpiar tabla y formulario
-      setArticulosIngresados([]); // Vaciar la tabla
-      setFormulario({             // Reiniciar los inputs del formulario
+      setArticulosIngresados([]); 
+      setFormulario({          
           idProveedor: '',
-          // Otros campos iniciales aquí...
       });
 
   } catch (error) {
@@ -368,7 +364,6 @@ const handleFacturarIngreso = async () => {
       }
   }
 };
-
 
   const handleLimpiar = () => {
     setFormulario({

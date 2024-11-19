@@ -45,7 +45,7 @@ const DisenosView = () => {
     setShowUpdateModal(true);
   };
 
-  const url = 'https://apitammy-closset.fra1.zeabur.app/api/disenos';
+  const url = 'https://api-tammys.onrender.com/api/disenos';
   const showData = async () => {
     try {
       const response = await fetch(url);
@@ -130,7 +130,7 @@ const DisenosView = () => {
   
   const handleCreate = async () => {
     try {
-      const createUrl = 'https://apitammy-closset.fra1.zeabur.app/api/disenos';
+      const createUrl = 'https://api-tammys.onrender.com/api/disenos';
       const token = Cookies.get('token');
       console.log('JSON que se envía al crear:', JSON.stringify(newDiseno));
   
@@ -158,7 +158,7 @@ const DisenosView = () => {
   
   const handleUpdateSubmit = async () => {
     try {
-      const updateUrl = `https://apitammy-closset.fra1.zeabur.app/api/disenos/${selectedDiseno._id}`;
+      const updateUrl = `https://api-tammys.onrender.com/api/disenos/${selectedDiseno._id}`;
       const token = Cookies.get('token');
       console.log('JSON que se envía al actualizar:', JSON.stringify(selectedDiseno));
   

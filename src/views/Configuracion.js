@@ -31,7 +31,7 @@ class ConfigView extends Component {
   }
 
   fetchData() {
-    axios.get('https://apitammy-closset.fra1.zeabur.app/api/configuracion')
+    axios.get('https://api-tammys.onrender.com/api/configuracion')
       .then(response => {
         const configData = response.data.data[0];
 
@@ -77,7 +77,7 @@ class ConfigView extends Component {
       tipo_de_cambio_dolar,
     };
 
-    axios.put(`https://apitammy-closset.fra1.zeabur.app/api/configuracion/${id}`, newData)
+    axios.put(`https://api-tammys.onrender.com/api/configuracion/${id}`, newData)
       .then(response => {
         console.log('Data updated successfully:', response.data);
         this.setState({ isEditing: false });
@@ -85,7 +85,6 @@ class ConfigView extends Component {
       })
       .catch(error => {
         toast.error('Complete todos los campos', );
-        console.error('Error updating data:', error);
         toast.error('Error al guardar cambios');
       });
   };

@@ -27,7 +27,7 @@ const ReportesVentas = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://apitammy-closset.fra1.zeabur.app/api/detalleventa/total-Cat/2024"
+          "https://api-tammys.onrender.com/api/detalleventa/total-Cat/2024"
         );
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -36,7 +36,7 @@ const ReportesVentas = () => {
         setChartData(data);
 
         const categoriesResponse = await fetch(
-          "https://apitammy-closset.fra1.zeabur.app/api/categorias"
+          "https://api-tammys.onrender.com/api/categorias"
         );
         if (!categoriesResponse.ok) {
           throw new Error(
@@ -51,13 +51,13 @@ const ReportesVentas = () => {
         setCategories(categoriesMap);
 
         const totalVentasResponse = await axios.get(
-          `https://apitammy-closset.fra1.zeabur.app/api/ventas/total/2024`
+          `https://api-tammys.onrender.com/api/ventas/total/2024`
         );
         const { totalVentas } = totalVentasResponse.data;
         setTotalVentas(totalVentas);
 
         const totalVentasCategoriesResponse = await axios.get(
-          `https://apitammy-closset.fra1.zeabur.app/api/detalleventa/total-Cat/2022`
+          `https://api-tammys.onrender.com/api/detalleventa/total-Cat/2022`
         );
         const { data: totalVentasCategoriesData } =
           totalVentasCategoriesResponse;
@@ -114,7 +114,7 @@ const ReportesVentas = () => {
   const handleGetTotal = async () => {
     try {
       const response = await axios.get(
-        `https://apitammy-closset.fra1.zeabur.app/api/ventas/total/${selectedYear}`
+        `https://api-tammys.onrender.com/api/ventas/total/${selectedYear}`
       );
       const { totalVentas } = response.data;
       setTotalVentas(totalVentas);
@@ -126,7 +126,7 @@ const ReportesVentas = () => {
   const handleSearchCategories = async () => {
     try {
       const response = await axios.get(
-        `https://apitammy-closset.fra1.zeabur.app/api/detalleventa/total-Cat/${selectedYearCategories}`
+        `https://api-tammys.onrender.com/api/detalleventa/total-Cat/${selectedYearCategories}`
       );
       const { data } = response;
       setTotalVentasCategories(data);

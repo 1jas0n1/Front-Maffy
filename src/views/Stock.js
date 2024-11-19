@@ -88,17 +88,17 @@ const MercanciaView = () => {
   const showData = async () => {
     try {
       const urls = [
-        'https://apitammy-closset.fra1.zeabur.app/api/marcas/',
-        'https://apitammy-closset.fra1.zeabur.app/api/categorias/',
-        'https://apitammy-closset.fra1.zeabur.app/api/articulos',
-        'https://apitammy-closset.fra1.zeabur.app/api/colores',
-        'https://apitammy-closset.fra1.zeabur.app/api/tallas/',
-        'https://apitammy-closset.fra1.zeabur.app/api/materiales',
-        'https://apitammy-closset.fra1.zeabur.app/api/estilos/',
-        'https://apitammy-closset.fra1.zeabur.app/api/disenos',
-        'https://apitammy-closset.fra1.zeabur.app/api/promociones',
-        'https://apitammy-closset.fra1.zeabur.app/api/stock/',
-        'https://apitammy-closset.fra1.zeabur.app/api/bodegas'
+        'https://api-tammys.onrender.com/api/marcas/',
+        'https://api-tammys.onrender.com/api/categorias/',
+        'https://api-tammys.onrender.com/api/articulos',
+        'https://api-tammys.onrender.com/api/colores',
+        'https://api-tammys.onrender.com/api/tallas/',
+        'https://api-tammys.onrender.com/api/materiales',
+        'https://api-tammys.onrender.com/api/estilos/',
+        'https://api-tammys.onrender.com/api/disenos',
+        'https://api-tammys.onrender.com/api/promociones',
+        'https://api-tammys.onrender.com/api/stock/',
+        'https://api-tammys.onrender.com/api/bodegas'
       ];
       const responses = await Promise.all(urls.map(url => fetch(url)));
       const jsonData = await Promise.all(responses.map(response => response.json()));
@@ -214,7 +214,7 @@ const handleDamageSubmit = async () => {
       return;
     }
     console.log('JSON being sent to server:', JSON.stringify(damageData, null, 2));
-    const response = await fetch('https://apitammy-closset.fra1.zeabur.app/api/mercancia/', {
+    const response = await fetch('https://api-tammys.onrender.com/api/mercancia/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -227,7 +227,7 @@ const handleDamageSubmit = async () => {
       toast.success('Mercancia dañada registrada.');
    
       setShowDamageModal(false);
-      const updateStockUrl = `https://apitammy-closset.fra1.zeabur.app/api/stock/update/${damageData.id_stock}`;
+      const updateStockUrl = `https://api-tammys.onrender.com/api/stock/update/${damageData.id_stock}`;
       const updateStockResponse = await fetch(updateStockUrl, {
         method: 'PUT', 
         headers: {
@@ -474,7 +474,7 @@ center: true,
 
       return;
     }
-    const urlWithId = `https://apitammy-closset.fra1.zeabur.app/api/stock/update/${selectedItem._id}`;
+    const urlWithId = `https://api-tammys.onrender.com/api/stock/update/${selectedItem._id}`;
     console.log('JSON being sent:', JSON.stringify(selectedItem, null, 2));
     const response = await fetch(urlWithId, {
       method: 'PUT',
