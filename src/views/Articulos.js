@@ -48,7 +48,7 @@ const ArticulosView = () => {
 
   const showArticulos = async () => {
     try {
-      const articulosResponse = await fetch('https://apitammy-closset.fra1.zeabur.app/api/articulos');
+      const articulosResponse = await fetch('https://api-tammys.onrender.com/api/articulos');
       const articulosData = await articulosResponse.json();
       const articulosWithCategoria = articulosData.map((articulo) => ({
         ...articulo,

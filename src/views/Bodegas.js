@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import * as Styles from '../css/styles_colores';
 import Footer from '../component/footer/footer';
-import { FaTrash,FaEdit } from 'react-icons/fa';
 import Navbar from '../component/Navbar';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -37,7 +36,7 @@ const BodegasView = () => {
     setUpdatingBodega(null);
   };
 
-  const url = "https://apitammy-closset.fra1.zeabur.app/api/bodegas";
+  const url = "https://api-tammys.onrender.com/api/bodegas";
 
   const showData = async () => {
     try {
@@ -63,7 +62,7 @@ const BodegasView = () => {
     if (deletingBodegaId) {
       try {
         const token = Cookies.get('token');
-        const response = await fetch(`https://apitammy-closset.fra1.zeabur.app/api/bodegas/${deletingBodegaId}`, {
+        const response = await fetch(`https://api-tammys.onrender.com/api/bodegas/${deletingBodegaId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
