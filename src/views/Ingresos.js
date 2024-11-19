@@ -349,7 +349,17 @@ const handleFacturarIngreso = async () => {
           });
           console.log('Stock creado correctamente:', responseStock);
       }
-          toast.success('Venta realizada Exitosamente');
+
+      // Notificar éxito
+      toast.success('Venta realizada Exitosamente');
+
+      // Limpiar tabla y formulario
+      setArticulosIngresados([]); // Vaciar la tabla
+      setFormulario({             // Reiniciar los inputs del formulario
+          idProveedor: '',
+          // Otros campos iniciales aquí...
+      });
+
   } catch (error) {
       if (error.response && error.response.status === 409) {
           console.error('Error 409: Conflicto al crear el documento en la colección "Stock".');
@@ -358,6 +368,7 @@ const handleFacturarIngreso = async () => {
       }
   }
 };
+
 
   const handleLimpiar = () => {
     setFormulario({

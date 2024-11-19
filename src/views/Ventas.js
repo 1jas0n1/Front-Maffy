@@ -273,7 +273,9 @@ const VentasView = () => {
           },
         });
         limpiarTabla();
+      
         toast('Venta realizda')
+        window.location.reload();
       } catch (error) {
         console.error('Error actualizando el stock:', error);
       }
@@ -376,7 +378,7 @@ const VentasView = () => {
           onClick={() => handleAddToCart(row)}
           disabled={selectedRow === row}
         >
-          <FaPlus />
+        <FaPlus />
         </Button>
       ),
       button: true,
@@ -465,7 +467,7 @@ const VentasView = () => {
   {selectedItems.length === 0 && <p> </p>}
 </div>
 
-      <div style={{ margin: '0 auto', display: 'flex', flexDirection: 'column',marginBottom:'25px', alignItems: 'center', maxWidth: '400px', backgroundColor: 'white', padding: '10px', borderRadius: '5px', marginTop: '10px' }}>
+      <div style={{ margin: '0 auto', display: 'flex', flexDirection: 'column',marginBottom:'35px', alignItems: 'center', maxWidth: '400px', backgroundColor: 'white', padding: '10px', borderRadius: '5px', marginTop: '10px' }}>
         <div style={{ marginTop: '10px' }}>
           <h4>Total: C${total.toFixed(2)}</h4>
           <h5>Descuento Total: C${totalDiscount}</h5>
@@ -473,7 +475,7 @@ const VentasView = () => {
         </div>
       </div>
 
-      <SellButton variant="success" style={{ width: '150px', height: '50px', marginTop: '20px', marginLeft: '45%' }} onClick={handleRealizarVenta} >
+      <SellButton variant="success" style={{ width: '150px', height: '50px', marginTop: '25px', marginLeft: '45%' }} onClick={handleRealizarVenta} >
 
       </SellButton>
       <Footer />
