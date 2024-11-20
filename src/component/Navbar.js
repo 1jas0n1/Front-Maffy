@@ -21,7 +21,7 @@ const MyNavbar = () => {
   const handleLogout = async () => {
     try {
       localStorage.removeItem('token');
-      const response = await fetch('https://apitammy-closset.fra1.zeabur.app/api/auth/logout', {
+      const response = await fetch('https://api-tammys.onrender.com/api/auth/logout', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
