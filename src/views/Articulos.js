@@ -66,7 +66,7 @@ const ArticulosView = () => {
 
 const handleDeleteConfirmed = async () => {
   try {
-    const deleteUrl = `https://apitammy-closset.fra1.zeabur.app/api/articulos/${deleteItemId}`;
+    const deleteUrl = `https://api-tammys.onrender.com/api/articulos/${deleteItemId}`;
     const token = Cookies.get('token'); 
     const response = await fetch(deleteUrl, {
       method: 'DELETE',
@@ -127,7 +127,7 @@ const handleDeleteConfirmed = async () => {
  
       const miCookie = Cookies.get('miCookie');
       const token = Cookies.get('token');
-      const createUrl = 'https://apitammy-closset.fra1.zeabur.app/api/articulos';
+      const createUrl = 'https://api-tammys.onrender.com/api/articulos';
       const response = await fetch(createUrl, {
         method: 'POST',
         headers: {
@@ -157,7 +157,7 @@ const handleDeleteConfirmed = async () => {
 
 const handleUpdateSubmit = async () => {
   try {
-    const updateUrl = `https://apitammy-closset.fra1.zeabur.app/api/articulos/${selectedArticulo._id}`;
+    const updateUrl = `https://api-tammys.onrender.com/api/articulos/${selectedArticulo._id}`;
     const token = Cookies.get('token'); 
     const response = await fetch(updateUrl, {
       method: 'PUT',
