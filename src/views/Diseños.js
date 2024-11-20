@@ -239,7 +239,7 @@ const DisenosView = () => {
        <Navbar />
     <h2>
     <img
-          src="https://fontmeme.com/permalink/241028/ed1ed4a9ac83fa6d98d13e636769c28c.png"
+          src="https://fontmeme.com/permalink/241120/9f8cfce673b612b26a10fbe6d1dc0a66.png"
           alt="fuentes-de-comics"
           border="0"
           style={{ width: '85%', height: 'auto', maxWidth: '900px' }}

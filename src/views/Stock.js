@@ -256,6 +256,11 @@ const handleDamageSubmit = async () => {
       center: true,
       width:'225px'
     },
+    {
+      name:'Fecha',
+      selector:(row) => row.Fecha,
+      sortable:true,
+    },
  {
   name: 'Articulo',
   selector: (row) => {

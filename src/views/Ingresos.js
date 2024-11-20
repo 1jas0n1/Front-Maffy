@@ -368,7 +368,6 @@ const handleFacturarIngreso = async () => {
   const handleLimpiar = () => {
     setFormulario({
       idArticulo: '',
-      idProveedor: '',
       idTalla: '',
       idColor: '',
       cantidad: '',
@@ -558,8 +557,8 @@ const handleFacturarIngreso = async () => {
               />
             </Col>
             <Col md={2}>
-  <label htmlFor="descuento" style={estilos.labelStyle}>
-    Descuento X Unidad
+  <label htmlFor="descuento" style={estilos.labelStyle}>  
+  C$ Descuento X Unidad
   </label>
   <input
     type="number"
@@ -581,13 +580,8 @@ const handleFacturarIngreso = async () => {
           </Row>
           <hr style={{ margin: '10px 0', border: '1px solid #ccc' }} />
           <Row>
-            <AddButton
-              onClick={handleGuardar}
-           / >
-            <DeleteButton
-              onClick={handleLimpiar}
-            >
-            </DeleteButton>
+            <AddButton onClick={handleGuardar}/ >
+            <DeleteButton onClick={handleLimpiar}> </DeleteButton>
           </Row>
         </fieldset>
       </Form>

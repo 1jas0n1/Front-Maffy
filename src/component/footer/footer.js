@@ -17,7 +17,7 @@ const Footer = () => {
       <div className="footer-right">
         <p className="footer-company-about" style={{color:'white',textAlign:'center'}} >
           <span style={{textAlign:'center'}} >Acerca de Nosotros </span>
-          <strong>Mafy Store</strong> es una tienda de Ropa ubicada en la ciudad de San Marcos
+          <strong>Tammy´s Closset</strong> es una tienda de Ropa ubicada en la ciudad de San Marcos
         </p>
         <div className="footer-icons">
         </div>
